@@ -10,16 +10,14 @@
             var name=$("#name").val();
             var id=$("#id").val();
             var dob=$("#dob").val();
-            var semester=$("#semester").val();
-            var department=$("#department").val();
+            var semester=$("#semester option:selected").text();
+            var department=$("#department option:selected").text();
 
-
-            var dataString="name="+name+"&id="+id+"&dob="+dob+"semester="+semester+"department="+department+"&reg_btn=";
 
               $.ajax({
               type: "POST",
               url:"http://blingtest.000webhostapp.com/register.php",
-              data: dataString,
+              data: {name:name, id:id, dob:dob, semester:semester, department:department},
               crossDomain: true,
               cache: false,
               beforeSend: function(){ $("#reg_btn").val('Connecting...');},
@@ -156,7 +154,7 @@
                           <div class="item-title label">Stream</div>
                           <div class="item-input">
                             <select id="department">
-                              <option>Computers</option>
+                              <option value="1">Computers</option>
                               <option>EXTC</option>
                               <option>IT</option>
                               <option>Mechanical</option>

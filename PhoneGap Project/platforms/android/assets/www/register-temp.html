@@ -10,8 +10,8 @@
             var name=$("#name").val();
             var id=$("#id").val();
             var dob=$("#dob").val();
-            var semester=$("#semester").val();
-            var department=$("#department").val();
+            var semester=$("#semester option:selected").val();
+            var department=$("#department option:selected").val();
 
 
             var dataString="name="+name+"&id="+id+"&dob="+dob+"semester="+semester+"department="+department+"&reg_btn=";
