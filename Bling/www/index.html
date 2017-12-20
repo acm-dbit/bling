@@ -63,11 +63,24 @@
     -->
     <script>
 
+      (function () {
+        if (Framework7.prototype.device.android) {
+              Dom7('head').append(
+                  '<link rel="stylesheet" href="lib/framework7/css/framework7.material.min.css">' +
+                  '<link rel="stylesheet" href="lib/framework7/css/framework7.material.colors.min.css">' 
+              );
+          }
+          else {
+              Dom7('head').append(
+                  '<link rel="stylesheet" href="lib/framework7/css/framework7.ios.min.css">' +
+                  '<link rel="stylesheet" href="lib/framework7/css/framework7.ios.colors.min.css">'
+              );
+          }
+      })();
+
       var $$ = Dom7;
 
       $$('#login').on('click', function () {
-
-            myApp.setProgressbar(); 
               
             var id=$$("#id").val();
             var pass=$$("#pass").val();
@@ -89,7 +102,8 @@
   
               else
               {
-                myApp.alert("Welcome "+data.name+"!\nThe app is not ready,\nkindly GET LOST!!! ");
+                myApp.alert("Welcome "+data.name+"!");
+                mainView.router.loadPage('register.html');
               }
             }
          });
@@ -97,23 +111,6 @@
          //$$('#reg_btn').html('Clicked');
          //myApp.alert(name);
     });
-
-
-
-      (function () {
-        if (Framework7.prototype.device.android) {
-              Dom7('head').append(
-                  '<link rel="stylesheet" href="lib/framework7/css/framework7.material.min.css">' +
-                  '<link rel="stylesheet" href="lib/framework7/css/framework7.material.colors.min.css">' 
-              );
-          }
-          else {
-              Dom7('head').append(
-                  '<link rel="stylesheet" href="lib/framework7/css/framework7.ios.min.css">' +
-                  '<link rel="stylesheet" href="lib/framework7/css/framework7.ios.colors.min.css">'
-              );
-          }
-      })();
     </script>
     <script type="text/javascript" src="cordova.js"></script>
     <script src="js/my-app.js"></script>
