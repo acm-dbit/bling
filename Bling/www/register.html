@@ -1,0 +1,180 @@
+<!-- Dynamic navbar for iOS theme -->
+{{#if @global.ios}}
+<div class="navbar">
+    <div class="navbar-inner">
+        <div class="left sliding">
+            <a href="#" class="back">
+                <i class="icon icon-back"></i>
+                <span>Back</span>
+            </a>
+        </div>
+        <div class="center sliding">Profile</div>
+    </div>
+</div>
+{{/if}}
+ 
+<div class="page" data-page="profile">
+    <!-- Fixed navbar for Material theme -->
+    {{#if @global.android}}
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="left">
+                <a href="#" class="back icon-only">
+                    <i class="icon icon-back"></i>
+                </a>
+            </div>
+            <div class="center">Profile</div>
+        </div>
+    </div>
+    {{/if}}
+    
+    <div class="page-content">
+      <!-- <div class="content-block"> -->
+        <!-- Buttons row as tabs controller -->
+        <div class="buttons-row">
+          <!-- Link to 1st tab, active -->
+          <a href="#tab1" class="tab-link active button">Student</a>
+          <!-- Link to 2nd tab -->
+          <a href="#tab2" class="tab-link button">Faculty</a>
+        </div>
+      <!-- </div> -->
+
+      <div class="tabs">
+        
+        <div id="tab1" class="tab active">
+          <div class="content-block">
+
+            <div class="list-block">
+              <ul>
+                <li>
+                  <div class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">Full Name</div>
+                      <div class="item-input">
+                        <input type="text" id="name" placeholder="Eg:- John Smith" required>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">Student ID</div>
+                      <div class="item-input">
+                        <input type="number" id="id" placeholder="Eg:- 2013123124" required>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">DOB</div>
+                      <div class="item-input">
+                        <input type="date" id="dob" placeholder="Eg:- 08-10-2017" required>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">Stream</div>
+                      <div class="item-input">
+                        <select id="department">
+                          <option>Computers</option>
+                          <option>EXTC</option>
+                          <option>IT</option>
+                          <option>Mechanical</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">Semester</div>
+                      <div class="item-input">
+                        <select id="semester">
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                          <option>6</option>
+                          <option>7</option>
+                          <option>8</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <p>
+              <a href="#" class="button button-raised button-fill color-red" id="reg_btn">Register with Google</a>
+            </p>
+          </div>
+        </div>
+
+        <div id="tab2" class="tab">
+          <div class="content-block">
+
+            <div class="list-block">
+              <ul>
+                <li>
+                  <div class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">Name</div>
+                      <div class="item-input">
+                        <input type="text" name="name" placeholder="Eg:- John Smith" required>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">Department</div>
+                      <div class="item-input">
+                        <select>
+                          <option>Computers</option>
+                          <option>EXTC</option>
+                          <option>IT</option>
+                          <option>Mechanical</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">Secret Code</div>
+                      <div class="item-input">
+                        <input type="text" name="secretcode" required>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+
+            <p>
+              <a href="#" class="button button-raised button-fill color-red">Register with Google</a>
+            </p>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+</div>
