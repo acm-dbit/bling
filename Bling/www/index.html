@@ -7,6 +7,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <title>My App</title>
     <!-- We will include related CSS styles using JavaScript -->
+    <link rel="stylesheet" href="css/styles.css">
   </head>
   <body>
     <div class="statusbar-overlay"></div>
@@ -24,7 +25,32 @@
         <div class="pages">
           <div data-page="index" class="page">
             <div class="page-content">
-              <p><a href="register.html" class="button button-big button-round button-fill">Authenticate</a></p>  
+
+<div class="list-block cards-list">
+  <ul>
+    <li class="card">
+      <div class="card-content">
+        <div class="card-content-inner">
+          <div class="item-content">
+        <div class="item-inner">
+          <div class="item-title floating-label">ID</div>
+          <div class="item-input">
+              <input type="number" id="id">
+          </div>
+
+          <div class="item-title floating-label">Password</div>
+          <div class="item-input">
+              <input type="password" id="pass">
+          </div>
+        </div>
+      </div>
+        </div>
+      </div>
+        <p><a class="button button-raised button-fill button-big color-blue" id="login">Login</a></p>
+          <p><a href="register.html" class="button button-raised button-fill button-big color-red">Register</a></p>
+    </li>
+  </ul>
+</div>
             </div>
           </div>
         </div>
@@ -36,19 +62,55 @@
     It is important to keep it as inline script or in separate JS file with this code only!
     -->
     <script>
+
+      var $$ = Dom7;
+
+      $$('#login').on('click', function () {
+
+            myApp.setProgressbar(); 
+              
+            var id=$$("#id").val();
+            var pass=$$("#pass").val();
+
+
+              $$.ajax({
+              type: "POST",
+              url:"http://bling-test.000webhostapp.com/login.php",
+              data: {id:id, pass:pass},
+              dataType: 'json',
+              crossDomain: true,
+              cache: false,
+              success: function(data){
+ 
+              if(data=="failed")
+              {
+                myApp.alert("Invalid ID/Password");
+              }
+  
+              else
+              {
+                myApp.alert("Welcome "+data.name+"!\nThe app is not ready,\nkindly GET LOST!!! ");
+              }
+            }
+         });
+
+         //$$('#reg_btn').html('Clicked');
+         //myApp.alert(name);
+    });
+
+
+
       (function () {
         if (Framework7.prototype.device.android) {
               Dom7('head').append(
                   '<link rel="stylesheet" href="lib/framework7/css/framework7.material.min.css">' +
-                  '<link rel="stylesheet" href="lib/framework7/css/framework7.material.colors.min.css">'+
-                  '<link rel="stylesheet" href="css/styles.css">' 
+                  '<link rel="stylesheet" href="lib/framework7/css/framework7.material.colors.min.css">' 
               );
           }
           else {
               Dom7('head').append(
                   '<link rel="stylesheet" href="lib/framework7/css/framework7.ios.min.css">' +
-                  '<link rel="stylesheet" href="lib/framework7/css/framework7.ios.colors.min.css">'+
-                  '<link rel="stylesheet" href="css/styles.css">' 
+                  '<link rel="stylesheet" href="lib/framework7/css/framework7.ios.colors.min.css">'
               );
           }
       })();

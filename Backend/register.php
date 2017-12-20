@@ -7,12 +7,12 @@
 
 	$name = $_POST["name"];
 	$id = $_POST["id"];
-	$dob = $_POST["dob"];
 	$department = $_POST["department"];
 	$semester = $_POST["semester"];
+	$pass = $_POST["pass"];
 	//$reg = $_POST["reg"];
 
-	$insert = "INSERT INTO stud_data (name,id,dob,department,semester) VALUES('$name','$id','$dob','$department','$semester')";
+	$insert = "INSERT INTO stud_data (name,id,dob,department,semester,pass) VALUES('$name','$id','$dob','$department','$semester','$pass')";
 
 	if($conn->query($insert))
 		echo "success";

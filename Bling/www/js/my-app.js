@@ -32,6 +32,7 @@ var mainView = myApp.addView('.view-main', {
     // Don't worry about that Material doesn't support it
     // F7 will just ignore it for Material theme
     dynamicNavbar: true
+
 });
 
 $$(document).on('pageInit', '.page[data-page="profile"]', function (e) {
@@ -40,7 +41,7 @@ $$(document).on('pageInit', '.page[data-page="profile"]', function (e) {
               
             var name=$$('#name').val();
             var id=$$("#id").val();
-            var dob=$$("#dob").val();
+            var pass=$$("#pass").val();
             var semester=$$("#semester").val();
             var department=$$("#department").val();
 
@@ -50,7 +51,7 @@ $$(document).on('pageInit', '.page[data-page="profile"]', function (e) {
               $$.ajax({
               type: "POST",
               url:"http://bling-test.000webhostapp.com/register.php",
-              data: {name:name, id:id, dob:dob, semester:semester, department:department},
+              data: {name:name, id:id, pass:pass, semester:semester, department:department},
               crossDomain: true,
               cache: false,
               success: function(data){
