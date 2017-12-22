@@ -72,3 +72,37 @@ $$(document).on('pageInit', '.page[data-page="profile"]', function (e) {
     });
 })
 
+
+$$(document).on('pageInit', '.page[data-page="message"]', function (e) {
+    // Following code will be executed for page with data-page attribute equal to "about"
+    var id = localStorage.id;
+
+    $$('#msg_send').on('click', function () {
+              
+            var message=$$('#msg').val();
+            var department=$$('#dept').val();
+
+            myApp.alert(department);
+
+              $$.ajax({
+              type: "POST",
+              url:"http://bling-test.000webhostapp.com/message.php",
+              data: { id:id, message:message, department:department },
+              crossDomain: true,
+              cache: false,
+              success: function(data){
+ 
+              if(data=="success")
+              {
+                myApp.alert("Message sent successfull");
+              }
+  
+              else if(data=="failed")
+              {
+                myApp.alert("Something Went Wrong !");
+              }
+            }
+         });
+    });
+})
+

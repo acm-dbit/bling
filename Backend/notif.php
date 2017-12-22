@@ -7,17 +7,16 @@ define('API_ACCESS_KEY', 'AAAA1WMADaA:APA91bHEJ8ynnH4tLeVwLQxrd1BhLQm3xAcVhowFxU
 //     'dL0MzTCoAOE:APA91bGdH2BF6wb9EdYdlLNQ9oyeQgjejqFVangANyBfGfX7Alg9r0XqROSeZt7FAb9BEAYTkt0sm7dADHPhkoC8umcpgTR6I0ILViqr-SyQRdwjXsTBSUSc-2jWUNRkL4_O4jqDJyYT'
 // );
 
-//$registrationIds = $_POST['regid'];
-
-$msg = array(
-    'title' => 'Test title',
-    'body' => 'Test msg',
+function send_notif($name,$dept){
+	$msg = array(
+    'title' => 'Notice',
+    'body' => $name.' has sent a notice',
     'vibrate' => 1,
     'sound' => 1
 );
 
 $fields = array(
-    'to' => "/topics/Mechanical",
+    'to' => "/topics/".$dept,
     'notification' => $msg
 );
 
@@ -37,3 +36,4 @@ curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
 $result = curl_exec($ch);
 curl_close($ch);
 echo $result;
+}
