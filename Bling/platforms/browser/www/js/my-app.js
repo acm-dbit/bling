@@ -32,25 +32,25 @@ var mainView = myApp.addView('.view-main', {
     // Don't worry about that Material doesn't support it
     // F7 will just ignore it for Material theme
     dynamicNavbar: true
+
 });
 
 $$(document).on('pageInit', '.page[data-page="profile"]', function (e) {
     // Following code will be executed for page with data-page attribute equal to "about"
+    var token = localStorage.token;
+
     $$('#reg_btn').on('click', function () {
               
             var name=$$('#name').val();
-            var id=$$("#id").val();
-            var dob=$$("#dob").val();
-            var semester=$$("#semester").val();
-            var department=$$("#department").val();
-
-            //myApp.alert("name="+name+"\nid="+id+"\ndob="+dob+"\nsemester="+semester+"\ndepartment="+department);
-
+            var id=$$('#sid').val();
+            var pass=$$('#spass').val();
+            var semester=$$('#semester').val();
+            var department=$$('#department').val();
 
               $$.ajax({
               type: "POST",
               url:"http://bling-test.000webhostapp.com/register.php",
-              data: {name:name, id:id, dob:dob, semester:semester, department:department},
+              data: {name:name, id:id, pass:pass, semester:semester, department:department, token:token},
               crossDomain: true,
               cache: false,
               success: function(data){
@@ -66,8 +66,5 @@ $$(document).on('pageInit', '.page[data-page="profile"]', function (e) {
               }
             }
          });
-
-         //$$('#reg_btn').html('Clicked');
-         //myApp.alert(name);
     });
 })

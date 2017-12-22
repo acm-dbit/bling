@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "916488981920",
+    "firebase_url": "https://acm-bling-test.firebaseio.com",
+    "project_id": "acm-bling-test",
+    "storage_bucket": "acm-bling-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:916488981920:android:7d005aebab4e88b8",
+        "android_client_info": {
+          "package_name": "com.dbitacm.bling"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "916488981920-rjvf8o9rggrs28f18jn997r12bo78eqg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEfe_qLs4pl71R8qs2gUJMBNbYLH3iLu8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

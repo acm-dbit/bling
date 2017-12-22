@@ -10,9 +10,9 @@
 	$department = $_POST["department"];
 	$semester = $_POST["semester"];
 	$pass = $_POST["pass"];
-	//$reg = $_POST["reg"];
+	$token = $_POST["token"];
 
-	$insert = "INSERT INTO stud_data (name,id,dob,department,semester,pass) VALUES('$name','$id','$dob','$department','$semester','$pass')";
+	$insert = "INSERT INTO stud_data (name,id,department,semester,pass,token) VALUES('$name','$id','$department','$semester','$pass','$token')";
 
 	if($conn->query($insert))
 		echo "success";
