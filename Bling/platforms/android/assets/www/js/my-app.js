@@ -47,6 +47,8 @@ $$(document).on('pageInit', '.page[data-page="profile"]', function (e) {
             var semester=$$('#semester').val();
             var department=$$('#department').val();
 
+            window.FirebasePlugin.subscribe(department);
+
               $$.ajax({
               type: "POST",
               url:"http://bling-test.000webhostapp.com/register.php",
@@ -57,6 +59,7 @@ $$(document).on('pageInit', '.page[data-page="profile"]', function (e) {
  
               if(data=="success")
               {
+                localStorage.id = id;
                 myApp.alert("Registration successfull");
               }
   
@@ -68,3 +71,4 @@ $$(document).on('pageInit', '.page[data-page="profile"]', function (e) {
          });
     });
 })
+

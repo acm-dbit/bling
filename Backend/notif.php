@@ -1,28 +1,24 @@
 <?php
 header("Access-Control-Allow-Origin: *");
-define('API_ACCESS_KEY', '');
+define('API_ACCESS_KEY', 'AAAA1WMADaA:APA91bHEJ8ynnH4tLeVwLQxrd1BhLQm3xAcVhowFxUq6vUDRFI9RIwk-w7r-bDbQpIxPHQd5U6Y3q9EmbdDIM53UHZryCVAyxrrGSl1ElVWJRROwZhP9uYfpDeNB3sA4uffcW0FMZi8Y');
+
 
 // $registrationIds = array(
-//     'DTV8WD2BIW0:APA91BE2ZEXKWGNAG0W9WQOIIUOAKBTEL_ZKWR8NZUMLWIQZ8RPYHRGDBH3X5KYPXJZG1ITWUTV5QM36O9PT49AMF4KLL0XAMON8XK97OMR5E2G22OXRYB_B1_OKAJCMD-T367KOHOCLP'
+//     'dL0MzTCoAOE:APA91bGdH2BF6wb9EdYdlLNQ9oyeQgjejqFVangANyBfGfX7Alg9r0XqROSeZt7FAb9BEAYTkt0sm7dADHPhkoC8umcpgTR6I0ILViqr-SyQRdwjXsTBSUSc-2jWUNRkL4_O4jqDJyYT'
 // );
 
-// $registrationIds = array(
-//     'dwFcSn7HCJ8:APA91bEWccn3v5NMk8dmqOVws9UwxslLJtUwwEIQsv2e9BjYeZAx7rPy6BMVmGP3vNp03X_D3wVITlcEMUVqRQwFcdmX0NBvCH13L0veqVgjqhkYQAI6EtXahKiQkmA1U2rlQICqMjR5'
-// );
-
-$registrationIds = $_POST['regid'];
+//$registrationIds = $_POST['regid'];
 
 $msg = array(
-    'message' => 'Test msg',
     'title' => 'Test title',
-    'subtitle' => 'Test subtitle',
+    'body' => 'Test msg',
     'vibrate' => 1,
     'sound' => 1
 );
 
 $fields = array(
-    'registration_ids' => $registrationIds,
-    'data' => $msg
+    'to' => "/topics/Mechanical",
+    'notification' => $msg
 );
 
 $headers = array(

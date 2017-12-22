@@ -56,6 +56,7 @@
       </div>
         <p><a class="button button-raised button-fill button-big color-blue" id="login">Login</a></p>
         <p><a href="register.html" class="button button-raised button-fill button-big color-red">Register</a></p>
+        <p><a href="message.html" class="button button-raised button-fill button-big color-green">Message</a></p>
     </li>
   </ul>
 </div>
@@ -121,8 +122,9 @@
   
               else
               {
+                localStorage.id = id;
                 myApp.alert("Welcome "+data.name+"!");
-                mainView.router.loadPage('register.html');
+                mainView.router.loadPage('message.html');
               }
             }
          });
