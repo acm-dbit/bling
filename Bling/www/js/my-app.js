@@ -47,7 +47,22 @@ $$(document).on('pageInit', '.page[data-page="profile"]', function (e) {
             var semester=$$('#semester').val();
             var department=$$('#department').val();
 
+            var year;
+
+            if(semester==1 || semester==2)
+              year = 'FE';
+
+            if(semester==3 || semester==4)
+              year = 'SE';
+
+            if(semester==5 || semester==6)
+              year = 'TE';
+
+            if(semester==7 || semester==8)
+              year = 'BE';
+
             window.FirebasePlugin.subscribe(department);
+            window.FirebasePlugin.subscribe(year);
 
               $$.ajax({
               type: "POST",
@@ -81,13 +96,12 @@ $$(document).on('pageInit', '.page[data-page="message"]', function (e) {
               
             var message=$$('#msg').val();
             var department=$$('#dept').val();
-
-            myApp.alert(department);
+            var year=$$('#year').val();
 
               $$.ajax({
               type: "POST",
               url:"http://bling-test.000webhostapp.com/message.php",
-              data: { id:id, message:message, department:department },
+              data: { id:id, message:message, department:department, year:year},
               crossDomain: true,
               cache: false,
               success: function(data){

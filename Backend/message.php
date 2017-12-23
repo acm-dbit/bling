@@ -9,8 +9,9 @@
 	$id = $_POST["id"];
 	$message = $_POST["message"];
 	$department = $_POST["department"];
+	$year = $_POST["year"];
 
-	$insert = "INSERT INTO msg_data (id,message,department) VALUES('$id','$message','$department')";
+	$insert = "INSERT INTO msg_data (id,message,department,year) VALUES('$id','$message','$department','$year')";
 
 	$get_name = "SELECT name FROM stud_data WHERE id='$id'";
 
@@ -23,7 +24,7 @@
     	    	$name = $row['name'];
         	}
 
-        	send_notif($name,$department);
+        	send_notif($name,$department,$year);
 
 		}
 
