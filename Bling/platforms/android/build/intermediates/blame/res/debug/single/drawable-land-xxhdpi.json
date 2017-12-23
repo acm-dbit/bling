@@ -1,10 +1,6 @@
 [
     {
-        "merged": "E:\\Bling\\Bling\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\drawable-land-xxhdpi\\screen.png",
-        "source": "E:\\Bling\\Bling\\platforms\\android\\res\\drawable-land-xxhdpi\\screen.png"
-    },
-    {
-        "merged": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\drawable-land-xxhdpi\\screen.png",
-        "source": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\res\\drawable-land-xxhdpi\\screen.png"
+        "merged": "D:\\ACM Bling project\\Bling-temp\\Bling\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\drawable-land-xxhdpi\\screen.png",
+        "source": "D:\\ACM Bling project\\Bling-temp\\Bling\\platforms\\android\\res\\drawable-land-xxhdpi\\screen.png"
     }
 ]

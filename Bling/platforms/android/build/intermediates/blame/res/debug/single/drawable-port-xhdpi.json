@@ -1,10 +1,6 @@
 [
     {
-        "merged": "E:\\Bling\\Bling\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\drawable-port-xhdpi\\screen.png",
-        "source": "E:\\Bling\\Bling\\platforms\\android\\res\\drawable-port-xhdpi\\screen.png"
-    },
-    {
-        "merged": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\drawable-port-xhdpi\\screen.png",
-        "source": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\res\\drawable-port-xhdpi\\screen.png"
+        "merged": "D:\\ACM Bling project\\Bling-temp\\Bling\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\drawable-port-xhdpi\\screen.png",
+        "source": "D:\\ACM Bling project\\Bling-temp\\Bling\\platforms\\android\\res\\drawable-port-xhdpi\\screen.png"
     }
 ]

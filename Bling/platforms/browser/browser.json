@@ -1,48 +1,60 @@
 {
-  "prepare_queue": {
-    "installed": [],
-    "uninstalled": []
-  },
-  "config_munge": {
-    "files": {}
-  },
-  "installed_plugins": {
-    "cordova-plugin-console": {
-      "PACKAGE_NAME": "com.dbitacm.bling"
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
     },
-    "cordova-plugin-firebase": {
-      "PACKAGE_NAME": "com.dbitacm.bling"
+    "config_munge": {
+        "files": {}
     },
-    "cordova-plugin-statusbar": {
-      "PACKAGE_NAME": "com.dbitacm.bling"
+    "installed_plugins": {
+        "cordova-plugin-console": {
+            "PACKAGE_NAME": "com.dbitacm.bling"
+        },
+        "cordova-plugin-firebase": {
+            "PACKAGE_NAME": "com.dbitacm.bling"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.dbitacm.bling"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.dbitacm.bling"
+        },
+        "cordova-sqlite-storage": {
+            "PACKAGE_NAME": "com.dbitacm.bling"
+        }
     },
-    "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "com.dbitacm.bling"
+    "dependent_plugins": {},
+    "modules": [
+        {
+            "file": "plugins/cordova-plugin-firebase/www/firebase-browser.js",
+            "id": "cordova-plugin-firebase.FirebasePlugin",
+            "pluginId": "cordova-plugin-firebase",
+            "clobbers": [
+                "FirebasePlugin"
+            ]
+        },
+        {
+            "file": "plugins/cordova-plugin-statusbar/www/statusbar.js",
+            "id": "cordova-plugin-statusbar.statusbar",
+            "pluginId": "cordova-plugin-statusbar",
+            "clobbers": [
+                "window.StatusBar"
+            ]
+        },
+        {
+            "file": "plugins/cordova-sqlite-storage/www/SQLitePlugin.js",
+            "id": "cordova-sqlite-storage.SQLitePlugin",
+            "pluginId": "cordova-sqlite-storage",
+            "clobbers": [
+                "SQLitePlugin"
+            ]
+        }
+    ],
+    "plugin_metadata": {
+        "cordova-plugin-console": "1.0.7",
+        "cordova-plugin-firebase": "0.1.25",
+        "cordova-plugin-statusbar": "1.0.1",
+        "cordova-plugin-whitelist": "1.2.2",
+        "cordova-sqlite-storage": "2.1.4"
     }
-  },
-  "dependent_plugins": {},
-  "modules": [
-    {
-      "file": "plugins/cordova-plugin-firebase/www/firebase-browser.js",
-      "id": "cordova-plugin-firebase.FirebasePlugin",
-      "pluginId": "cordova-plugin-firebase",
-      "clobbers": [
-        "FirebasePlugin"
-      ]
-    },
-    {
-      "file": "plugins/cordova-plugin-statusbar/www/statusbar.js",
-      "id": "cordova-plugin-statusbar.statusbar",
-      "pluginId": "cordova-plugin-statusbar",
-      "clobbers": [
-        "window.StatusBar"
-      ]
-    }
-  ],
-  "plugin_metadata": {
-    "cordova-plugin-console": "1.0.7",
-    "cordova-plugin-firebase": "0.1.25",
-    "cordova-plugin-statusbar": "1.0.1",
-    "cordova-plugin-whitelist": "1.2.2"
-  }
 }

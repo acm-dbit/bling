@@ -10,14 +10,16 @@
       "cordova-plugin-whitelist": {},
       "cordova-plugin-console": {},
       "cordova-plugin-statusbar": {},
-      "cordova-plugin-firebase": {}
+      "cordova-plugin-firebase": {},
+      "cordova-sqlite-storage": {}
     }
   },
   "dependencies": {
     "cordova-android": "~6.3.0",
-    "cordova-plugin-whitelist": "~1.2.0",
     "cordova-plugin-console": "~1.0.1",
+    "cordova-plugin-firebase": "https://github.com/arnesson/cordova-plugin-firebase.git",
     "cordova-plugin-statusbar": "~1.0.1",
-    "cordova-plugin-firebase": "https://github.com/arnesson/cordova-plugin-firebase.git"
+    "cordova-plugin-whitelist": "~1.2.0",
+    "cordova-sqlite-storage": "^2.1.4"
   }
 }

@@ -1,0 +1,105 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "cordova-sqlite-storage",
+        "scope": null,
+        "escapedName": "cordova-sqlite-storage",
+        "name": "cordova-sqlite-storage",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "D:\\ACM Bling project\\Bling-temp\\Bling"
+    ]
+  ],
+  "_from": "cordova-sqlite-storage@latest",
+  "_id": "cordova-sqlite-storage@2.1.4",
+  "_inCache": true,
+  "_location": "/cordova-sqlite-storage",
+  "_nodeVersion": "8.9.3",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/cordova-sqlite-storage-2.1.4.tgz_1513308202146_0.18144120904617012"
+  },
+  "_npmUser": {
+    "name": "brodybits",
+    "email": "brodybits@litehelpers.net"
+  },
+  "_npmVersion": "5.5.1",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "cordova-sqlite-storage",
+    "scope": null,
+    "escapedName": "cordova-sqlite-storage",
+    "name": "cordova-sqlite-storage",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-sqlite-storage/-/cordova-sqlite-storage-2.1.4.tgz",
+  "_shasum": "e5f280a33d7dc3bb4421ba05a8fa62e7d1dfb1bd",
+  "_shrinkwrap": null,
+  "_spec": "cordova-sqlite-storage",
+  "_where": "D:\\ACM Bling project\\Bling-temp\\Bling",
+  "author": {
+    "name": "various"
+  },
+  "bugs": {
+    "url": "https://github.com/litehelpers/Cordova-sqlite-storage/issues"
+  },
+  "cordova": {
+    "id": "cordova-sqlite-storage",
+    "platforms": [
+      "android",
+      "ios",
+      "osx",
+      "windows"
+    ]
+  },
+  "dependencies": {
+    "cordova-sqlite-storage-dependencies": "1.0.4"
+  },
+  "description": "Native interface to SQLite for PhoneGap/Cordova",
+  "devDependencies": {
+    "shelljs": "^0.7.4"
+  },
+  "directories": {},
+  "dist": {
+    "integrity": "sha512-+mMTprQAq//UcwpWSMSig0WTaF0s8l357e5Lv30oayaeqH6kf+gBaUWoLbb8998Q4gm42PNeZYvtIURsqAEeUg==",
+    "shasum": "e5f280a33d7dc3bb4421ba05a8fa62e7d1dfb1bd",
+    "tarball": "https://registry.npmjs.org/cordova-sqlite-storage/-/cordova-sqlite-storage-2.1.4.tgz"
+  },
+  "gitHead": "912ec40b3704b6b820f6f08f7f5828a2f84722b1",
+  "homepage": "https://github.com/litehelpers/Cordova-sqlite-storage",
+  "keywords": [
+    "sqlite",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios",
+    "cordova-osx",
+    "cordova-windows"
+  ],
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "brodybits",
+      "email": "brodybits@litehelpers.net"
+    }
+  ],
+  "name": "cordova-sqlite-storage",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/litehelpers/Cordova-sqlite-storage.git"
+  },
+  "scripts": {
+    "start": "node scripts/prepareSpec.js"
+  },
+  "version": "2.1.4"
+}

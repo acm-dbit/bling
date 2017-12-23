@@ -1,10 +1,6 @@
 [
     {
-        "merged": "E:\\Bling\\Bling\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\icon.png",
-        "source": "E:\\Bling\\Bling\\platforms\\android\\res\\mipmap-hdpi\\icon.png"
-    },
-    {
-        "merged": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\icon.png",
-        "source": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\res\\mipmap-hdpi\\icon.png"
+        "merged": "D:\\ACM Bling project\\Bling-temp\\Bling\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\mipmap-hdpi\\icon.png",
+        "source": "D:\\ACM Bling project\\Bling-temp\\Bling\\platforms\\android\\res\\mipmap-hdpi\\icon.png"
     }
 ]
