@@ -8,7 +8,19 @@
         "source": "D:\\ACM Bling project\\Bling-temp\\Bling\\platforms\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\11.8.0\\res\\color\\common_google_signin_btn_text_light.xml"
     },
     {
+        "merged": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\color\\common_google_signin_btn_text_dark.xml",
+        "source": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\11.8.0\\res\\color\\common_google_signin_btn_text_dark.xml"
+    },
+    {
+        "merged": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\color\\common_google_signin_btn_text_light.xml",
+        "source": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\11.8.0\\res\\color\\common_google_signin_btn_text_light.xml"
+    },
+    {
         "merged": "D:\\ACM Bling project\\Bling-temp\\Bling\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\color\\common_google_signin_btn_tint.xml",
         "source": "D:\\ACM Bling project\\Bling-temp\\Bling\\platforms\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\11.8.0\\res\\color\\common_google_signin_btn_tint.xml"
+    },
+    {
+        "merged": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\color\\common_google_signin_btn_tint.xml",
+        "source": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\11.8.0\\res\\color\\common_google_signin_btn_tint.xml"
     }
 ]

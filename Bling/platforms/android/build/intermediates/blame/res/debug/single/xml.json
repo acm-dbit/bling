@@ -2,5 +2,9 @@
     {
         "merged": "D:\\ACM Bling project\\Bling-temp\\Bling\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\xml\\config.xml",
         "source": "D:\\ACM Bling project\\Bling-temp\\Bling\\platforms\\android\\res\\xml\\config.xml"
+    },
+    {
+        "merged": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\xml\\config.xml",
+        "source": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\res\\xml\\config.xml"
     }
 ]

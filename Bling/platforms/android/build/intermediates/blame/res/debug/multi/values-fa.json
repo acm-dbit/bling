@@ -1,5 +1,371 @@
 [
     {
+        "outputFile": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-fa\\values-fa.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 105,
+                    "endColumn": 109,
+                    "endOffset": 210
+                },
+                "from": {
+                    "file": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\11.8.0\\res\\values-fa\\values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 0,
+                        "startOffset": 281,
+                        "endColumn": 105,
+                        "endOffset": 386
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 3,
+                    "startColumn": 4,
+                    "startOffset": 215,
+                    "endColumn": 190,
+                    "endOffset": 401
+                },
+                "from": {
+                    "file": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\11.8.0\\res\\values-fa\\values.xml",
+                    "position": {
+                        "startLine": 5,
+                        "startColumn": 0,
+                        "startOffset": 387,
+                        "endColumn": 190,
+                        "endOffset": 577
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 4,
+                    "startColumn": 4,
+                    "startOffset": 406,
+                    "endColumn": 132,
+                    "endOffset": 534
+                },
+                "from": {
+                    "file": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\11.8.0\\res\\values-fa\\values.xml",
+                    "position": {
+                        "startLine": 6,
+                        "startColumn": 0,
+                        "startOffset": 578,
+                        "endColumn": 128,
+                        "endOffset": 706
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 539,
+                    "endColumn": 104,
+                    "endOffset": 639
+                },
+                "from": {
+                    "file": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\11.8.0\\res\\values-fa\\values.xml",
+                    "position": {
+                        "startLine": 7,
+                        "startColumn": 0,
+                        "startOffset": 707,
+                        "endColumn": 100,
+                        "endOffset": 807
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 644,
+                    "endColumn": 198,
+                    "endOffset": 838
+                },
+                "from": {
+                    "file": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\11.8.0\\res\\values-fa\\values.xml",
+                    "position": {
+                        "startLine": 8,
+                        "startColumn": 0,
+                        "startOffset": 808,
+                        "endColumn": 198,
+                        "endOffset": 1006
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 7,
+                    "startColumn": 4,
+                    "startOffset": 843,
+                    "endColumn": 129,
+                    "endOffset": 968
+                },
+                "from": {
+                    "file": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\11.8.0\\res\\values-fa\\values.xml",
+                    "position": {
+                        "startLine": 9,
+                        "startColumn": 0,
+                        "startOffset": 1007,
+                        "endColumn": 125,
+                        "endOffset": 1132
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 8,
+                    "startColumn": 4,
+                    "startOffset": 973,
+                    "endColumn": 144,
+                    "endOffset": 1113
+                },
+                "from": {
+                    "file": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\11.8.0\\res\\values-fa\\values.xml",
+                    "position": {
+                        "startLine": 10,
+                        "startColumn": 0,
+                        "startOffset": 1133,
+                        "endColumn": 140,
+                        "endOffset": 1273
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 9,
+                    "startColumn": 4,
+                    "startOffset": 1118,
+                    "endColumn": 130,
+                    "endOffset": 1244
+                },
+                "from": {
+                    "file": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\11.8.0\\res\\values-fa\\values.xml",
+                    "position": {
+                        "startLine": 11,
+                        "startColumn": 0,
+                        "startOffset": 1274,
+                        "endColumn": 126,
+                        "endOffset": 1400
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 10,
+                    "startColumn": 4,
+                    "startOffset": 1249,
+                    "endColumn": 213,
+                    "endOffset": 1458
+                },
+                "from": {
+                    "file": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-basement\\11.8.0\\res\\values-fa\\values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 0,
+                        "startOffset": 283,
+                        "endColumn": 213,
+                        "endOffset": 496
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 11,
+                    "startColumn": 4,
+                    "startOffset": 1463,
+                    "endColumn": 211,
+                    "endOffset": 1670
+                },
+                "from": {
+                    "file": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\11.8.0\\res\\values-fa\\values.xml",
+                    "position": {
+                        "startLine": 12,
+                        "startColumn": 0,
+                        "startOffset": 1401,
+                        "endColumn": 211,
+                        "endOffset": 1612
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 12,
+                    "startColumn": 4,
+                    "startOffset": 1675,
+                    "endColumn": 111,
+                    "endOffset": 1782
+                },
+                "from": {
+                    "file": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\11.8.0\\res\\values-fa\\values.xml",
+                    "position": {
+                        "startLine": 13,
+                        "startColumn": 0,
+                        "startOffset": 1613,
+                        "endColumn": 107,
+                        "endOffset": 1720
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 13,
+                    "startColumn": 4,
+                    "startOffset": 1787,
+                    "endColumn": 202,
+                    "endOffset": 1985
+                },
+                "from": {
+                    "file": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\11.8.0\\res\\values-fa\\values.xml",
+                    "position": {
+                        "startLine": 14,
+                        "startColumn": 0,
+                        "startOffset": 1721,
+                        "endColumn": 202,
+                        "endOffset": 1923
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 14,
+                    "startColumn": 4,
+                    "startOffset": 1990,
+                    "endColumn": 134,
+                    "endOffset": 2120
+                },
+                "from": {
+                    "file": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\11.8.0\\res\\values-fa\\values.xml",
+                    "position": {
+                        "startLine": 15,
+                        "startColumn": 0,
+                        "startOffset": 1924,
+                        "endColumn": 130,
+                        "endOffset": 2054
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 15,
+                    "startColumn": 4,
+                    "startOffset": 2125,
+                    "endColumn": 213,
+                    "endOffset": 2334
+                },
+                "from": {
+                    "file": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\11.8.0\\res\\values-fa\\values.xml",
+                    "position": {
+                        "startLine": 16,
+                        "startColumn": 0,
+                        "startOffset": 2055,
+                        "endColumn": 213,
+                        "endOffset": 2268
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 16,
+                    "startColumn": 4,
+                    "startOffset": 2339,
+                    "endColumn": 187,
+                    "endOffset": 2522
+                },
+                "from": {
+                    "file": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\11.8.0\\res\\values-fa\\values.xml",
+                    "position": {
+                        "startLine": 17,
+                        "startColumn": 0,
+                        "startOffset": 2269,
+                        "endColumn": 183,
+                        "endOffset": 2452
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 17,
+                    "startColumn": 4,
+                    "startOffset": 2527,
+                    "endColumn": 95,
+                    "endOffset": 2618
+                },
+                "from": {
+                    "file": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\11.8.0\\res\\values-fa\\values.xml",
+                    "position": {
+                        "startLine": 18,
+                        "startColumn": 0,
+                        "startOffset": 2453,
+                        "endColumn": 91,
+                        "endOffset": 2544
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 18,
+                    "startColumn": 4,
+                    "startOffset": 2623,
+                    "endColumn": 97,
+                    "endOffset": 2716
+                },
+                "from": {
+                    "file": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\11.8.0\\res\\values-fa\\values.xml",
+                    "position": {
+                        "startLine": 19,
+                        "startColumn": 0,
+                        "startOffset": 2545,
+                        "endColumn": 93,
+                        "endOffset": 2638
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 19,
+                    "startColumn": 4,
+                    "startOffset": 2721,
+                    "endColumn": 113,
+                    "endOffset": 2830
+                },
+                "from": {
+                    "file": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\build\\intermediates\\exploded-aar\\com.google.android.gms\\play-services-base\\11.8.0\\res\\values-fa\\values.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 0,
+                        "startOffset": 2639,
+                        "endColumn": 109,
+                        "endOffset": 2748
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 20,
+                    "startColumn": 4,
+                    "startOffset": 2835,
+                    "endColumn": 108,
+                    "endOffset": 2939
+                },
+                "from": {
+                    "file": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\build\\intermediates\\exploded-aar\\com.google.firebase\\firebase-messaging\\11.8.0\\res\\values-fa\\values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 0,
+                        "startOffset": 241,
+                        "endColumn": 104,
+                        "endOffset": 345
+                    }
+                }
+            }
+        ]
+    },
+    {
         "outputFile": "D:\\ACM Bling project\\Bling-temp\\Bling\\platforms\\android\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-fa\\values-fa.xml",
         "map": [
             {

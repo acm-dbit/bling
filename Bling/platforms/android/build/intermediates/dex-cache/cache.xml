@@ -3,228 +3,228 @@
 
     <item
         is-multidex="false"
-        jar="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\11.8.0\jars\classes.jar"
+        jar="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\exploded-aar\com.android.support\support-v4\25.2.0\jars\classes.jar"
         jumboMode="false"
         optimize="true"
-        revision="26.0.2"
-        sha1="233d88c6f961d2a84758dfe27b7af61318190c7b">
-        <dex dex="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-base-11.8.0_d10d6837d20ed770847fd492d6b06c315c4ada12.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-config\11.8.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="26.0.2"
-        sha1="d9a09584e04eb95d247f251d5d498eb57fcf6e41">
-        <dex dex="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.google.firebase-firebase-config-11.8.0_cbc05d51c96f16a72b8f950a4a7131b458d19849.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\exploded-aar\com.android.support\support-fragment\25.2.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="26.0.2"
-        sha1="8fe8a8f77d651982ce5e18f6187dc4daf914ac57">
-        <dex dex="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.android.support-support-fragment-25.2.0_d5cf1c5ffc41374fa8f3927c367e069bdefd3b26.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\exploded-aar\com.google.android.gms\play-services-tasks\11.8.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="26.0.2"
-        sha1="d2af2ef4d987d753f2e8ee2d1480ab964d5c7273">
-        <dex dex="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-tasks-11.8.0_cd0aeaa2ea7038e0bf64fdac9d98b97425b1a8d2.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics-impl\11.8.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="26.0.2"
-        sha1="122de0d704f76d2bb5cb9db66e00fe90a0a41e78">
-        <dex dex="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.google.firebase-firebase-analytics-impl-11.8.0_f5abe16bebc85476279c8d6f8009018a8aa6c9d0.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-messaging\11.8.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="26.0.2"
-        sha1="c44026185adf61f12630db36ac6781481f559e7c">
-        <dex dex="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.google.firebase-firebase-messaging-11.8.0_1a7194a50f05c2fb3e9a1b996bea180d30649274.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics-impl\11.8.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="26.0.2"
-        sha1="07ce024be0a1c178d857ec2fe55a99011c2ff7a2">
-        <dex dex="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-analytics-impl-11.8.0_1ee261780ded9972a37be95f5009688219f7c6f9.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-crash\11.8.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="26.0.2"
-        sha1="4b882397288de69e13ff147bdefe584cc6deb055">
-        <dex dex="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.google.firebase-firebase-crash-11.8.0_f270031e24d76ce6aa4183558903fe87ddbe87b1.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-auth\11.8.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="26.0.2"
-        sha1="c5bc72ad3250d065128d1d7514279be703e57bd0">
-        <dex dex="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.google.firebase-firebase-auth-11.8.0_d1cc6efad1047392a70a152c5f73deb672aade59.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\exploded-aar\me.leolin\ShortcutBadger\1.1.4\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="26.0.2"
-        sha1="b346a5d3fc5d6d1d36c6262c8cc865b76df9f40c">
-        <dex dex="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\pre-dexed\debug\me.leolin-ShortcutBadger-1.1.4_6affefd9b6f4e2ed966059b64163f3100c1a702a.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics\11.8.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="26.0.2"
-        sha1="42c9659c973e311ffdb645ed057e5053e0ab5c78">
-        <dex dex="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.google.firebase-firebase-analytics-11.8.0_d2f94ce18a7f8c7b1e70800f13334819ea1bb553.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\exploded-aar\com.google.android.gms\play-services-tagmanager\11.8.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="26.0.2"
-        sha1="31ef45383dcfc253588a3be0b49996821ce816c5">
-        <dex dex="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-tagmanager-11.8.0_846b2a6f7cba7fa36bdfe28a94a1fed3b29880f5.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-iid\11.8.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="26.0.2"
-        sha1="264ad23f9752aabecfa41115c52a25a023a08839">
-        <dex dex="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.google.firebase-firebase-iid-11.8.0_ab048a1b846df94ee103fd4ef47e5c0894e3189e.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.2.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="26.0.2"
-        sha1="e820b7be8c035dd522da4bc822e8a76c8e27921a">
-        <dex dex="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.android.support-support-core-utils-25.2.0_2ea25c6d8fa8171c4c63ee62080f9648aacf9b0f.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.2.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="26.0.2"
-        sha1="fa0446a14ed5dd3725047d6399ffea771a564b30">
-        <dex dex="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.android.support-support-core-ui-25.2.0_6331898383b759d849bc6276f1c27adcfbff4c34.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-common\11.8.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="26.0.2"
-        sha1="e6aeff19a2ce1eb896557be73cb9ceb56f8d1cf3">
-        <dex dex="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.google.firebase-firebase-common-11.8.0_b5e28b782da043de9a9603f9dd0c030e3e3ca50a.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\exploded-aar\com.android.support\support-media-compat\25.2.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="26.0.2"
-        sha1="ee394a892dd21c03a528139c1e8d4e0e1264ac84">
-        <dex dex="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.android.support-support-media-compat-25.2.0_3463a7f51ad50db1d02bc2c9c550d5af6d7f1556.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\exploded-aar\com.google.android.gms\play-services-tagmanager-api\11.8.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="26.0.2"
-        sha1="16f186a432ab801268bee4a20c038c9fa35a2901">
-        <dex dex="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-tagmanager-api-11.8.0_fc0b9c6952a451ae0c1792479f935c8f8ab7aefc.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\exploded-aar\org.apache.cordova\CordovaLib\6.3.0\debug\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="26.0.2"
-        sha1="df1a7a6af20c4eca090c1f535b77951ef6025bfb">
-        <dex dex="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\pre-dexed\debug\CordovaLib-6.3.0-debug_282161f030c1c570a6b8ca20052e10a9ce319d64.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="D:\ACM Bling project\Bling-temp\Bling\platforms\android\libs\sqlite-connector.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="26.0.2"
-        sha1="76169ab23a4f939925491c6fe186749da5a56ee9">
-        <dex dex="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\pre-dexed\debug\sqlite-connector_e220deb43daa40e3eb612ef7ffa7a5da0e9d4160.jar" />
-    </item>
-    <item
-        is-multidex="false"
-        jar="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\exploded-aar\com.android.support\support-v4\25.2.0\jars\classes.jar"
-        jumboMode="false"
-        optimize="true"
-        revision="26.0.2"
+        revision="26.0.0"
         sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.android.support-support-v4-25.2.0_30eee00d7b4f70610273c12f4c346cc386c95fcc.jar" />
+        <dex dex="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.android.support-support-v4-25.2.0_043e9bc1440659237a35d599944e64697dfca610.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\Jaffrey Joy\AppData\Local\Android\Sdk\extras\android\m2repository\com\android\support\support-annotations\25.2.0\support-annotations-25.2.0.jar"
+        jar="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-auth\11.8.0\jars\classes.jar"
         jumboMode="false"
         optimize="true"
-        revision="26.0.2"
-        sha1="4a5a82a027706397fff621b22fd6fa796e91d7c5">
-        <dex dex="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\pre-dexed\debug\support-annotations-25.2.0_c91176c8bdc3074c0e944f43ee6ada692ee659b0.jar" />
+        revision="26.0.0"
+        sha1="c5bc72ad3250d065128d1d7514279be703e57bd0">
+        <dex dex="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.google.firebase-firebase-auth-11.8.0_16fb8c65b714c5a11ed6dc236fab19d428c84813.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\exploded-aar\com.android.support\support-compat\25.2.0\jars\classes.jar"
+        jar="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\exploded-aar\com.google.android.gms\play-services-analytics-impl\11.8.0\jars\classes.jar"
         jumboMode="false"
         optimize="true"
-        revision="26.0.2"
-        sha1="67eb33110dbacb46a48175b08ae0c96761d2c17d">
-        <dex dex="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.android.support-support-compat-25.2.0_eed0570298e90f5c574c310255b046a36eac5de8.jar" />
+        revision="26.0.0"
+        sha1="07ce024be0a1c178d857ec2fe55a99011c2ff7a2">
+        <dex dex="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-analytics-impl-11.8.0_96bb456de1baec61d50cdcc086d25fb5b68e2fd3.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="C:\Users\Jaffrey Joy\.gradle\caches\modules-2\files-2.1\com.google.gms\google-services\3.1.2\1fc9eb41c1937a7364345d13349682db7785546e\google-services-3.1.2.jar"
+        jar="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.2.0\jars\classes.jar"
         jumboMode="false"
         optimize="true"
-        revision="26.0.2"
-        sha1="1fc9eb41c1937a7364345d13349682db7785546e">
-        <dex dex="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\pre-dexed\debug\google-services-3.1.2_bceaf533b46e82e71f9077f51de87f430c0f5f69.jar" />
+        revision="26.0.0"
+        sha1="fa0446a14ed5dd3725047d6399ffea771a564b30">
+        <dex dex="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.android.support-support-core-ui-25.2.0_98e2d9c7feaea4c59a76c2b908a15277d04c9941.jar" />
     </item>
     <item
         is-multidex="false"
-        jar="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\11.8.0\jars\classes.jar"
+        jar="C:\xampp\htdocs\Bling\Bling\platforms\android\libs\sqlite-connector.jar"
         jumboMode="false"
         optimize="true"
-        revision="26.0.2"
+        revision="26.0.0"
+        sha1="76169ab23a4f939925491c6fe186749da5a56ee9">
+        <dex dex="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\pre-dexed\debug\sqlite-connector_82a853baf74fdfe9764d80045197fc9191cc69b5.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-crash\11.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="4b882397288de69e13ff147bdefe584cc6deb055">
+        <dex dex="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.google.firebase-firebase-crash-11.8.0_872ee26ff30f19bc09db7825a2eaa48ff46be844.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\exploded-aar\com.google.android.gms\play-services-basement\11.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
         sha1="5ad3911825107d8dd4b017fdecebfd23c08048dd">
-        <dex dex="D:\ACM Bling project\Bling-temp\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-basement-11.8.0_7f428290495d9cd7afb85d78a785c75f08fb6cf9.jar" />
+        <dex dex="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-basement-11.8.0_40f5ce5b863c25356bc5fbcb60a1a5256c9baf8a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\exploded-aar\org.apache.cordova\CordovaLib\6.3.0\debug\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="0ef4672e51e92921ff1db9373b8fa29d12376be3">
+        <dex dex="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\pre-dexed\debug\CordovaLib-6.3.0-debug_7bd99706330ed7e33f6734cfbae58671ba707937.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\exploded-aar\com.android.support\support-compat\25.2.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="67eb33110dbacb46a48175b08ae0c96761d2c17d">
+        <dex dex="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.android.support-support-compat-25.2.0_46cabd8efbfef55e0084bcd4257c6ab5941b448f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics\11.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="42c9659c973e311ffdb645ed057e5053e0ab5c78">
+        <dex dex="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.google.firebase-firebase-analytics-11.8.0_3dddd3a198569c2b07cb116f9edc92509ce44b8c.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\exploded-aar\com.google.android.gms\play-services-tagmanager-api\11.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="16f186a432ab801268bee4a20c038c9fa35a2901">
+        <dex dex="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-tagmanager-api-11.8.0_f2779bd130bdcafdad33ef3de658e171aef724e7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\exploded-aar\com.google.android.gms\play-services-tagmanager\11.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="31ef45383dcfc253588a3be0b49996821ce816c5">
+        <dex dex="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-tagmanager-11.8.0_34a65c925e3d30ca85e9e071735737f5b54cd004.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\exploded-aar\me.leolin\ShortcutBadger\1.1.4\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="b346a5d3fc5d6d1d36c6262c8cc865b76df9f40c">
+        <dex dex="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\pre-dexed\debug\me.leolin-ShortcutBadger-1.1.4_c23d356cb79748b44d3eb3ac514d0c20c2e04cc1.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-config\11.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="d9a09584e04eb95d247f251d5d498eb57fcf6e41">
+        <dex dex="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.google.firebase-firebase-config-11.8.0_f2bf60701286ce9ed5176c3b88ecf4accc2ca2af.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-common\11.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="e6aeff19a2ce1eb896557be73cb9ceb56f8d1cf3">
+        <dex dex="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.google.firebase-firebase-common-11.8.0_60e7004813f44458f98016e2e6507182880826a7.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-messaging\11.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="c44026185adf61f12630db36ac6781481f559e7c">
+        <dex dex="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.google.firebase-firebase-messaging-11.8.0_ea7f90ce740c357865d4015997655606d18a75d2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-analytics-impl\11.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="122de0d704f76d2bb5cb9db66e00fe90a0a41e78">
+        <dex dex="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.google.firebase-firebase-analytics-impl-11.8.0_a22d6522a8d0b43cf2aac4a295c1035f484c1533.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\Anto Christopher\.gradle\caches\modules-2\files-2.1\com.google.gms\google-services\3.1.2\1fc9eb41c1937a7364345d13349682db7785546e\google-services-3.1.2.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="1fc9eb41c1937a7364345d13349682db7785546e">
+        <dex dex="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\pre-dexed\debug\google-services-3.1.2_2c6ab508a27afb5fcf31b78a1c56ed88c250604f.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\exploded-aar\com.android.support\support-fragment\25.2.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="8fe8a8f77d651982ce5e18f6187dc4daf914ac57">
+        <dex dex="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.android.support-support-fragment-25.2.0_670cf5d28737d2ce02e480e12f52bf718563a6cd.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.2.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="e820b7be8c035dd522da4bc822e8a76c8e27921a">
+        <dex dex="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.android.support-support-core-utils-25.2.0_aa19b363eb56d3ec65b61f22acc42109f4c93d1a.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\exploded-aar\com.google.firebase\firebase-iid\11.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="264ad23f9752aabecfa41115c52a25a023a08839">
+        <dex dex="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.google.firebase-firebase-iid-11.8.0_d53dac440dbff8577a669fcd4c4d37d77f7dc826.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\exploded-aar\com.android.support\support-media-compat\25.2.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="ee394a892dd21c03a528139c1e8d4e0e1264ac84">
+        <dex dex="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.android.support-support-media-compat-25.2.0_d9a3a2c41b815b7c22a1be624a952569cf5d5439.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\exploded-aar\com.google.android.gms\play-services-base\11.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="233d88c6f961d2a84758dfe27b7af61318190c7b">
+        <dex dex="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-base-11.8.0_07d57eba6edbecabf78bb61cdb8ddb36f5b4198b.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\exploded-aar\com.google.android.gms\play-services-tasks\11.8.0\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="d2af2ef4d987d753f2e8ee2d1480ab964d5c7273">
+        <dex dex="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\pre-dexed\debug\com.google.android.gms-play-services-tasks-11.8.0_4536af8e347dd1164c95325f06f7915b783594f4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\25.2.0\support-annotations-25.2.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.0"
+        sha1="4a5a82a027706397fff621b22fd6fa796e91d7c5">
+        <dex dex="C:\xampp\htdocs\Bling\Bling\platforms\android\build\intermediates\pre-dexed\debug\support-annotations-25.2.0_9e24f7f490ed7547b7a2f62d633493984da9695f.jar" />
     </item>
 
 </items>

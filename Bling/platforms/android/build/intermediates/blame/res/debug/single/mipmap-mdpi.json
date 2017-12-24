@@ -2,5 +2,9 @@
     {
         "merged": "D:\\ACM Bling project\\Bling-temp\\Bling\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi\\icon.png",
         "source": "D:\\ACM Bling project\\Bling-temp\\Bling\\platforms\\android\\res\\mipmap-mdpi\\icon.png"
+    },
+    {
+        "merged": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi\\icon.png",
+        "source": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\res\\mipmap-mdpi\\icon.png"
     }
 ]

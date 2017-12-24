@@ -2,5 +2,9 @@
     {
         "merged": "D:\\ACM Bling project\\Bling-temp\\Bling\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\drawable-land-ldpi\\screen.png",
         "source": "D:\\ACM Bling project\\Bling-temp\\Bling\\platforms\\android\\res\\drawable-land-ldpi\\screen.png"
+    },
+    {
+        "merged": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\build\\intermediates\\res\\merged\\debug\\drawable-land-ldpi\\screen.png",
+        "source": "C:\\xampp\\htdocs\\Bling\\Bling\\platforms\\android\\res\\drawable-land-ldpi\\screen.png"
     }
 ]
