@@ -42,19 +42,39 @@ var mainView = myApp.addView('.view-main', {
 // });
 
 
-$$(document).on('pageInit', '.page[data-page="profile"]', function (e) {
+$$(document).on('pageInit', '.page[data-page="register"]', function (e) {
     // Following code will be executed for page with data-page attribute equal to "profile"
     var token = localStorage.token;
 
-    $$('#reg_btn').on('click', function () {
+    $$('#t1').on('click', function () {
+      $$(this).addClass('button-fill');
+      $$("#t2").removeClass('button-fill');
+      $$("#t3").removeClass('button-fill');
+    });
 
-            var name=$$('#name').val();
+    $$('#t2').on('click', function () {
+      $$(this).addClass('button-fill');
+      $$("#t1").removeClass('button-fill');
+      $$("#t3").removeClass('button-fill');
+    });
+
+    $$('#t3').on('click', function () {
+      $$(this).addClass('button-fill');
+      $$("#t1").removeClass('button-fill');
+      $$("#t2").removeClass('button-fill');
+    });
+
+    $$('#stud_btn').on('click', function () {
+
+            var name=$$('#sname').val();
             var id=$$('#sid').val();
+            var semester=$$('#ssemester').val();
+            var department=$$('#sdepartment').val();
             var pass=$$('#spass').val();
-            var semester=$$('#semester').val();
-            var department=$$('#department').val();
-
+            var con_pass=$$('#scpass').val();
             var year;
+
+            if(pass==con_pass){
 
             if(semester==1 || semester==2)
               year = 'FE';
@@ -73,7 +93,7 @@ $$(document).on('pageInit', '.page[data-page="profile"]', function (e) {
 
               $$.ajax({
               type: "POST",
-              url:"http://bling-test.000webhostapp.com/register.php",
+              url:"http://bling-test.000webhostapp.com/stud_register.php",
               data: {name:name, id:id, pass:pass, semester:semester, department:department, token:token},
               crossDomain: true,
               cache: false,
@@ -83,6 +103,7 @@ $$(document).on('pageInit', '.page[data-page="profile"]', function (e) {
               {
                 localStorage.id = id;
                 myApp.alert("Registration successfull");
+                mainView.router.loadPage('received-message.html');
               }
 
               else if(data=="failed")
@@ -91,6 +112,57 @@ $$(document).on('pageInit', '.page[data-page="profile"]', function (e) {
               }
             }
          });
+        }
+
+        else
+          myApp.alert("Both the passwords do not match !");
+    });
+
+    $$('#fac_btn').on('click', function () {
+
+          console.log("Clicked");
+
+            var name=$$('#fname').val();
+            var id=$$('#fid').val();
+            var department=$$('#fdepartment').val();
+            var pass=$$('#fpass').val();
+            var con_pass=$$('#fcpass').val();
+
+            console.log(name);
+            console.log(id);
+            console.log(department);
+            console.log(pass);
+            console.log(con_pass);
+
+            if(pass==con_pass){
+
+              console.log("Matched");
+
+              $$.ajax({
+              type: "POST",
+              url:"http://bling-test.000webhostapp.com/fac_register.php",
+              data: {name:name, id:id, pass:pass, department:department, token:token},
+              crossDomain: true,
+              cache: false,
+              success: function(data){
+
+              if(data=="success")
+              {
+                localStorage.id = id;
+                myApp.alert("Registration successfull");
+                mainView.router.loadPage('sent-message.html');
+              }
+
+              else if(data=="failed")
+              {
+                myApp.alert("Something Went Wrong !");
+              }
+            }
+         });
+        }
+
+        else
+          myApp.alert("Both the passwords do not match !");
     });
 })
 
