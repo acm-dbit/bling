@@ -122,17 +122,22 @@
           id: id,
           pass: pass
         },
-        dataType: 'json',
         crossDomain: true,
         cache: false,
         success: function (data) {
 
           if (data == "failed") {
             myApp.alert("Invalid ID/Password");
-          } else {
+          } 
+
+          else if(data == "student") {
             localStorage.id = id;
-            myApp.alert("Welcome " + data.name + "!");
-            mainView.router.loadPage('dashboard.html');
+            mainView.router.loadPage('received-message.html');
+          }
+
+          else if(data == "faculty") {
+            localStorage.id = id;
+            mainView.router.loadPage('sent-message.html');
           }
         }
       });

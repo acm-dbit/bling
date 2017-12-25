@@ -8,18 +8,27 @@
     $id = $_POST["id"];
     $pass = $_POST["pass"];
 
-    $sql = "SELECT name,id,pass FROM stud_data WHERE id='$id' AND pass='$pass'";
+    $s_chk = "SELECT name,id,pass FROM stud_data WHERE id='$id' AND pass='$pass'";
+    $f_chk = "SELECT name,id,pass FROM fac_data WHERE id='$id' AND pass='$pass'";
 
-    $result = $conn->query($sql);
+    $s_result = $conn->query($s_chk);
 
-    if($result->num_rows > 0){
-        while($row = $result->fetch_assoc()){
-            echo json_encode($row);
-        }
+    if($s_result->num_rows > 0){
+        echo "student";
     }
 
-    else
-        echo json_encode("failed");
+    else{
+
+        $f_result = $conn->query($f_chk);
+
+        if($f_result->num_rows > 0){
+            echo "faculty";
+        }
+
+        else
+        echo "failed";
+
+    }
         
     $conn->close();
 ?>
