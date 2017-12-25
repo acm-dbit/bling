@@ -64,7 +64,12 @@
                     </p>
                   </li>
                 </ul>
-                <a href="view-message.html" class="button button-fill button-big color-indigo">VIEW MESSAGE</a>
+                
+                <!-- Button to received messages testing page -->
+                <p><a href="view-message.html" class="button button-fill button-big color-indigo">VIEW MESSAGE</a></p>
+                
+                <!-- Dummy button to directly open after login page when using an emulator -->
+                <p><a href="dashboard.html" class="button button-fill button-big color-green">Login Success</a></p>
               </div>
             </div>
           </div>
@@ -127,7 +132,7 @@
           } else {
             localStorage.id = id;
             myApp.alert("Welcome " + data.name + "!");
-            mainView.router.loadPage('message.html');
+            mainView.router.loadPage('dashboard.html');
           }
         }
       });
