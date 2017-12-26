@@ -9,7 +9,10 @@
   <title>My App</title>
   <!-- We will include related CSS styles using JavaScript -->
   <link rel="stylesheet" href="css/styles.css">
-
+  <link rel="stylesheet" href="lib/framework7/css/ionicons.css">
+  <!-- <link rel="stylesheet" type="text/css" href="lib/framework7/css/framework7-icons.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"> -->
   <link rel="stylesheet" href="lib/framework7/css/framework7.material.min.css">
   <link rel="stylesheet" href="lib/framework7/css/framework7.material.colors.min.css">
 
@@ -17,10 +20,56 @@
 
 <body>
 <div class="page" data-page="index">
-  <div class="page-content">
     <!-- <div class="content-block"> -->
     <!-- Buttons row as tabs controller -->
     <div class="statusbar-overlay"></div>
+    <div class="page theme-blue" >
+    <div class="page layout-dark">
+      
+    <div class="panel-overlay"></div>
+    <!-- Left panel with reveal effect-->
+      
+    <div class="panel panel-left panel-reveal">
+      <div class="content-block-title" align="center">
+        <h2>LOGO</h2>
+      </div>
+      <div class="list-block">
+      <!-- <div class="list-group"> -->
+        <ul>
+          <li class="item-content list-panel-profile close-panel item-link">
+            <div class="item-media"><i class="icon ion-ios7-person"></i></div>
+            <div class="item-inner">
+              <div class="item-title" id="profileID">Profile</div>
+            </div>
+          </li>
+          <li class="item-content item-link">
+            
+            <div class="item-media"><i class="icon ion-ios7-star"></i></div>
+            <div class="item-inner">
+              <div class="item-title" >
+                <a href="#" id="prefID" class="link">Preferences</a>
+                </div>
+            </div>
+          
+          </li>
+          <li class="item-content list-panel-logout close-panel item-link">
+            <div class="item-media"><i class="icon ion-ios7-close"></i></div>
+            <div class="item-inner">
+              <div class="item-title" id="logoutID">Log out</div>
+            </div>
+          </li>
+
+        </ul>
+      
+      </div>   
+     <!-- <footer align="center">DBIT</footer> -->
+    </div>
+    </div>
+      
+    </div>
+
+  <div class="page-content">
+
     <div class="views">
       <!--
       We use Through-type Navbar layout for dynamic navbar.
@@ -29,6 +78,9 @@
       <div class="view view-main navbar-through">
         <div class="navbar">
           <div class="navbar-inner">
+          <div class="right">
+                        <a href="#" id="toggleID" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
+                    </div>
             <div class="center sliding">Bling</div>
           </div>
         </div>
@@ -64,6 +116,11 @@
                     </p>
                   </li>
                 </ul>
+                <!-- Screen for enabling/disabling notifications from various Student Chapters
+                 -->
+                 <p>
+                <a href="pages/prefer.html" class="button button-fill button-big color-green">PREFERENCES</a>
+                </p> 
                 
                 <!-- Button to received messages testing page -->
                 <p><a href="view-message.html" class="button button-fill button-big color-indigo">VIEW MESSAGE</a></p>
@@ -78,6 +135,7 @@
     </div>
 
   </div>
+
 
 
   <!--
@@ -122,17 +180,22 @@
           id: id,
           pass: pass
         },
-        dataType: 'json',
         crossDomain: true,
         cache: false,
         success: function (data) {
 
           if (data == "failed") {
             myApp.alert("Invalid ID/Password");
-          } else {
+          } 
+
+          else if(data == "student") {
             localStorage.id = id;
-            myApp.alert("Welcome " + data.name + "!");
-            mainView.router.loadPage('dashboard.html');
+            mainView.router.loadPage('received-message.html');
+          }
+
+          else if(data == "faculty") {
+            localStorage.id = id;
+            mainView.router.loadPage('sent-message.html');
           }
         }
       });
