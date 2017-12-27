@@ -27,6 +27,28 @@ var myApp = new Framework7({
     template7Pages: true
 });
 
+function Application(){
+  var myApp = new Framework7({
+    swipePanel : 'left'
+  });
+
+  var mainView = myApp.addView('.view-main');
+  $$('#toggleID').on('click',function()
+  {
+    myApp.openPanel('left');
+  });
+
+  $$('#prefID').on('click',function(e)
+  {
+    myApp.closePanel();
+    mainView.router.loadPage('pages/prefer.html');
+  });
+
+}
+
+Application();
+
+
 // Init View
 var mainView = myApp.addView('.view-main', {
     // Don't worry about that Material doesn't support it
