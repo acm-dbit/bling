@@ -128,15 +128,7 @@ $$(document).on('pageInit', '.page[data-page="register"]', function (e) {
             var pass=$$('#fpass').val();
             var con_pass=$$('#fcpass').val();
 
-            console.log(name);
-            console.log(id);
-            console.log(department);
-            console.log(pass);
-            console.log(con_pass);
-
             if(pass==con_pass){
-
-              console.log("Matched");
 
               $$.ajax({
               type: "POST",
