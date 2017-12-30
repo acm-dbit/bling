@@ -27,6 +27,7 @@ var myApp = new Framework7({
     template7Pages: true
 });
 
+
 function Application(){
   var myApp = new Framework7({
     swipePanel : 'left'
@@ -48,6 +49,33 @@ function Application(){
 
 Application();
 
+// localStorage.table_create_flag = 0;
+
+//Create Database
+var db = null;
+
+document.addEventListener("deviceready", function () {
+  db = window.sqlitePlugin.openDatabase({
+    name: "bling.db",
+    location: "default"
+  });
+
+});
+
+function dropCheck(u_id){
+  myApp.alert("in drop check function");
+  if(localStorage.prev_id != u_id){
+    db.executeSql("DROP TABLE IF EXISTS msg_data", [], function (resultSet) {
+      myApp.alert("DROP statement executed");
+    },
+      function (error) {
+        myApp.alert('DROP error : ' + error.message);
+      }
+    );
+  }
+
+}
+
 
 // Init View
 var mainView = myApp.addView('.view-main', {
@@ -63,6 +91,19 @@ var mainView = myApp.addView('.view-main', {
 
 // });
 
+function getYear(semester) {
+  if (semester == 1 || semester == 2)
+    return('FE');
+
+  else if (semester == 3 || semester == 4)
+    return('SE');
+
+  else if (semester == 5 || semester == 6)
+    return('TE');
+
+  else (semester == 7 || semester == 8)
+    return('BE');
+}
 
 $$(document).on('pageInit', '.page[data-page="register"]', function (e) {
     // Following code will be executed for page with data-page attribute equal to "profile"
@@ -98,18 +139,8 @@ $$(document).on('pageInit', '.page[data-page="register"]', function (e) {
 
             if(pass==con_pass){
 
-            if(semester==1 || semester==2)
-              year = 'FE';
-
-            if(semester==3 || semester==4)
-              year = 'SE';
-
-            if(semester==5 || semester==6)
-              year = 'TE';
-
-            if(semester==7 || semester==8)
-              year = 'BE';
-
+            year = getYear(semester);
+            myApp.alert(year);
             window.FirebasePlugin.subscribe(department);
             window.FirebasePlugin.subscribe(year);
 
@@ -124,8 +155,13 @@ $$(document).on('pageInit', '.page[data-page="register"]', function (e) {
               if(data=="success")
               {
                 localStorage.id = id;
+                localStorage.name = name;
+                localStorage.department = department;
+                localStorage.year = year;
+
                 myApp.alert("Registration successfull");
                 mainView.router.loadPage('received-message.html');
+
               }
 
               else if(data=="failed")
@@ -163,6 +199,8 @@ $$(document).on('pageInit', '.page[data-page="register"]', function (e) {
               if(data=="success")
               {
                 localStorage.id = id;
+                localStorage.name = name;
+
                 myApp.alert("Registration successfull");
                 mainView.router.loadPage('sent-message.html');
               }
@@ -184,73 +222,312 @@ $$(document).on('pageInit', '.page[data-page="register"]', function (e) {
 $$(document).on('pageInit', '.page[data-page="message"]', function (e) {
     // Following code will be executed for page with data-page attribute equal to "message"
     var id = localStorage.id;
-
+    var name = localStorage.name;
     $$('#msg_send').on('click', function () {
 
+            var subject=$$('#subj').val();
             var message=$$('#msg').val();
             var department=$$('#dept').val();
             var year=$$('#year').val();
-
+            var res = [];
               $$.ajax({
               type: "POST",
               url:"http://bling-test.000webhostapp.com/message.php",
-              data: { id:id, message:message, department:department, year:year},
+                data: { id: id, fac_name: localStorage.name, department: department, year: year, subject: subject, message: message },
               crossDomain: true,
               cache: false,
               success: function(data){
-
-              if(data=="success")
-              {
-                myApp.alert("Message sent successfull");
-              }
-
-              else if(data=="failed")
-              {
-                myApp.alert("Something Went Wrong !");
-              }
-            }
+                myApp.alert(data);
+                var resx = JSON.parse(data);
+                if(resx.res_type=="success")
+                {
+                  // myApp.alert("in success condition");
+                  resx["subject"] = subject;
+                  resx["message"] = message;
+                  resx["department"] = department;
+                  resx["year"] = year;
+                  res.push(resx);
+                  myApp.alert(JSON.stringify(res));
+                  insertSentMsgData(res);
+                  myApp.alert("Message sent Successfully!");
+                  mainView.router.loadPage('sent-message.html');
+                }
+                else if(data=="failed")
+                {
+                  myApp.alert("Something Went Wrong !");
+                }
+             }
          });
     });
 })
 
-$$(document).on("pageInit", '.page[data-page="view-message"]', function(e) {
-  //Create Database
-  var db = null;
-  myApp.alert("Here");
-  document.addEventListener("deviceready", function() {
-    db = window.sqlitePlugin.openDatabase({
-      name: "bling.db",
-      location: "default"
-    });
-  });
-
-  db.sqlBatch(
-    [
-      "CREATE TABLE IF NOT EXISTS stud_details (name, id, dep, sem, pass)",
-      [
-        "INSERT INTO stud_details VALUES (?,?,?,?,?)",
-        ["Alice", 101, "comps", "3", "lol"]
-      ]
-    ],
-    function() {
-      myApp.alert("Table created and values entered");
+function insertMsgData(res){
+  //Inserting parsed json values into localDB
+  // myApp.alert("in insert func");
+  for (i = 0; i < res.length; i++) {
+    var query = "INSERT INTO msg_data VALUES (?,?,?,?,?,?,?)";
+    db.executeSql(query, [res[i].msg_id, res[i].id, res[i].date, res[i].time, res[i].fac_name, res[i].subject, res[i].message], function (result) {
+      // myApp.alert("rowsAffected: " + result.rowsAffected);
     },
-    function(error) {
-      myApp.alert("SQL batch ERROR: " + error.message);
-    })
+      function (error) {
+        myApp.alert('INSERT error(server data to localDB): ' + error.message);
+      }
+    );
+  }
+}
 
-    var query = "SELECT name, id, dep, sem, pass FROM stud_details";
+function getNDisplayMsgData(){
+  //Getting data to display in received msgs list
+  // myApp.alert("in display func");
+  var query = "SELECT * FROM msg_data ORDER BY msg_id DESC";
+  var msg_html = "";
+  db.executeSql(query, [], function (resultSet) {
+    for (var x = 0; x < resultSet.rows.length; x++) {
 
-    db.executeSql(query, [], function (resultSet) {
-        for(var x = 0; x < resultSet.rows.length; x++) {
-            myApp.alert("Name: " + resultSet.rows.item(x).name +
-                ", ID: " + resultSet.rows.item(x).id);
-        }
+      //Setting varibles to be concatenated into dynamic html string below
+      var msg_id = resultSet.rows.item(x).msg_id;
+      var msg_fac_name = "Prof. " + resultSet.rows.item(x).fac_name;
+      var msg_date = resultSet.rows.item(x).date;
+      var msg_time = resultSet.rows.item(x).time;
+      var msg_subject = resultSet.rows.item(x).subject;
+      var message_content = resultSet.rows.item(x).message;
+      if (message_content.length > 40) {
+        var message_content_short = message_content.substring(0, 39) + "...";
+      }
+      else {
+        var message_content_short = message_content;
+      }
+
+      //Dynamic html for list of msgs
+      msg_html = msg_html +
+        '<li id="' + msg_id + '" class="msg">' +
+        '<div class="item-inner">' +
+        '<div class="item-title-row">' +
+        '<div class="item-title">' + msg_fac_name + '</div>' +
+        '<div class="item-after">' + msg_time + '</div>' +
+        '</div>' +
+        '<div class="item-subtitle">' + msg_subject + '</div>' +
+        '<div class="item-text">' + message_content_short + '</div>' +
+        '<div class="item-subtitle" style="text-align:right">' + msg_date + '</div>' +
+        '</div>' +
+        '</li>';
+    }
+
+    //Inserting generated html from above into parent html element i.e <ul> with id #msg_list
+    $$("#msg_list").html(msg_html);
+  },
+    function (error) {
+      myApp.alert('SELECT error (msgs from localDB): ' + error.message);
+    }
+  );
+}
+
+function newUserType(){
+  // myApp.alert("in new func");
+  var type = "new";
+  // var date = moment().format('l');
+  // var time = moment().format('LT');
+  $$.ajax({
+    type: "POST",
+    url: "http://bling-test.000webhostapp.com/get-msg-data.php",
+    data: { type:type, department:localStorage.department, year:localStorage.year },
+    crossDomain: true,
+    cache: false,
+    success: function (data) {
+      // myApp.alert(type+localStorage.department+localStorage.year);
+      // myApp.alert(data);
+
+      if (data.length > 10) {
+        res = JSON.parse(data);
+        insertMsgData(res);
+        getNDisplayMsgData();
+      }
+      else{
+        $$("#msg_list").html('<p style:"text-align:center">No new messages</p>');
+      }
+    }
+  });
+}
+
+function oldUserType(resultSet) {
+  myApp.alert("in old func");
+  var type = "old";
+  var res;
+  var msg_html;
+  var msg_id = resultSet.rows.item(0).msg_id;
+  $$.ajax({
+    type: "POST",
+    url: "http://bling-test.000webhostapp.com/get-msg-data.php",
+    data: { type: type, msg_id: msg_id, department: localStorage.department, year: localStorage.year },
+    crossDomain: true,
+    cache: false,
+    success: function (data) {
+      //parsing into JSON from string type variable (data)
+
+
+      if(data.length > 50){
+        myApp.alert(data);
+        res = JSON.parse(data);
+        insertMsgData(res);
+      }
+      getNDisplayMsgData();
+
+    }
+  });
+}
+
+$$(document).on("pageInit", '.page[data-page="received-message"]', function(e) {
+
+  // if (!localStorage.table_create_flag) {
+  db.sqlBatch(
+    ["CREATE TABLE IF NOT EXISTS msg_data (msg_id PRIMARY KEY, id, date, time, fac_name, subject, message)"],
+    function () {
+      // localStorage.table_create_flag = 1;
+      myApp.alert("msg_data table created");
     },
     function (error) {
-        myApp.alert('SELECT error: ' + error.message);
+      myApp.alert("SQL batch ERROR: " + error.message);
+    });
+  // }
+
+  var query = "SELECT msg_id FROM msg_data ORDER BY msg_id DESC";
+
+  db.executeSql(query, [], function (resultSet) {
+      if(resultSet.rows.length == 0) {
+        // myApp.alert("new");
+        newUserType();
       }
+      else {
+        // myApp.alert("old");
+        oldUserType(resultSet);
+      }
+    },
+    function (error) {
+      myApp.alert('SELECT error (user type): ' + error.message);
+    }
   );
 
+});
+
+function insertSentMsgData(res) {
+  //Inserting parsed json values into localDB
+  // myApp.alert("in insert func");
+  for (i = 0; i < res.length; i++) {
+    var query = "INSERT INTO msg_data VALUES (?,?,?,?,?,?,?)";
+    db.executeSql(query, [res[i].msg_id, res[i].date, res[i].time, res[i].department, res[i].year, res[i].subject, res[i].message], function (result) {
+      // myApp.alert("rowsAffected: " + result.rowsAffected);
+    },
+      function (error) {
+        myApp.alert('INSERT error(server data to localDB): ' + error.message);
+      }
+    );
+  }
+}
+
+function getNDisplaySentMsgData() {
+  //Getting data to display in received msgs list
+  // myApp.alert("in display func");
+  var query = "SELECT * FROM msg_data ORDER BY msg_id DESC";
+  var msg_html = "";
+  db.executeSql(query, [], function (resultSet) {
+    for (var x = 0; x < resultSet.rows.length; x++) {
+
+      //Setting varibles to be concatenated into dynamic html string below
+      var msg_id = resultSet.rows.item(x).msg_id;
+      var dept_year = resultSet.rows.item(x).department + "  (" + resultSet.rows.item(x).year + ")";
+      var msg_date = resultSet.rows.item(x).date;
+      var msg_time = resultSet.rows.item(x).time;
+      var msg_subject = resultSet.rows.item(x).subject;
+      var message_content = resultSet.rows.item(x).message;
+
+      if (message_content.length > 40) {
+        var message_content_short = message_content.substring(0, 39) + "...";
+      }
+      else {
+        var message_content_short = message_content;
+      }
+
+      //Dynamic html for list of msgs
+      msg_html = msg_html +
+        '<li id="' + msg_id + '" class="msg">' +
+        '<div class="item-inner">' +
+        '<div class="item-title-row">' +
+        '<div class="item-title">' + dept_year + '</div>' +
+        '<div class="item-after">' + msg_time + '</div>' +
+        '</div>' +
+        '<div class="item-subtitle">' + msg_subject + '</div>' +
+        '<div class="item-text">' + message_content_short + '</div>' +
+        '<div class="item-subtitle" style="text-align:right">' + msg_date + '</div>' +
+        '</div>' +
+        '</li>';
+    }
+
+    //Inserting generated html from above into parent html element i.e <ul> with id #msg_list
+    $$("#msg_list").html(msg_html);
+  },
+    function (error) {
+      myApp.alert('SELECT error (msgs from localDB): ' + error.message);
+    }
+  );
+}
+
+function newUserFunc() {
+  // myApp.alert("in new func");
+  var type = "new";
+  // var date = moment().format('l');
+  // var time = moment().format('LT');
+  $$.ajax({
+    type: "POST",
+    url: "http://bling-test.000webhostapp.com/get-sent-msg-data.php",
+    data: { fac_id : localStorage.id },
+    crossDomain: true,
+    cache: false,
+    success: function (data) {
+      // myApp.alert(type+localStorage.department+localStorage.year);
+      // myApp.alert(data);
+
+      if (data.length > 10) {
+        res = JSON.parse(data);
+        insertSentMsgData(res);
+        getNDisplaySentMsgData();
+      }
+      else{
+        $$("#msg_list").html('<p style:"text-align:center">No messages sent</p>');
+      }
+    }
+  });
+}
+
+$$(document).on("pageInit", '.page[data-page="sent-message"]', function (e) {
+
+  // if (!localStorage.table_create_flag) {
+  db.sqlBatch(
+    ["CREATE TABLE IF NOT EXISTS msg_data (msg_id PRIMARY KEY, date, time, department, year, subject, message)"],
+    function () {
+      // localStorage.table_create_flag = 1;
+      myApp.alert("msg_data table created");
+    },
+    function (error) {
+      myApp.alert("SQL batch ERROR: " + error.message);
+    });
+  // }
+
+  var query = "SELECT msg_id FROM msg_data ORDER BY msg_id DESC";
+
+  db.executeSql(query, [], function (resultSet) {
+    if (resultSet.rows.length == 0) {
+      // myApp.alert("new");
+      newUserFunc();
+    }
+    else {
+      // myApp.alert("old");
+      getNDisplaySentMsgData();
+    }
+  },
+    function (error) {
+      myApp.alert('SELECT error (user type): ' + error.message);
+    }
+  );
 
 });
+

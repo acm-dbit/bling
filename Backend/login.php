@@ -8,13 +8,28 @@
     $id = $_POST["id"];
     $pass = $_POST["pass"];
 
-    $s_chk = "SELECT name,id,pass FROM stud_data WHERE id='$id' AND pass='$pass'";
-    $f_chk = "SELECT name,id,pass FROM fac_data WHERE id='$id' AND pass='$pass'";
+    $s_chk = "SELECT name,id,pass,department,semester FROM stud_data WHERE id='$id' AND pass='$pass'";
+    $f_chk = "SELECT name,id,pass,name FROM fac_data WHERE id='$id' AND pass='$pass'";
 
     $s_result = $conn->query($s_chk);
 
+    function getYear($semester) {
+        if($semester == 1 || $semester == 2)
+            return "FE";
+        elseif($semester == 2 || $semester == 3)
+            return "SE";
+        elseif($semester == 4 || $semester == 5)
+            return "TE";
+        elseif($semester == 7 || $semester == 8)
+            return "BE";
+    }
+
     if($s_result->num_rows > 0){
-        echo "student";
+        $row = $s_result->fetch_assoc();
+        $department = $row['department'];
+        $year = getYear($row['semester']);
+        $res = '{"res_type":"student","department":"'.$department.'","year":"'.$year.'"}';
+        echo $res;
     }
 
     else{
@@ -22,13 +37,19 @@
         $f_result = $conn->query($f_chk);
 
         if($f_result->num_rows > 0){
-            echo "faculty";
+            $row = $f_result->fetch_assoc();
+            $fac_name = $row['name'];
+            $res = '{"res_type":"faculty","fac_name":"'.$fac_name.'"}';
+            echo $res;
         }
 
-        else
-        echo "failed";
+        else{
+            $res = '{"res_type":"failed"}';
+            echo $res;
+        }
+
 
     }
-        
+
     $conn->close();
 ?>
