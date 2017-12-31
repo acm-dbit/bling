@@ -30,6 +30,7 @@
     <plugin name="cordova-plugin-whitelist" spec="~1.2.0" />
     <plugin name="cordova-plugin-console" spec="~1.0.1" />
     <plugin name="cordova-plugin-statusbar" spec="~1.0.1" />
-    <plugin name="cordova-plugin-firebase" spec="https://github.com/arnesson/cordova-plugin-firebase.git" />
+    <plugin name="cordova-plugin-firebase" spec="git+https://github.com/arnesson/cordova-plugin-firebase.git" />
     <plugin name="cordova-sqlite-storage" spec="^2.1.4" />
+    <plugin name="cordova-plugin-camera" spec="^4.0.1" />
 </widget>

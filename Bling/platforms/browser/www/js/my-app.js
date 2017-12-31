@@ -261,6 +261,26 @@ $$(document).on('pageInit', '.page[data-page="message"]', function (e) {
     });
 })
 
+//javascript code for accessing the camera
+$$(document).on('pageInit', '.page[data-page="camera"]', function (e) {
+
+    $$('#cam_btn').on('click', function () {
+
+        navigator.camera.getPicture(function(result){
+          
+          $$("#image").attr("src",result);
+        },
+
+        function(error){
+        console.log(error);
+        },
+
+        {
+        sourceType : Camera.PictureSourceType.CAMERA
+        });
+    });
+})
+
 function insertMsgData(res){
   //Inserting parsed json values into localDB
   // myApp.alert("in insert func");

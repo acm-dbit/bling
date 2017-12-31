@@ -21,6 +21,9 @@
     },
     "cordova-sqlite-storage": {
       "PACKAGE_NAME": "com.dbitacm.bling"
+    },
+    "cordova-plugin-camera": {
+      "PACKAGE_NAME": "com.dbitacm.bling"
     }
   },
   "dependent_plugins": {}

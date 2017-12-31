@@ -16,10 +16,13 @@
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.dbitacm.bling"
     },
+    "cordova-sqlite-storage": {
+      "PACKAGE_NAME": "com.dbitacm.bling"
+    },
     "cordova-plugin-firebase": {
       "PACKAGE_NAME": "com.dbitacm.bling"
     },
-    "cordova-sqlite-storage": {
+    "cordova-plugin-camera": {
       "PACKAGE_NAME": "com.dbitacm.bling"
     }
   },
