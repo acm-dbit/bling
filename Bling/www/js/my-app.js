@@ -237,7 +237,7 @@ $$(document).on('pageInit', '.page[data-page="message"]', function (e) {
               crossDomain: true,
               cache: false,
               success: function(data){
-                myApp.alert(data);
+                // myApp.alert(data);
                 var resx = JSON.parse(data);
                 if(resx.res_type=="success")
                 {
@@ -247,7 +247,7 @@ $$(document).on('pageInit', '.page[data-page="message"]', function (e) {
                   resx["department"] = department;
                   resx["year"] = year;
                   res.push(resx);
-                  myApp.alert(JSON.stringify(res));
+                  // myApp.alert(JSON.stringify(res));
                   insertSentMsgData(res);
                   myApp.alert("Message sent Successfully!");
                   mainView.router.loadPage('sent-message.html');
