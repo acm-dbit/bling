@@ -1,0 +1,100 @@
+{{#if @global.ios}}
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="left sliding">
+      <a href="#" class="back">
+        <i class="icon icon-back"></i>
+        <span>Back</span>
+      </a>
+    </div>
+    <div class="center sliding">New Message</div>
+  </div>
+</div>
+{{/if}}
+
+<div class="page" data-page="message">
+  <!-- Fixed navbar for Material theme -->
+  {{#if @global.android}}
+  <div class="navbar">
+    <div class="navbar-inner">
+      <div class="left">
+        <a href="#" class="back icon-only">
+          <i class="icon icon-back"></i>
+          
+        </a>
+      </div>
+      <div class="center">Message</div>
+    </div>
+  </div>
+  {{/if}}
+
+  <!-- For Search Bar -->
+ <form data-search-list=".list-block-search" data-search-in=".item-title" class="searchbar searchbar-init">
+    <div class="searchbar-input">
+       <input type="search" placeholder="Search"><a href="#" class="searchbar-clear"></a>
+    </div><a  class="searchbar-cancel">Cancel</a>
+  </form>
+ 
+  <!-- Search Bar overlay -->
+  <div class="searchbar-overlay"></div>
+ 
+  <div class="page-content" id="page1">
+     
+     <div class="list-block list-block-search">
+       
+       <!-- Design message list interface using Cards -->
+       <div class="list-block cards-list"> 
+        <ul>
+        <li>
+        <div class="card">
+          <div class="card-header">OOP Moodle Test<i class="material-icons">star_border</i></div>
+            <div class="card-content">
+              <div class="card-content-inner">
+                <p class="color-gray">Posted on January 1, 2018</p>
+                <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an has been the industry's standard dummy ...</p>
+              </div>
+            </div>
+            <div class="card-footer" id="footer">
+                  <a href="#" class="link" >Read more</a>
+
+            </div>
+        </div>
+        </li>
+
+        <li>
+        <div class="card">
+          <div class="card-header">OOP Moodle Test<i class="material-icons">star_border</i></div>
+            <div class="card-content">
+              <div class="card-content-inner">
+                <p class="color-gray">Posted on January 1, 2018</p>
+                <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an has been the industry's standard dummy ...</p>
+              </div>
+            </div>
+            <div class="card-footer" id="footer" >
+                  <a href="#" class="link"></a>
+                  <a href="#" class="link">Read more</a>
+            </div>
+        </div>
+        </li>
+        
+        <li>
+        <div class="card">
+          <div class="card-header">OOP Moodle Test</div>
+            <div class="card-content">
+              <div class="card-content-inner">
+                <p class="color-gray">Posted on January 1, 2018</p>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard.....</p></div>
+            </div>
+            <div class="card-footer" id="footer">
+                  <a href="#" class = "link" >Read more</a>  
+                  <i class="material-icons">turned_in_not</i>                 
+            </div>
+        </div>
+        </li>
+
+       </ul>
+        </div> 
+      </div>     
+    </div>
+  </div>
+</div>       

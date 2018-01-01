@@ -15,8 +15,14 @@
 }
 
 #footer {
-   position:absolute;
-   bottom:0;
-   width:100%;
-   height:60px;
+   background: #fafafa;
+}
+
+#page1 {
+      background: #dcdde2;
+
+}
+
+#read {
+    text-align:  right;
 }
