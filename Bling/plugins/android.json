@@ -24,6 +24,12 @@
     },
     "cordova-plugin-camera": {
       "PACKAGE_NAME": "com.dbitacm.bling"
+    },
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "com.dbitacm.bling"
+    },
+    "cordova-plugin-filepath": {
+      "PACKAGE_NAME": "com.dbitacm.bling"
     }
   },
   "dependent_plugins": {}

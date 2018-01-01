@@ -261,6 +261,8 @@ dependencies {
     compile "com.google.firebase:firebase-crash:+"
     compile "com.google.firebase:firebase-config:+"
     compile "com.android.support:support-v4:24.1.1+"
+    compile "com.android.support:support-v4:25.+"
+    compile "com.android.support:appcompat-v7:25.+"
     // SUB-PROJECT DEPENDENCIES END
 }
 
