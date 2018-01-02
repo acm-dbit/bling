@@ -45,6 +45,12 @@ function Application(){
     mainView.router.loadPage('pages/prefer.html');
   });
 
+  $$('#logoutID').on('click',function(e)
+  {
+    localStorage.id = undefined;
+    mainView.router.loadPage('index.html');
+  });
+
 }
 
 Application();
@@ -55,6 +61,18 @@ Application();
 var db = null;
 
 document.addEventListener("deviceready", function () {
+
+  if(localStorage.id != undefined){
+    console.log("Not null:"+localStorage.id);
+    if(localStorage.type == 1){
+      mainView.router.loadPage('received-message.html');
+    }
+
+    else if(localStorage.type == 2){
+      mainView.router.loadPage('sent-message.html');
+    }
+  }
+
   db = window.sqlitePlugin.openDatabase({
     name: "bling.db",
     location: "default"

@@ -128,6 +128,7 @@
     </div>
 
   </div>
+</div>
 
 
 
@@ -187,6 +188,7 @@
             localStorage.id = id;
             localStorage.department = res.department;
             localStorage.year = res.year;
+            localStorage.type = 1;
             dropCheck(localStorage.id);
             mainView.router.loadPage('received-message.html');
           }
@@ -194,6 +196,7 @@
           else if(res.res_type == "faculty") {
             localStorage.id = id;
             localStorage.name = res.fac_name;
+            localStorage.type = 2;
             alert(localStorage.name);
             dropCheck(localStorage.id);
             mainView.router.loadPage('sent-message.html');
@@ -231,7 +234,6 @@
   </script>
 
   <script src="js/my-app.js"></script>
-</div>
 </body>
 
 </html>
