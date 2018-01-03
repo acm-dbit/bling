@@ -219,11 +219,33 @@
         window.FirebasePlugin.onTokenRefresh(function (token) {
 
           localStorage.token = token;
+          id = localStorage.id;
           alert(token);
 
-          
+          $$.ajax({
+        type: "POST",
+        url: "http://bling-test.000webhostapp.com/refresh-token.php",
+        data: {
+          id: id,
+          token: token
+        },
+        crossDomain: true,
+        cache: false,
+        success: function (data) {
+          var resp = JSON.parse(data);
 
-        });
+          if(resp.msg == 'success'){
+            myApp.alert("Token update successfull");
+          }
+
+          else{
+            myApp.alert("Token update unsuccessfull (Ignore if new user)");
+          }
+
+        }
+    });
+
+    });
 
       } catch (e) {
 
