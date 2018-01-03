@@ -34,6 +34,17 @@ function Application(){
   });
 
   var mainView = myApp.addView('.view-main');
+
+  var id = localStorage.id;
+
+  if(id != "null"){
+    $$('#log-list').show();
+  }
+
+  else{
+    $$('#log-list').hide();
+  }
+
   $$('#toggleID').on('click',function()
   {
     myApp.openPanel('left');
@@ -65,6 +76,7 @@ document.addEventListener("deviceready", function () {
   var id = localStorage.id;
 
   if(id != "null"){
+
     myApp.alert("Not undef:"+id);
     if(localStorage.type == 1){
       mainView.router.loadPage('received-message.html');
