@@ -24,21 +24,29 @@
         </a>
       </div>
       <div class="center">Message</div>
+      
     </div>
   </div>
   {{/if}}
 
   <!-- For Search Bar -->
- <form data-search-list=".list-block-search" data-search-in=".item-title" class="searchbar searchbar-init">
-    <div class="searchbar-input">
-       <input type="search" placeholder="Search"><a href="#" class="searchbar-clear"></a>
-    </div><a  class="searchbar-cancel">Cancel</a>
-  </form>
+ <div class="subnavbar">
+        <div class="subnavbar-inner">
+          <div class="segmented segmented-raised">
+            <form data-search-list=".list-block-search" data-search-in=".item-title" class="searchbar searchbar-init">
+          <div class="searchbar-input">
+              <input type="search" placeholder="Search"><a href="#" class="searchbar-clear"></a>
+          </div><a  class="searchbar-cancel">Cancel</a>
+          </form>
  
+          </div>
+        </div>
+      </div>
+
   <!-- Search Bar overlay -->
   <div class="searchbar-overlay"></div>
  
-  <div class="page-content" id="page1">
+  <div class="page-content hide-navbar-on-scroll" id="page1">
      
      <div class="list-block list-block-search">
        
@@ -47,7 +55,7 @@
         <ul>
         <li>
         <div class="card">
-          <div class="card-header">OOP Moodle Test<i class="material-icons">star_border</i></div>
+          <div class="card-header">OOP Moodle Test<i class="f7-icons">star_border</i></div>
             <div class="card-content">
               <div class="card-content-inner">
                 <p class="color-gray">Posted on January 1, 2018</p>
@@ -63,7 +71,7 @@
 
         <li>
         <div class="card">
-          <div class="card-header">OOP Moodle Test<i class="material-icons">star_border</i></div>
+          <div class="card-header">OOP Moodle Test<i class="f7-icons">star_border</i></div>
             <div class="card-content">
               <div class="card-content-inner">
                 <p class="color-gray">Posted on January 1, 2018</p>
@@ -87,7 +95,7 @@
             </div>
             <div class="card-footer" id="footer">
                   <a href="#" class = "link" >Read more</a>  
-                  <i class="material-icons">turned_in_not</i>                 
+                  <i class="f7-icons">bookmark</i>                 
             </div>
         </div>
         </li>
