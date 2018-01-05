@@ -34,6 +34,17 @@ function Application(){
   });
 
   var mainView = myApp.addView('.view-main');
+
+  var id = localStorage.id;
+
+  if(id != "null"){
+    $$('#log-list').show();
+  }
+
+  else{
+    $$('#log-list').hide();
+  }
+
   $$('#toggleID').on('click',function()
   {
     myApp.openPanel('left');
@@ -47,8 +58,8 @@ function Application(){
 
   $$('#logoutID').on('click',function(e)
   {
-    localStorage.id = undefined;
-    mainView.router.loadPage('index.html');
+    localStorage.id = null;
+    location.reload();
   });
 
 }
@@ -62,8 +73,11 @@ var db = null;
 
 document.addEventListener("deviceready", function () {
 
-  if(localStorage.id != undefined){
-    console.log("Not null:"+localStorage.id);
+  var id = localStorage.id;
+
+  if(id != "null"){
+
+    myApp.alert("Not undef:"+id);
     if(localStorage.type == 1){
       mainView.router.loadPage('received-message.html');
     }
@@ -676,92 +690,145 @@ $$(document).on("pageInit", '.page[data-page="view-received-message"]', function
 });
 
 
+$$(document).on("pageInit", '.page[data-page="upload"]', function (e) {
 
+//     $$("#file").change(function() {
+//       window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+//         console.log('file system open: ' + fs.name);
+//         fs.root.getFile(this.files[0], { create: true, exclusive: false }, function (fileEntry) {
+//             fileEntry.file(function (file) {
+//                 var reader = new FileReader();
+//                 reader.onloadend = function() {
+//                     // Create a blob based on the FileReader "result", which we asked to be retrieved as an ArrayBuffer
+//                     console.log(tnis.result);
+//                     var blob = new Blob([new Uint8Array(this.result)], { type: "image/jpg" });
+//                     var oReq = new XMLHttpRequest();
+//                     oReq.open("POST", "http://bling-test.000webhostapp.com/upload.php", true);
+//                     oReq.onload = function (oEvent) {
+//                         // all done!
+//                     };
+//                     // Pass the blob in to XHR's send method
+//                     oReq.send(blob);
+//                 };
+//                 // Read the file as an ArrayBuffer
+//                 reader.readAsArrayBuffer(file);
+//             }, function (err) { console.error('error getting fileentry file!' + err); });
+//         }, function (err) { console.error('error getting file! ' + err); });
+//     }, function (err) { console.error('error getting persistent fs! ' + err); });
+    
+//     });
 
+  $$("#uploadimage").on('submit',(function(e) {
 
+    console.log("submit click");
+    console.log(new FormData(this));
 
-function openFilePicker(selection) {
+    e.preventDefault();
 
-    var srcType = Camera.PictureSourceType.PHOTOLIBRARY;
-    var options = setOptions(srcType);
-    var func = createNewFileEntry;
-
-    navigator.camera.getPicture(function cameraSuccess(imageUri) {
-
-        onUploadFile(imageUri);
-    }, function cameraError(error) {
-        console.debug("Unable to obtain picture: " + error, "app");
-
-    }, options);
-}
-
-
-
-function onUploadFile(imageUri) {
-    window.requestFileSystem(window.TEMPORARY, 5 * 1024 * 1024, function (fs) {
-
-        console.log('file system open: ' + fs.name);
-        var fileName = imageUri;
-        var dirEntry = fs.root;
-        dirEntry.getFile(fileName, { create: true, exclusive: false }, function (fileEntry) {
-
-            // Write something to the file before uploading it.
-            writeFile(fileEntry);
-
-        }, onErrorCreateFile);
-
-    }, onErrorLoadFs);
-}
-
-function writeFile(fileEntry, dataObj) {
-    // Create a FileWriter object for our FileEntry (log.txt).
-    fileEntry.createWriter(function (fileWriter) {
-
-        fileWriter.onwriteend = function () {
-            console.log("Successful file write...");
-            upload(fileEntry);
-        };
-
-        fileWriter.onerror = function (e) {
-            console.log("Failed file write: " + e.toString());
-        };
-
-        if (!dataObj) {
-          dataObj = new Blob(['file data to upload'], { type: 'text/plain' });
-        }
-
-        fileWriter.write(dataObj);
+    $$.ajax({
+    type: "POST",             // Type of request to be send, called as method
+    url: "http://bling-test.000webhostapp.com/upload.php", // Url to which the request is send
+    //url: "http://localhost/upload.php", // Url to which the request is send
+    data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+    crossDomain: true,
+    cache: false,             // To unable request pages to be cached
+    success: function(data)   // A function to be called if request succeeds
+    {
+      myApp.alert("success");
+    }
     });
-}
+
+    return false;
+    }));
+});
 
 
-function upload(fileEntry) {
-    // !! Assumes variable fileURL contains a valid URL to a text file on the device,
-    var fileURL = fileEntry.toURL();
 
-    var success = function (r) {
-        console.log("Successful upload...");
-        console.log("Code = " + r.responseCode);
-        // displayFileData(fileEntry.fullPath + " (content uploaded to server)");
-    }
 
-    var fail = function (error) {
-        alert("An error has occurred: Code = " + error.code);
-    }
 
-    var options = new FileUploadOptions();
-    options.fileKey = "file";
-    options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
-    options.mimeType = "text/plain";
 
-    var params = {};
-    params.value1 = "test";
-    params.value2 = "param";
+// function openFilePicker(selection) {
 
-    options.params = params;
+//     var srcType = Camera.PictureSourceType.PHOTOLIBRARY;
+//     var options = setOptions(srcType);
+//     var func = createNewFileEntry;
 
-    var ft = new FileTransfer();
-    // SERVER must be a URL that can handle the request, like
-    // http://some.server.com/upload.php
-    ft.upload(fileURL, encodeURI(SERVER), success, fail, options);
-};
+//     navigator.camera.getPicture(function cameraSuccess(imageUri) {
+
+//         onUploadFile(imageUri);
+//     }, function cameraError(error) {
+//         console.debug("Unable to obtain picture: " + error, "app");
+
+//     }, options);
+// }
+
+
+
+// function onUploadFile(imageUri) {
+//     window.requestFileSystem(window.TEMPORARY, 5 * 1024 * 1024, function (fs) {
+
+//         console.log('file system open: ' + fs.name);
+//         var fileName = imageUri;
+//         var dirEntry = fs.root;
+//         dirEntry.getFile(fileName, { create: true, exclusive: false }, function (fileEntry) {
+
+//             // Write something to the file before uploading it.
+//             writeFile(fileEntry);
+
+//         }, onErrorCreateFile);
+
+//     }, onErrorLoadFs);
+// }
+
+// function writeFile(fileEntry, dataObj) {
+//     // Create a FileWriter object for our FileEntry (log.txt).
+//     fileEntry.createWriter(function (fileWriter) {
+
+//         fileWriter.onwriteend = function () {
+//             console.log("Successful file write...");
+//             upload(fileEntry);
+//         };
+
+//         fileWriter.onerror = function (e) {
+//             console.log("Failed file write: " + e.toString());
+//         };
+
+//         if (!dataObj) {
+//           dataObj = new Blob(['file data to upload'], { type: 'text/plain' });
+//         }
+
+//         fileWriter.write(dataObj);
+//     });
+// }
+
+
+// function upload(fileEntry) {
+//     // !! Assumes variable fileURL contains a valid URL to a text file on the device,
+//     var fileURL = fileEntry.toURL();
+
+//     var success = function (r) {
+//         console.log("Successful upload...");
+//         console.log("Code = " + r.responseCode);
+//         // displayFileData(fileEntry.fullPath + " (content uploaded to server)");
+//     }
+
+//     var fail = function (error) {
+//         alert("An error has occurred: Code = " + error.code);
+//     }
+
+//     var options = new FileUploadOptions();
+//     options.fileKey = "file";
+//     options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
+//     options.mimeType = "text/plain";
+
+//     var params = {};
+//     params.value1 = "test";
+//     params.value2 = "param";
+
+//     options.params = params;
+
+//     var ft = new FileTransfer();
+//     // SERVER must be a URL that can handle the request, like
+//     // http://some.server.com/upload.php
+//     ft.upload(fileURL, encodeURI(SERVER), success, fail, options);
+// };

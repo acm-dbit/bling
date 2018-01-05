@@ -8,24 +8,21 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <title>My App</title>
   <!-- We will include related CSS styles using JavaScript -->
+  <link rel="stylesheet" href="lib/framework7/css/framework7.material.min.css">
+  <link rel="stylesheet" href="lib/framework7/css/framework7.material.colors.min.css">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="lib/framework7/css/ionicons.css">
   <link rel="stylesheet" type="text/css" href="lib/framework7/css/framework7-icons.css">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
-  <link rel="stylesheet" href="lib/framework7/css/framework7.material.min.css">
-  <link rel="stylesheet" href="lib/framework7/css/framework7.material.colors.min.css">
-  <script src="lib\framework7\js\moment-with-locales.min.js"></script>
-
 </head>
 
 <body>
 
-
 <div class="panel-overlay"></div>
     <!-- Left panel with reveal effect-->
 
-    <div class="panel panel-left panel-reveal">
+    <div class="panel panel-left panel-cover">
       <div class="content-block-title" align="center">
         <h2>LOGO</h2>
       </div>
@@ -48,10 +45,9 @@
             </div>
 
           </li>
-          <li class="item-content list-panel-logout close-panel item-link">
-            <div class="item-media"><i class="icon ion-ios7-close"></i></div>
+          <li class="item-content list-panel-logout close-panel item-link" id="log-list">
             <div class="item-inner">
-              <div class="item-title" id="logoutID">Log out</div>
+              <div class="item-title" id="logoutID">Logout</div>
             </div>
           </li>
 
@@ -128,6 +124,7 @@
     </div>
 
   </div>
+</div>
 
 
 
@@ -162,6 +159,8 @@
 
     $$('#login').on('click', function () {
 
+      $$('#log-list').show();
+      
       var id = $$("#id").val();
       var pass = $$("#pass").val();
 
@@ -220,9 +219,33 @@
         window.FirebasePlugin.onTokenRefresh(function (token) {
 
           localStorage.token = token;
+          id = localStorage.id;
           alert(token);
 
-        });
+          $$.ajax({
+        type: "POST",
+        url: "http://bling-test.000webhostapp.com/refresh-token.php",
+        data: {
+          id: id,
+          token: token
+        },
+        crossDomain: true,
+        cache: false,
+        success: function (data) {
+          var resp = JSON.parse(data);
+
+          if(resp.msg == 'success'){
+            myApp.alert("Token update successfull");
+          }
+
+          else{
+            myApp.alert("Token update unsuccessfull (Ignore if new user)");
+          }
+
+        }
+    });
+
+    });
 
       } catch (e) {
 
@@ -233,7 +256,7 @@
   </script>
 
   <script src="js/my-app.js"></script>
-</div>
+  <script src="lib\framework7\js\moment-with-locales.min.js"></script>
 </body>
 
 </html>
