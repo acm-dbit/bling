@@ -342,7 +342,7 @@ function insertMsgData(res){
 
 function getNDisplayMsgData(query){
   //Getting data to display in received msgs list
-  // myApp.alert("in display func");
+   myApp.alert("in display func");
   var msg_html = "";
   db.executeSql(query, [], function (resultSet) {
     for (var x = 0; x < resultSet.rows.length; x++) {
@@ -355,6 +355,9 @@ function getNDisplayMsgData(query){
       var msg_subject = resultSet.rows.item(x).subject;
       var message_content = resultSet.rows.item(x).message;
       var starred_flag = resultSet.rows.item(x).starred;
+
+      myApp.alert(msg_id);
+      myApp.alert(starred_flag);
 
       if (starred_flag == "yes") {
         star_icon_class = " color-yellow"
@@ -399,7 +402,7 @@ function getNDisplayMsgData(query){
       // alert($$(".card-header").html());
     }
 
-    alert($$("#msg_list").html());
+    // alert($$("#msg_list").html());
 
   },
     function (error) {
@@ -506,8 +509,9 @@ $$(document).on("pageInit", '.page[data-page="received-message"]', function(e) {
     mainView.router.loadPage('view-received-message.html');
   });
 
+  $$('#msg_list').on("click", "i.star-icon", function (e) {
 
-  $$("i.star-icon").on("click", function () {
+    myApp.alert("clickeeeed");
 
     var icon_id = $$(this).attr("id");
     myApp.alert(icon_id);
@@ -585,7 +589,7 @@ $$(document).on("pageInit", '.page[data-page="starred-msgs"]', function (e) {
   });
 
 
-  $$("i.star-icon").on("click", function (e) {
+  $$('#msg_list').on("click", "i.star-icon", function (e) {
 
     var icon_id = $$(this).attr("id");
     var id = icon_id.substring(3, icon_id.length);
