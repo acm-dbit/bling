@@ -70,7 +70,7 @@ function Application(){
 
   $$('#logoutID').on('click',function(e)
   {
-    localStorage.id = null;
+    localStorage.removeItem('id');
     location.reload();
   });
 
@@ -87,9 +87,9 @@ document.addEventListener("deviceready", function () {
 
   var id = localStorage.id;
 
-  if(id != "null"){
+  if(typeof id != "undefined"){
 
-    myApp.alert("Not undef:"+id);
+    myApp.alert("Logged in user id: "+id);
     if(localStorage.type == 1){
       mainView.router.loadPage('received-message.html');
     }
@@ -107,7 +107,7 @@ document.addEventListener("deviceready", function () {
 });
 
 function dropCheck(u_id){
-  myApp.alert("in drop check function");
+  // myApp.alert("in drop check function");
   if(localStorage.prev_id != u_id){
     db.executeSql("DROP TABLE IF EXISTS msg_data", [], function (resultSet) {
       // myApp.alert("DROP statement executed");
