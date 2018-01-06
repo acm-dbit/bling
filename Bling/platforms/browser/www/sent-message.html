@@ -17,7 +17,7 @@ Differences:
         <span>Back</span>
       </a>
     </div>
-    <div class="center sliding">Message</div>
+    <div class="center sliding">Sent Messages</div>
   </div>
 </div>
 {{/if}}
@@ -32,7 +32,7 @@ Differences:
           <i class="icon icon-back"></i>
         </a>
       </div>
-      <div class="center">Message</div>
+      <div class="center">Sent Messages</div>
     </div>
   </div>
   {{/if}}
@@ -42,13 +42,24 @@ Differences:
     <i class="icon icon-plus"></i>
   </a>
 
-  <div class="page-content">
-    <div class="content-block-title">Sent Messages</div>
-    <div class="list-block media-list">
-      <ul id="msg_list">
-
-      </ul>
-    </div>
+<form data-search-list=".list-block-search" data-search-in=".item-title" class="searchbar searchbar-init">
+  <div class="searchbar-input">
+    <input type="search" placeholder="Search">
+    <a href="#" class="searchbar-clear"></a>
   </div>
+  <a class="searchbar-cancel">Cancel</a>
+</form>
 
+<!-- Search Bar overlay -->
+<div class="searchbar-overlay"></div>
+<div class="page-content">
+  <div class="content-block searchbar-not-found">
+    Nothing found
+  </div>
+  <div class="list-block cards-list list-block-search searchbar-found">
+    <ul id="msg_list">
+
+    </ul>
+  </div>
+</div>
 </div>

@@ -45,9 +45,21 @@ function Application(){
     $$('#log-list').hide();
   }
 
+  if (localStorage.type == 1) {
+    $$('#starred-msgs-link').show();
+  }
+
+  else if (localStorage.type == 2) {
+    $$('#starred-msgs-link').hide();
+  }
+
   $$('#toggleID').on('click',function()
   {
     myApp.openPanel('left');
+  });
+
+  $$('##starred-msgs-link').on('click', function (e) {
+    mainView.router.loadPage('starred-msgs.html');
   });
 
   $$('#prefID').on('click',function(e)
@@ -317,7 +329,7 @@ function insertMsgData(res){
   //Inserting parsed json values into localDB
   // myApp.alert("in insert func");
   for (i = 0; i < res.length; i++) {
-    var query = "INSERT INTO msg_data VALUES (?,?,?,?,?,?,?)";
+    var query = "INSERT INTO msg_data (msg_id, id, date, time, fac_name, subject, message) VALUES (?,?,?,?,?,?,?)";
     db.executeSql(query, [res[i].msg_id, res[i].id, res[i].date, res[i].time, res[i].fac_name, res[i].subject, res[i].message], function (result) {
       // myApp.alert("rowsAffected: " + result.rowsAffected);
     },
@@ -328,10 +340,9 @@ function insertMsgData(res){
   }
 }
 
-function getNDisplayMsgData(){
+function getNDisplayMsgData(query){
   //Getting data to display in received msgs list
   // myApp.alert("in display func");
-  var query = "SELECT * FROM msg_data ORDER BY msg_id DESC";
   var msg_html = "";
   db.executeSql(query, [], function (resultSet) {
     for (var x = 0; x < resultSet.rows.length; x++) {
@@ -343,30 +354,53 @@ function getNDisplayMsgData(){
       var msg_time = resultSet.rows.item(x).time;
       var msg_subject = resultSet.rows.item(x).subject;
       var message_content = resultSet.rows.item(x).message;
-      if (message_content.length > 40) {
-        var message_content_short = message_content.substring(0, 39) + "...";
+      var starred_flag = resultSet.rows.item(x).starred;
+
+      if (starred_flag == "yes") {
+        star_icon_class = " color-yellow"
+        icon = "star_filled";
+      }
+      else {
+        star_icon_class = "";
+        icon = "star";
+      }
+
+      if (message_content.length > 50) {
+        var message_content_short = message_content.substring(0, 49) + "...";
       }
       else {
         var message_content_short = message_content;
       }
 
       //Dynamic html for list of msgs
-      msg_html = msg_html +
-        '<li id="' + msg_id + '" class="msg">' +
-        '<div class="item-inner">' +
-        '<div class="item-title-row">' +
-        '<div class="item-title">' + msg_fac_name + '</div>' +
-        '<div class="item-after">' + msg_time + '</div>' +
-        '</div>' +
-        '<div class="item-subtitle">' + msg_subject + '</div>' +
-        '<div class="item-text">' + message_content_short + '</div>' +
-        '<div class="item-subtitle" style="text-align:right">' + msg_date + '</div>' +
-        '</div>' +
-        '</li>';
+      msg_html =
+        '<li id="li_'+msg_id+'" class="msg">'+
+          '<div class="card">'+
+              '<div class="card-header item-title">'+msg_subject+
+                  '<i id="ic_'+msg_id+'" class="star-icon f7-icons'+star_icon_class+'">'+icon+'</i>'+
+              '</div>'+
+              '<div class="card-content">'+
+                '<div class="card-content-inner">'+
+                  '<p class="sender color-gray">Posted by '+msg_fac_name+'</p>'+
+                  '<p class="content">' + message_content_short+'</p>'+
+                  '</div>'+
+              '</div>'+
+              '<div class="card-footer" id="footer">'+
+                  '<label id="date">'+msg_date+'</label>'+
+                  '<label id="time">' + msg_time+'</label>'+
+              '</div>'+
+          '</div>'+
+      '</li>';
+
+
+
+      //Appending generated html from above into parent html element i.e <ul> with id #msg_list
+      $$("#msg_list").append(msg_html);
+      // alert($$(".card-header").html());
     }
 
-    //Inserting generated html from above into parent html element i.e <ul> with id #msg_list
-    $$("#msg_list").html(msg_html);
+    alert($$("#msg_list").html());
+
   },
     function (error) {
       myApp.alert('SELECT error (msgs from localDB): ' + error.message);
@@ -392,7 +426,8 @@ function newUserType(){
       if (data.length > 50) {
         res = JSON.parse(data);
         insertMsgData(res);
-        getNDisplayMsgData();
+        var query = "SELECT * FROM msg_data ORDER BY msg_id DESC";
+        getNDisplayMsgData(query);
       }
       else{
         $$("#msg_list").html('<p style:"text-align:center">No new messages</p>');
@@ -424,14 +459,20 @@ function oldUserType(resultSet) {
       }
     }
   });
-  getNDisplayMsgData();
+  var query = "SELECT * FROM msg_data ORDER BY msg_id DESC";
+  getNDisplayMsgData(query);
 }
 
 $$(document).on("pageInit", '.page[data-page="received-message"]', function(e) {
 
+  var mySearchbar = myApp.searchbar(".searchbar", {
+    searchList: ".list-block-search",
+    searchIn: ".card-header,.card-content-inner"
+  });
+
   // if (!localStorage.table_create_flag) {
   db.sqlBatch(
-    ["CREATE TABLE IF NOT EXISTS msg_data (msg_id PRIMARY KEY, id, date, time, fac_name, subject, message)"],
+    ["CREATE TABLE IF NOT EXISTS msg_data (msg_id PRIMARY KEY, id, date, time, fac_name, subject, message, starred DEFAULT 'no')"],
     function () {
       // localStorage.table_create_flag = 1;
       myApp.alert("msg_data table created");
@@ -460,8 +501,132 @@ $$(document).on("pageInit", '.page[data-page="received-message"]', function(e) {
 
   $$(document).on("click", "li.msg", function () {
     var id = $$(this).attr('id');
-    localStorage.clicked_msg_id = id;
+    alert(id);
+    localStorage.clicked_msg_id = id.substring(3,id.length);
     mainView.router.loadPage('view-received-message.html');
+  });
+
+
+  $$("i.star-icon").on("click", function () {
+
+    var icon_id = $$(this).attr("id");
+    myApp.alert(icon_id);
+    var id = icon_id.substring(3, icon_id.length);
+    myApp.alert(id);
+    var star_flag;
+
+    var query = "SELECT starred from msg_data WHERE msg_id = ?";
+    db.executeSql(query, [id], function (result) {
+      star_flag = res[0].starred;
+    },
+      function (error) {
+        myApp.alert('SELECT starred flag FAILED' + error.message);
+      }
+    );
+
+    if(star_flag == "no"){
+      var query = "UPDATE msg_data SET starred = 'yes' WHERE msg_id = ?";
+      db.executeSql(query, [id], function (result) {
+        myApp.alert('UPDATE star flag success' + error.message);
+      },
+        function (error) {
+          myApp.alert('UPDATE star flag FAILED' + error.message);
+        }
+      );
+      $$('#' + icon_id).addClass('color-yellow').html('star_filled');
+    }
+    else{
+      var query = "UPDATE msg_data SET starred = 'no' WHERE msg_id = ?";
+      db.executeSql(query, [id], function (result) {
+        myApp.alert('UPDATE star flag success' + error.message);
+      },
+        function (error) {
+          myApp.alert('UPDATE star flag FAILED' + error.message);
+        }
+      );
+      $$('#' + icon_id).removeClass('color-yellow').html('star');
+    }
+
+    e.stopPropagation();
+    e.preventDefault();
+  });
+
+});
+
+$$(document).on("pageInit", '.page[data-page="starred-msgs"]', function (e) {
+
+  var mySearchbar = myApp.searchbar(".searchbar", {
+    searchList: ".list-block-search",
+    searchIn: ".card-header,.card-content-inner"
+  });
+
+
+  var query = "SELECT msg_id FROM msg_data WHERE starred = 'yes' ORDER BY msg_id DESC";
+
+  db.executeSql(query, [], function (resultSet) {
+    if (resultSet.rows.length == 0) {
+      $$("#msg_list").html('<p style:"text-align:center">No starred messages</p>');
+
+    }
+    else {
+      // myApp.alert("old");
+      getNDisplayMsgData(query);
+    }
+  },
+    function (error) {
+      myApp.alert('SELECT error (user type): ' + error.message);
+    }
+  );
+
+  $$(document).on("click", "li.msg", function () {
+    var id = $$(this).attr('id');
+    localStorage.clicked_msg_id = id.substring(3, id.length);;
+    mainView.router.loadPage('view-received-message.html');
+  });
+
+
+  $$("i.star-icon").on("click", function (e) {
+
+    var icon_id = $$(this).attr("id");
+    var id = icon_id.substring(3, icon_id.length);
+    myApp.alert(id);
+    var star_flag;
+
+    var query = "SELECT starred from msg_data WHERE msg_id = ?";
+    db.executeSql(query, [id], function (result) {
+      star_flag = res[0].starred;
+    },
+      function (error) {
+        myApp.alert('SELECT starred flag FAILED' + error.message);
+      }
+    );
+
+    if (star_flag == "no") {
+      var query = "UPDATE msg_data SET starred = 'yes' WHERE msg_id = ?";
+      db.executeSql(query, [id], function (result) {
+        star_flag = res[0].starred;
+        myApp.alert('UPDATE star flag FAILED' + error.message);
+      },
+        function (error) {
+          myApp.alert('UPDATE star flag FAILED' + error.message);
+        }
+      );
+      $$('#' + icon_id).addClass('color-yellow').html('star_filled');
+    }
+    else {
+      var query = "UPDATE msg_data SET starred = 'no' WHERE msg_id = ?";
+      db.executeSql(query, [id], function (result) {
+        star_flag = res[0].starred;
+      },
+        function (error) {
+          myApp.alert('UPDATE star flag FAILED' + error.message);
+        }
+      );
+      $$('#' + icon_id).removeClass('color-yellow').html('star');
+    }
+
+    e.stopPropagation();
+    e.preventDefault();
   });
 
 });
@@ -497,26 +662,34 @@ function getNDisplaySentMsgData() {
       var msg_subject = resultSet.rows.item(x).subject;
       var message_content = resultSet.rows.item(x).message;
 
-      if (message_content.length > 40) {
-        var message_content_short = message_content.substring(0, 39) + "...";
+      if (message_content.length > 50) {
+        var message_content_short = message_content.substring(0, 49) + "...";
       }
       else {
         var message_content_short = message_content;
       }
 
       //Dynamic html for list of msgs
-      msg_html = msg_html +
-        '<li id="' + msg_id + '" class="msg">' +
-        '<div class="item-inner">' +
-        '<div class="item-title-row">' +
-        '<div class="item-title">' + dept_year + '</div>' +
-        '<div class="item-after">' + msg_time + '</div>' +
-        '</div>' +
-        '<div class="item-subtitle">' + msg_subject + '</div>' +
-        '<div class="item-text">' + message_content_short + '</div>' +
-        '<div class="item-subtitle" style="text-align:right">' + msg_date + '</div>' +
-        '</div>' +
+        msg_html =
+        '<li id="' + msg_id + '" class="msg">'+
+          '<div class="card">'+
+              '<div class="card-header item-title">'+msg_subject+
+              '</div>'+
+              '<div class="card-content">'+
+                '<div class="card-content-inner">'+
+                  '<p class="sender color-gray">Posted to ' + dept_year +'</p>'+
+                  '<p class="content">' + message_content_short+'</p>'+
+                  '</div>'+
+              '</div>'+
+              '<div class="card-footer" id="footer">'+
+                  '<label id="date">'+msg_date+'</label>'+
+                  '<label id="time">' + msg_time+'</label>'+
+              '</div>'+
+          '</div>'+
         '</li>';
+
+      //Appending generated html from above into parent html element i.e <ul> with id #msg_list
+      $$("#msg_list").append(msg_html);
     }
 
     //Inserting generated html from above into parent html element i.e <ul> with id #msg_list
@@ -556,6 +729,11 @@ function newUserFunc() {
 }
 
 $$(document).on("pageInit", '.page[data-page="sent-message"]', function (e) {
+
+  var mySearchbar = myApp.searchbar(".searchbar", {
+    searchList: ".list-block-search",
+    searchIn: ".card-header,.card-content-inner"
+  });
 
   // if (!localStorage.table_create_flag) {
   db.sqlBatch(
@@ -653,7 +831,7 @@ $$(document).on("pageInit", '.page[data-page="view-received-message"]', function
     var msg_subject = resultSet.rows.item(0).subject;
     var message_content = resultSet.rows.item(0).message;
 
-    myApp.alert(message_content);
+    // myApp.alert(message_content);
 
     //Dynamic html for single msg view
     msg_html =
@@ -715,7 +893,7 @@ $$(document).on("pageInit", '.page[data-page="upload"]', function (e) {
 //             }, function (err) { console.error('error getting fileentry file!' + err); });
 //         }, function (err) { console.error('error getting file! ' + err); });
 //     }, function (err) { console.error('error getting persistent fs! ' + err); });
-    
+
 //     });
 
   $$("#uploadimage").on('submit',(function(e) {

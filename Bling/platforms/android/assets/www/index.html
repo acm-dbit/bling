@@ -30,14 +30,18 @@
       <!-- <div class="list-group"> -->
         <ul>
           <li class="item-content list-panel-profile close-panel item-link">
-            <div class="item-media"><i class="icon ion-ios7-person"></i></div>
             <div class="item-inner">
               <div class="item-title" id="profileID">Profile</div>
             </div>
           </li>
-          <li class="item-content item-link">
 
-            <div class="item-media"><i class="icon ion-ios7-star"></i></div>
+          <li class="item-content list-panel-logout close-panel item-link" id="starred-msgs-link">
+            <div class="item-inner">
+              <div class="item-title" >Starred Messages</div>
+            </div>
+          </li>
+
+          <li class="item-content item-link">
             <div class="item-inner">
               <div class="item-title" >
                 <a href="#" id="prefID" class="link">Preferences</a>
@@ -73,8 +77,8 @@
         <div class="navbar">
           <div class="navbar-inner">
           <div class="right">
-                        <a href="#" id="toggleID" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
-                    </div>
+              <a href="#" id="toggleID" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
+          </div>
             <div class="center sliding">Bling</div>
           </div>
         </div>
@@ -110,7 +114,7 @@
                     </p>
                   </li>
                 </ul>
-                
+
                 <p><a href="pages/message-card.html" class="button button-fill button-big color-blue">Message
                 </a></p>
                 <p><a href="camera.html" class="button button-fill button-big color-green">Camera</a></p>
@@ -160,7 +164,7 @@
     $$('#login').on('click', function () {
 
       $$('#log-list').show();
-      
+
       var id = $$("#id").val();
       var pass = $$("#pass").val();
 
