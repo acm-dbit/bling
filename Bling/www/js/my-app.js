@@ -893,27 +893,52 @@ $$(document).on("pageInit", '.page[data-page="view-received-message"]', function
 
 $$(document).on("pageInit", '.page[data-page="upload"]', function (e) {
 
+  function writeFile(fileEntry, dataObj) {
+    // Create a FileWriter object for our FileEntry (log.txt).
+    fileEntry.createWriter(function (fileWriter) {
+  
+        fileWriter.onwriteend = function() {
+            myApp.alert("Download Successfull ! Check root of Internal Storage");
+            readFile(fileEntry);
+        };
+  
+        fileWriter.onerror = function (e) {
+          myApp.alert("Download Failed :(: " + e.toString());
+        };
+  
+        // If data object is not passed in,
+        // create a new Blob instead.
+        if (!dataObj) {
+            dataObj = new Blob(['some file data'], { type: 'text/plain' });
+        }
+  
+        fileWriter.write(dataObj);
+    });
+  }
+
 $$('#down_btn').on('click', function () {
   window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
     console.log('file system open: ' + fs.name);
-    fs.root.getFile('bot.png', { create: true, exclusive: false }, function (fileEntry) {
+    fs.root.getFile('Git&Github.pdf', { create: true, exclusive: false }, function (fileEntry) {
         console.log('fileEntry is file? ' + fileEntry.isFile.toString());
         var oReq = new XMLHttpRequest();
         // Make sure you add the domain name to the Content-Security-Policy <meta> element.
-        oReq.open("GET", "http://cordova.apache.org/static/img/cordova_bot.png", true);
+        oReq.open("GET", "http://bling-test.000webhostapp.com/upload/1515148910-Git & Github.pdf", true);
         // Define how you want the XHR data to come back
         oReq.responseType = "blob";
         oReq.onload = function (oEvent) {
             var blob = oReq.response; // Note: not oReq.responseText
             if (blob) {
                 // Create a URL based on the blob, and set an <img> tag's src to it.
-                var url = window.URL.createObjectURL(blob);
-                document.getElementById('image').src = url;
+                // var url = window.URL.createObjectURL(blob);
+                // document.getElementById('image').src = url;
+
+                writeFile(fileEntry, blob);
 
                 // Or read the data with a FileReader
                 var reader = new FileReader();
-                reader.addEventListener("loadend", function() {
-                   // reader.result contains the contents of blob as text
+                reader.addEventListener("loadend", function() {                   // reader.result contains the contents of blob as text
+                   
                 });
                 reader.readAsText(blob);
             } else console.error('we didnt get an XHR response!');
@@ -923,6 +948,7 @@ $$('#down_btn').on('click', function () {
 }, function (err) { console.error('error getting persistent fs! ' + err); });
 
 });
+
 
   $$("#uploadimage").on('submit',(function(e) {
 
@@ -948,93 +974,3 @@ $$('#down_btn').on('click', function () {
     }));
 });
 
-
-
-
-
-
-// function openFilePicker(selection) {
-
-//     var srcType = Camera.PictureSourceType.PHOTOLIBRARY;
-//     var options = setOptions(srcType);
-//     var func = createNewFileEntry;
-
-//     navigator.camera.getPicture(function cameraSuccess(imageUri) {
-
-//         onUploadFile(imageUri);
-//     }, function cameraError(error) {
-//         console.debug("Unable to obtain picture: " + error, "app");
-
-//     }, options);
-// }
-
-
-
-// function onUploadFile(imageUri) {
-//     window.requestFileSystem(window.TEMPORARY, 5 * 1024 * 1024, function (fs) {
-
-//         console.log('file system open: ' + fs.name);
-//         var fileName = imageUri;
-//         var dirEntry = fs.root;
-//         dirEntry.getFile(fileName, { create: true, exclusive: false }, function (fileEntry) {
-
-//             // Write something to the file before uploading it.
-//             writeFile(fileEntry);
-
-//         }, onErrorCreateFile);
-
-//     }, onErrorLoadFs);
-// }
-
-// function writeFile(fileEntry, dataObj) {
-//     // Create a FileWriter object for our FileEntry (log.txt).
-//     fileEntry.createWriter(function (fileWriter) {
-
-//         fileWriter.onwriteend = function () {
-//             console.log("Successful file write...");
-//             upload(fileEntry);
-//         };
-
-//         fileWriter.onerror = function (e) {
-//             console.log("Failed file write: " + e.toString());
-//         };
-
-//         if (!dataObj) {
-//           dataObj = new Blob(['file data to upload'], { type: 'text/plain' });
-//         }
-
-//         fileWriter.write(dataObj);
-//     });
-// }
-
-
-// function upload(fileEntry) {
-//     // !! Assumes variable fileURL contains a valid URL to a text file on the device,
-//     var fileURL = fileEntry.toURL();
-
-//     var success = function (r) {
-//         console.log("Successful upload...");
-//         console.log("Code = " + r.responseCode);
-//         // displayFileData(fileEntry.fullPath + " (content uploaded to server)");
-//     }
-
-//     var fail = function (error) {
-//         alert("An error has occurred: Code = " + error.code);
-//     }
-
-//     var options = new FileUploadOptions();
-//     options.fileKey = "file";
-//     options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
-//     options.mimeType = "text/plain";
-
-//     var params = {};
-//     params.value1 = "test";
-//     params.value2 = "param";
-
-//     options.params = params;
-
-//     var ft = new FileTransfer();
-//     // SERVER must be a URL that can handle the request, like
-//     // http://some.server.com/upload.php
-//     ft.upload(fileURL, encodeURI(SERVER), success, fail, options);
-// };
