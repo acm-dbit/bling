@@ -49,7 +49,7 @@ function Application(){
     $$('#starred-msgs-link').show();
   }
 
-  else if (localStorage.type == 2) {
+  else {
     $$('#starred-msgs-link').hide();
   }
 
@@ -110,10 +110,10 @@ function dropCheck(u_id){
   myApp.alert("in drop check function");
   if(localStorage.prev_id != u_id){
     db.executeSql("DROP TABLE IF EXISTS msg_data", [], function (resultSet) {
-      myApp.alert("DROP statement executed");
+      // myApp.alert("DROP statement executed");
     },
       function (error) {
-        myApp.alert('DROP error : ' + error.message);
+        // myApp.alert('DROP error : ' + error.message);
       }
     );
   }
@@ -340,15 +340,28 @@ function insertMsgData(res){
   }
 }
 
-function getNDisplayMsgData(query){
+function getNDisplayMsgData(query,disp_type){
   //Getting data to display in received msgs list
-   myApp.alert("in display func");
+  //  myApp.alert("in display func");
+  //  myApp.alert("query : "+query);
+
   var msg_html = "";
   db.executeSql(query, [], function (resultSet) {
+
     for (var x = 0; x < resultSet.rows.length; x++) {
 
       //Setting varibles to be concatenated into dynamic html string below
-      var msg_id = resultSet.rows.item(x).msg_id;
+      if (disp_type == "all"){
+        var li_msg_id = "li_"+resultSet.rows.item(x).msg_id;
+        var ic_msg_id = "ic_"+resultSet.rows.item(x).msg_id;
+        var extra_class = "";
+      }
+      else{
+        var li_msg_id = "star_li_" + resultSet.rows.item(x).msg_id;
+        var ic_msg_id = "star_ic_" + resultSet.rows.item(x).msg_id;
+        var extra_class = "starred";
+      }
+
       var msg_fac_name = "Prof. " + resultSet.rows.item(x).fac_name;
       var msg_date = resultSet.rows.item(x).date;
       var msg_time = resultSet.rows.item(x).time;
@@ -356,8 +369,8 @@ function getNDisplayMsgData(query){
       var message_content = resultSet.rows.item(x).message;
       var starred_flag = resultSet.rows.item(x).starred;
 
-      myApp.alert(msg_id);
-      myApp.alert(starred_flag);
+      // myApp.alert(msg_id);
+      // myApp.alert(starred_flag);
 
       if (starred_flag == "yes") {
         star_icon_class = " color-yellow"
@@ -377,10 +390,10 @@ function getNDisplayMsgData(query){
 
       //Dynamic html for list of msgs
       msg_html =
-        '<li id="li_'+msg_id+'" class="msg">'+
+        '<li id="'+li_msg_id+'" class="'+extra_class+' msg">'+
           '<div class="card">'+
               '<div class="card-header item-title">'+msg_subject+
-                  '<i id="ic_'+msg_id+'" class="star-icon f7-icons'+star_icon_class+'">'+icon+'</i>'+
+                  '<i id="'+ic_msg_id+'" class="star-icon f7-icons'+star_icon_class+'">'+icon+'</i>'+
               '</div>'+
               '<div class="card-content">'+
                 '<div class="card-content-inner">'+
@@ -398,7 +411,10 @@ function getNDisplayMsgData(query){
 
 
       //Appending generated html from above into parent html element i.e <ul> with id #msg_list
-      $$("#msg_list").append(msg_html);
+      if(disp_type=="all")
+        $$("#msg_list").append(msg_html);
+      else
+        $$("#starred_msg_list").append(msg_html);
       // alert($$(".card-header").html());
     }
 
@@ -430,7 +446,7 @@ function newUserType(){
         res = JSON.parse(data);
         insertMsgData(res);
         var query = "SELECT * FROM msg_data ORDER BY msg_id DESC";
-        getNDisplayMsgData(query);
+        getNDisplayMsgData(query,"all");
       }
       else{
         $$("#msg_list").html('<p style:"text-align:center">No new messages</p>');
@@ -440,7 +456,7 @@ function newUserType(){
 }
 
 function oldUserType(resultSet) {
-  myApp.alert("in old func");
+  // myApp.alert("in old func");
   var type = "old";
   var res;
   var msg_html;
@@ -456,14 +472,14 @@ function oldUserType(resultSet) {
 
 
       if(data.length > 50){
-        myApp.alert(data);
+        // myApp.alert(data);
         res = JSON.parse(data);
         insertMsgData(res);
       }
     }
   });
   var query = "SELECT * FROM msg_data ORDER BY msg_id DESC";
-  getNDisplayMsgData(query);
+  getNDisplayMsgData(query,"all");
 }
 
 $$(document).on("pageInit", '.page[data-page="received-message"]', function(e) {
@@ -478,7 +494,7 @@ $$(document).on("pageInit", '.page[data-page="received-message"]', function(e) {
     ["CREATE TABLE IF NOT EXISTS msg_data (msg_id PRIMARY KEY, id, date, time, fac_name, subject, message, starred DEFAULT 'no')"],
     function () {
       // localStorage.table_create_flag = 1;
-      myApp.alert("msg_data table created");
+      // myApp.alert("msg_data table created");
     },
     function (error) {
       myApp.alert("SQL batch ERROR: " + error.message);
@@ -504,53 +520,59 @@ $$(document).on("pageInit", '.page[data-page="received-message"]', function(e) {
 
   $$(document).on("click", "li.msg", function () {
     var id = $$(this).attr('id');
-    alert(id);
+    // alert(id);
     localStorage.clicked_msg_id = id.substring(3,id.length);
     mainView.router.loadPage('view-received-message.html');
   });
 
   $$('#msg_list').on("click", "i.star-icon", function (e) {
 
-    myApp.alert("clickeeeed");
+    // myApp.alert("clickeeeed");
 
     var icon_id = $$(this).attr("id");
-    myApp.alert(icon_id);
+    // myApp.alert(icon_id);
     var id = icon_id.substring(3, icon_id.length);
-    myApp.alert(id);
+    // myApp.alert(id);
     var star_flag;
 
     var query = "SELECT starred from msg_data WHERE msg_id = ?";
     db.executeSql(query, [id], function (result) {
-      star_flag = res[0].starred;
+      star_flag = result.rows.item(0).starred;
+      // myApp.alert(star_flag);
+
+      if (star_flag == "no") {
+        // myApp.alert("in no");
+        var query = "UPDATE msg_data SET starred = 'yes' WHERE msg_id = ?";
+        db.executeSql(query, [id], function (result) {
+            myApp.alert('UPDATE star flag  to yes success');
+          },
+          function (error) {
+            myApp.alert('UPDATE star flag FAILED' + error.message);
+          }
+        );
+        $$('#' + icon_id).addClass('color-yellow').html('star_filled');
+      }
+      else {
+        // myApp.alert("in yes");
+        var query = "UPDATE msg_data SET starred = 'no' WHERE msg_id = ?";
+        db.executeSql(query, [id], function (result) {
+            myApp.alert('UPDATE star flag to no success');
+          },
+          function (error) {
+            myApp.alert('UPDATE star flag FAILED' + error.message);
+          }
+        );
+        $$('#' + icon_id).removeClass('color-yellow').html('star');
+      }
     },
       function (error) {
         myApp.alert('SELECT starred flag FAILED' + error.message);
       }
     );
 
-    if(star_flag == "no"){
-      var query = "UPDATE msg_data SET starred = 'yes' WHERE msg_id = ?";
-      db.executeSql(query, [id], function (result) {
-        myApp.alert('UPDATE star flag success' + error.message);
-      },
-        function (error) {
-          myApp.alert('UPDATE star flag FAILED' + error.message);
-        }
-      );
-      $$('#' + icon_id).addClass('color-yellow').html('star_filled');
-    }
-    else{
-      var query = "UPDATE msg_data SET starred = 'no' WHERE msg_id = ?";
-      db.executeSql(query, [id], function (result) {
-        myApp.alert('UPDATE star flag success' + error.message);
-      },
-        function (error) {
-          myApp.alert('UPDATE star flag FAILED' + error.message);
-        }
-      );
-      $$('#' + icon_id).removeClass('color-yellow').html('star');
-    }
 
+
+    // myApp.alert("end");
     e.stopPropagation();
     e.preventDefault();
   });
@@ -565,16 +587,17 @@ $$(document).on("pageInit", '.page[data-page="starred-msgs"]', function (e) {
   });
 
 
-  var query = "SELECT msg_id FROM msg_data WHERE starred = 'yes' ORDER BY msg_id DESC";
+  var query = "SELECT * FROM msg_data WHERE starred = 'yes' ORDER BY msg_id DESC";
 
   db.executeSql(query, [], function (resultSet) {
     if (resultSet.rows.length == 0) {
-      $$("#msg_list").html('<p style:"text-align:center">No starred messages</p>');
-
+      // myApp.alert("no starred");
+      $$("#starred_msg_list").html('<p style:"text-align:center">No starred messages</p>');
     }
     else {
       // myApp.alert("old");
-      getNDisplayMsgData(query);
+      // myApp.alert("befor disp func");
+      getNDisplayMsgData(query,"starred");
     }
   },
     function (error) {
@@ -582,52 +605,50 @@ $$(document).on("pageInit", '.page[data-page="starred-msgs"]', function (e) {
     }
   );
 
-  $$(document).on("click", "li.msg", function () {
+  $$(document).on("click", "li.starred", function () {
     var id = $$(this).attr('id');
-    localStorage.clicked_msg_id = id.substring(3, id.length);;
+    localStorage.clicked_msg_id = id.substring(8, id.length);
     mainView.router.loadPage('view-received-message.html');
   });
 
 
-  $$('#msg_list').on("click", "i.star-icon", function (e) {
+  $$('#starred_msg_list').on("click", "i.star-icon", function (e) {
 
     var icon_id = $$(this).attr("id");
-    var id = icon_id.substring(3, icon_id.length);
-    myApp.alert(id);
+    var id = icon_id.substring(8, icon_id.length);
+    // myApp.alert(id);
     var star_flag;
 
     var query = "SELECT starred from msg_data WHERE msg_id = ?";
     db.executeSql(query, [id], function (result) {
-      star_flag = res[0].starred;
+      star_flag = result.rows.item(0).starred;
+      if (star_flag == "no") {
+        var query = "UPDATE msg_data SET starred = 'yes' WHERE msg_id = ?";
+        db.executeSql(query, [id], function (result) {
+            myApp.alert('UPDATE star flag to yes success');
+          },
+          function (error) {
+            myApp.alert('UPDATE star flag FAILED' + error.message);
+          }
+        );
+        $$('#' + icon_id).addClass('color-yellow').html('star_filled');
+      } else {
+        var query = "UPDATE msg_data SET starred = 'no' WHERE msg_id = ?";
+        db.executeSql(query, [id], function (result) {
+            myApp.alert('UPDATE star flag to no success');
+          },
+          function (error) {
+            myApp.alert('UPDATE star flag FAILED' + error.message);
+          }
+        );
+        $$('#' + icon_id).removeClass('color-yellow').html('star');
+        mainView.router.reloadPage("starred-msgs.html");
+      }
     },
       function (error) {
         myApp.alert('SELECT starred flag FAILED' + error.message);
       }
     );
-
-    if (star_flag == "no") {
-      var query = "UPDATE msg_data SET starred = 'yes' WHERE msg_id = ?";
-      db.executeSql(query, [id], function (result) {
-        star_flag = res[0].starred;
-        myApp.alert('UPDATE star flag FAILED' + error.message);
-      },
-        function (error) {
-          myApp.alert('UPDATE star flag FAILED' + error.message);
-        }
-      );
-      $$('#' + icon_id).addClass('color-yellow').html('star_filled');
-    }
-    else {
-      var query = "UPDATE msg_data SET starred = 'no' WHERE msg_id = ?";
-      db.executeSql(query, [id], function (result) {
-        star_flag = res[0].starred;
-      },
-        function (error) {
-          myApp.alert('UPDATE star flag FAILED' + error.message);
-        }
-      );
-      $$('#' + icon_id).removeClass('color-yellow').html('star');
-    }
 
     e.stopPropagation();
     e.preventDefault();
@@ -742,7 +763,7 @@ $$(document).on("pageInit", '.page[data-page="sent-message"]', function (e) {
     ["CREATE TABLE IF NOT EXISTS msg_data (msg_id PRIMARY KEY, date, time, department, year, subject, message)"],
     function () {
       // localStorage.table_create_flag = 1;
-      myApp.alert("msg_data table created");
+      // myApp.alert("msg_data table created");
     },
     function (error) {
       myApp.alert("SQL batch ERROR: " + error.message);
