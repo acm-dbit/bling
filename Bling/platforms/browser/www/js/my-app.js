@@ -49,7 +49,7 @@ function Application(){
     $$('#starred-msgs-link').show();
   }
 
-  else if (localStorage.type == 2) {
+  else {
     $$('#starred-msgs-link').hide();
   }
 
@@ -58,7 +58,7 @@ function Application(){
     myApp.openPanel('left');
   });
 
-  $$('##starred-msgs-link').on('click', function (e) {
+  $$('#starred-msgs-link').on('click', function (e) {
     mainView.router.loadPage('starred-msgs.html');
   });
 
@@ -70,7 +70,7 @@ function Application(){
 
   $$('#logoutID').on('click',function(e)
   {
-    localStorage.id = null;
+    localStorage.removeItem('id');
     location.reload();
   });
 
@@ -87,9 +87,9 @@ document.addEventListener("deviceready", function () {
 
   var id = localStorage.id;
 
-  if(id != "null"){
+  if(typeof id != "undefined"){
 
-    myApp.alert("Not undef:"+id);
+    myApp.alert("Logged in user id: "+id);
     if(localStorage.type == 1){
       mainView.router.loadPage('received-message.html');
     }
@@ -107,13 +107,13 @@ document.addEventListener("deviceready", function () {
 });
 
 function dropCheck(u_id){
-  myApp.alert("in drop check function");
+  // myApp.alert("in drop check function");
   if(localStorage.prev_id != u_id){
     db.executeSql("DROP TABLE IF EXISTS msg_data", [], function (resultSet) {
-      myApp.alert("DROP statement executed");
+      // myApp.alert("DROP statement executed");
     },
       function (error) {
-        myApp.alert('DROP error : ' + error.message);
+        // myApp.alert('DROP error : ' + error.message);
       }
     );
   }
@@ -267,22 +267,71 @@ $$(document).on('pageInit', '.page[data-page="message"]', function (e) {
     // Following code will be executed for page with data-page attribute equal to "message"
     var id = localStorage.id;
     var name = localStorage.name;
+
+    // $$("#sendmsg").on('submit',(function(e) {
+
+    //   console.log("submit click");
+    //   console.log(JSON.stringify(new FormData(this)));
+
+    //   var formData = new FormData(this);
+    //   formData.append("id",id);
+    //   formData.append("fac_name",name);
+
+    //   console.log(JSON.stringify(formData));
+  
+    //   e.preventDefault();
+  
+    //   $$.ajax({
+    //   type: "POST",             // Type of request to be send, called as method
+    //   url: "http://bling-test.000webhostapp.com/message.php", // Url to which the request is send
+    //   data: formData, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+    //   crossDomain: true,
+    //   cache: false,             // To unable request pages to be cached
+    //   success: function(data)   // A function to be called if request succeeds
+    //   {
+    //     var resx = JSON.parse(data);
+    //     myApp.alert(resx);
+    //     if(resx.res_type=="success")
+    //     {
+    //       // myApp.alert("in success condition");
+    //       resx["subject"] = subject;
+    //       resx["message"] = message;
+    //       resx["department"] = department;
+    //       resx["year"] = year;
+    //       res.push(resx);
+    //       // myApp.alert(JSON.stringify(res));
+    //       insertSentMsgData(res);
+    //       myApp.alert("Message sent Successfully!");
+    //       mainView.router.loadPage('sent-message.html');
+    //     }
+    //     else if(resx.res_type=="failed")
+    //     {
+    //       myApp.alert("Something Went Wrong !");
+    //     }
+    //   }
+    //   });
+  
+    //   return false;
+    //   }));
+
     $$('#msg_send').on('click', function () {
 
             var subject=$$('#subj').val();
             var message=$$('#msg').val();
             var department=$$('#dept').val();
             var year=$$('#year').val();
+            var fileToUpload=$$('#fileToUpload').files[0];
             var res = [];
               $$.ajax({
               type: "POST",
               url:"http://bling-test.000webhostapp.com/message.php",
-                data: { id: id, fac_name: localStorage.name, department: department, year: year, subject: subject, message: message },
+              data: { id: id, fac_name: localStorage.name, department: department, year: year, subject: subject, message: message, fileToUpload:fileToUpload },
               crossDomain: true,
               cache: false,
               success: function(data){
                 // myApp.alert(data);
                 var resx = JSON.parse(data);
+                myApp.alert(resx);
                 if(resx.res_type=="success")
                 {
                   // myApp.alert("in success condition");
@@ -296,7 +345,7 @@ $$(document).on('pageInit', '.page[data-page="message"]', function (e) {
                   myApp.alert("Message sent Successfully!");
                   mainView.router.loadPage('sent-message.html');
                 }
-                else if(data=="failed")
+                else if(resx.res_type=="failed")
                 {
                   myApp.alert("Something Went Wrong !");
                 }
@@ -340,15 +389,28 @@ function insertMsgData(res){
   }
 }
 
-function getNDisplayMsgData(query){
+function getNDisplayMsgData(query,disp_type){
   //Getting data to display in received msgs list
-   myApp.alert("in display func");
+  //  myApp.alert("in display func");
+  //  myApp.alert("query : "+query);
+
   var msg_html = "";
   db.executeSql(query, [], function (resultSet) {
+
     for (var x = 0; x < resultSet.rows.length; x++) {
 
       //Setting varibles to be concatenated into dynamic html string below
-      var msg_id = resultSet.rows.item(x).msg_id;
+      if (disp_type == "all"){
+        var li_msg_id = "li_"+resultSet.rows.item(x).msg_id;
+        var ic_msg_id = "ic_"+resultSet.rows.item(x).msg_id;
+        var extra_class = "";
+      }
+      else{
+        var li_msg_id = "star_li_" + resultSet.rows.item(x).msg_id;
+        var ic_msg_id = "star_ic_" + resultSet.rows.item(x).msg_id;
+        var extra_class = "starred";
+      }
+
       var msg_fac_name = "Prof. " + resultSet.rows.item(x).fac_name;
       var msg_date = resultSet.rows.item(x).date;
       var msg_time = resultSet.rows.item(x).time;
@@ -356,8 +418,8 @@ function getNDisplayMsgData(query){
       var message_content = resultSet.rows.item(x).message;
       var starred_flag = resultSet.rows.item(x).starred;
 
-      myApp.alert(msg_id);
-      myApp.alert(starred_flag);
+      // myApp.alert(msg_id);
+      // myApp.alert(starred_flag);
 
       if (starred_flag == "yes") {
         star_icon_class = " color-yellow"
@@ -377,10 +439,10 @@ function getNDisplayMsgData(query){
 
       //Dynamic html for list of msgs
       msg_html =
-        '<li id="li_'+msg_id+'" class="msg">'+
+        '<li id="'+li_msg_id+'" class="'+extra_class+' msg">'+
           '<div class="card">'+
               '<div class="card-header item-title">'+msg_subject+
-                  '<i id="ic_'+msg_id+'" class="star-icon f7-icons'+star_icon_class+'">'+icon+'</i>'+
+                  '<i id="'+ic_msg_id+'" class="star-icon f7-icons'+star_icon_class+'">'+icon+'</i>'+
               '</div>'+
               '<div class="card-content">'+
                 '<div class="card-content-inner">'+
@@ -398,7 +460,10 @@ function getNDisplayMsgData(query){
 
 
       //Appending generated html from above into parent html element i.e <ul> with id #msg_list
-      $$("#msg_list").append(msg_html);
+      if(disp_type=="all")
+        $$("#msg_list").append(msg_html);
+      else
+        $$("#starred_msg_list").append(msg_html);
       // alert($$(".card-header").html());
     }
 
@@ -430,7 +495,7 @@ function newUserType(){
         res = JSON.parse(data);
         insertMsgData(res);
         var query = "SELECT * FROM msg_data ORDER BY msg_id DESC";
-        getNDisplayMsgData(query);
+        getNDisplayMsgData(query,"all");
       }
       else{
         $$("#msg_list").html('<p style:"text-align:center">No new messages</p>');
@@ -440,7 +505,7 @@ function newUserType(){
 }
 
 function oldUserType(resultSet) {
-  myApp.alert("in old func");
+  // myApp.alert("in old func");
   var type = "old";
   var res;
   var msg_html;
@@ -456,14 +521,14 @@ function oldUserType(resultSet) {
 
 
       if(data.length > 50){
-        myApp.alert(data);
+        // myApp.alert(data);
         res = JSON.parse(data);
         insertMsgData(res);
       }
     }
   });
   var query = "SELECT * FROM msg_data ORDER BY msg_id DESC";
-  getNDisplayMsgData(query);
+  getNDisplayMsgData(query,"all");
 }
 
 $$(document).on("pageInit", '.page[data-page="received-message"]', function(e) {
@@ -478,7 +543,7 @@ $$(document).on("pageInit", '.page[data-page="received-message"]', function(e) {
     ["CREATE TABLE IF NOT EXISTS msg_data (msg_id PRIMARY KEY, id, date, time, fac_name, subject, message, starred DEFAULT 'no')"],
     function () {
       // localStorage.table_create_flag = 1;
-      myApp.alert("msg_data table created");
+      // myApp.alert("msg_data table created");
     },
     function (error) {
       myApp.alert("SQL batch ERROR: " + error.message);
@@ -502,137 +567,143 @@ $$(document).on("pageInit", '.page[data-page="received-message"]', function(e) {
     }
   );
 
-  // $$(document).on("click", "li.msg", function () {
-  //   var id = $$(this).attr('id');
-  //   alert(id);
-  //   localStorage.clicked_msg_id = id.substring(3,id.length);
-  //   mainView.router.loadPage('view-received-message.html');
-  // });
+  $$(document).on("click", "li.msg", function () {
+    var id = $$(this).attr('id');
+    // alert(id);
+    localStorage.clicked_msg_id = id.substring(3,id.length);
+    mainView.router.loadPage('view-received-message.html');
+  });
 
+  $$('#msg_list').on("click", "i.star-icon", function (e) {
 
-  $$("i.star-icon").on("click", function (e) {
+    // myApp.alert("clickeeeed");
 
-    var i_id = $$(this).attr("id");
-    myApp.alert(icon_id);
+    var icon_id = $$(this).attr("id");
+    // myApp.alert(icon_id);
     var id = icon_id.substring(3, icon_id.length);
-    myApp.alert(id);
+    // myApp.alert(id);
     var star_flag;
 
-    // var query = "SELECT starred from msg_data WHERE msg_id = ?";
-    // db.executeSql(query, [id], function (result) {
-    //   star_flag = res[0].starred;
-    // },
-    //   function (error) {
-    //     myApp.alert('SELECT starred flag FAILED' + error.message);
-    //   }
-    // );
+    var query = "SELECT starred from msg_data WHERE msg_id = ?";
+    db.executeSql(query, [id], function (result) {
+      star_flag = result.rows.item(0).starred;
+      // myApp.alert(star_flag);
 
-    // if(star_flag == "no"){
-    //   var query = "UPDATE msg_data SET starred = 'yes' WHERE msg_id = ?";
-    //   db.executeSql(query, [id], function (result) {
-    //     myApp.alert('UPDATE star flag success' + error.message);
-    //   },
-    //     function (error) {
-    //       myApp.alert('UPDATE star flag FAILED' + error.message);
-    //     }
-    //   );
-    //   $$('#' + icon_id).addClass('color-yellow').html('star_filled');
-    // }
-    // else{
-    //   var query = "UPDATE msg_data SET starred = 'no' WHERE msg_id = ?";
-    //   db.executeSql(query, [id], function (result) {
-    //     myApp.alert('UPDATE star flag success' + error.message);
-    //   },
-    //     function (error) {
-    //       myApp.alert('UPDATE star flag FAILED' + error.message);
-    //     }
-    //   );
-    //   $$('#' + icon_id).removeClass('color-yellow').html('star');
-    // }
+      if (star_flag == "no") {
+        // myApp.alert("in no");
+        var query = "UPDATE msg_data SET starred = 'yes' WHERE msg_id = ?";
+        db.executeSql(query, [id], function (result) {
+            myApp.alert('UPDATE star flag  to yes success');
+          },
+          function (error) {
+            myApp.alert('UPDATE star flag FAILED' + error.message);
+          }
+        );
+        $$('#' + icon_id).addClass('color-yellow').html('star_filled');
+      }
+      else {
+        // myApp.alert("in yes");
+        var query = "UPDATE msg_data SET starred = 'no' WHERE msg_id = ?";
+        db.executeSql(query, [id], function (result) {
+            myApp.alert('UPDATE star flag to no success');
+          },
+          function (error) {
+            myApp.alert('UPDATE star flag FAILED' + error.message);
+          }
+        );
+        $$('#' + icon_id).removeClass('color-yellow').html('star');
+      }
+    },
+      function (error) {
+        myApp.alert('SELECT starred flag FAILED' + error.message);
+      }
+    );
 
+
+
+    // myApp.alert("end");
     e.stopPropagation();
     e.preventDefault();
   });
 
 });
 
-// $$(document).on("pageInit", '.page[data-page="starred-msgs"]', function (e) {
+$$(document).on("pageInit", '.page[data-page="starred-msgs"]', function (e) {
 
-//   var mySearchbar = myApp.searchbar(".searchbar", {
-//     searchList: ".list-block-search",
-//     searchIn: ".card-header,.card-content-inner"
-//   });
-
-
-//   var query = "SELECT msg_id FROM msg_data WHERE starred = 'yes' ORDER BY msg_id DESC";
-
-//   db.executeSql(query, [], function (resultSet) {
-//     if (resultSet.rows.length == 0) {
-//       $$("#msg_list").html('<p style:"text-align:center">No starred messages</p>');
-
-//     }
-//     else {
-//       // myApp.alert("old");
-//       getNDisplayMsgData(query);
-//     }
-//   },
-//     function (error) {
-//       myApp.alert('SELECT error (user type): ' + error.message);
-//     }
-//   );
-
-//   $$(document).on("click", "li.msg", function () {
-//     var id = $$(this).attr('id');
-//     localStorage.clicked_msg_id = id.substring(3, id.length);;
-//     mainView.router.loadPage('view-received-message.html');
-//   });
+  var mySearchbar = myApp.searchbar(".searchbar", {
+    searchList: ".list-block-search",
+    searchIn: ".card-header,.card-content-inner"
+  });
 
 
-//   $$("i.star-icon").on("click", function (e) {
+  var query = "SELECT * FROM msg_data WHERE starred = 'yes' ORDER BY msg_id DESC";
 
-//     var icon_id = $$(this).attr("id");
-//     var id = icon_id.substring(3, icon_id.length);
-//     myApp.alert(id);
-//     var star_flag;
+  db.executeSql(query, [], function (resultSet) {
+    if (resultSet.rows.length == 0) {
+      // myApp.alert("no starred");
+      $$("#starred_msg_list").html('<p style:"text-align:center">No starred messages</p>');
+    }
+    else {
+      // myApp.alert("old");
+      // myApp.alert("befor disp func");
+      getNDisplayMsgData(query,"starred");
+    }
+  },
+    function (error) {
+      myApp.alert('SELECT error (user type): ' + error.message);
+    }
+  );
 
-//     var query = "SELECT starred from msg_data WHERE msg_id = ?";
-//     db.executeSql(query, [id], function (result) {
-//       star_flag = res[0].starred;
-//     },
-//       function (error) {
-//         myApp.alert('SELECT starred flag FAILED' + error.message);
-//       }
-//     );
+  $$(document).on("click", "li.starred", function () {
+    var id = $$(this).attr('id');
+    localStorage.clicked_msg_id = id.substring(8, id.length);
+    mainView.router.loadPage('view-received-message.html');
+  });
 
-//     if (star_flag == "no") {
-//       var query = "UPDATE msg_data SET starred = 'yes' WHERE msg_id = ?";
-//       db.executeSql(query, [id], function (result) {
-//         star_flag = res[0].starred;
-//         myApp.alert('UPDATE star flag FAILED' + error.message);
-//       },
-//         function (error) {
-//           myApp.alert('UPDATE star flag FAILED' + error.message);
-//         }
-//       );
-//       $$('#' + icon_id).addClass('color-yellow').html('star_filled');
-//     }
-//     else {
-//       var query = "UPDATE msg_data SET starred = 'no' WHERE msg_id = ?";
-//       db.executeSql(query, [id], function (result) {
-//         star_flag = res[0].starred;
-//       },
-//         function (error) {
-//           myApp.alert('UPDATE star flag FAILED' + error.message);
-//         }
-//       );
-//       $$('#' + icon_id).removeClass('color-yellow').html('star');
-//     }
 
-//     e.stopPropagation();
-//     e.preventDefault();
-//   });
+  $$('#starred_msg_list').on("click", "i.star-icon", function (e) {
 
-// });
+    var icon_id = $$(this).attr("id");
+    var id = icon_id.substring(8, icon_id.length);
+    // myApp.alert(id);
+    var star_flag;
+
+    var query = "SELECT starred from msg_data WHERE msg_id = ?";
+    db.executeSql(query, [id], function (result) {
+      star_flag = result.rows.item(0).starred;
+      if (star_flag == "no") {
+        var query = "UPDATE msg_data SET starred = 'yes' WHERE msg_id = ?";
+        db.executeSql(query, [id], function (result) {
+            myApp.alert('UPDATE star flag to yes success');
+          },
+          function (error) {
+            myApp.alert('UPDATE star flag FAILED' + error.message);
+          }
+        );
+        $$('#' + icon_id).addClass('color-yellow').html('star_filled');
+      } else {
+        var query = "UPDATE msg_data SET starred = 'no' WHERE msg_id = ?";
+        db.executeSql(query, [id], function (result) {
+            myApp.alert('UPDATE star flag to no success');
+          },
+          function (error) {
+            myApp.alert('UPDATE star flag FAILED' + error.message);
+          }
+        );
+        $$('#' + icon_id).removeClass('color-yellow').html('star');
+        mainView.router.reloadPage("starred-msgs.html");
+      }
+    },
+      function (error) {
+        myApp.alert('SELECT starred flag FAILED' + error.message);
+      }
+    );
+
+    e.stopPropagation();
+    e.preventDefault();
+  });
+
+});
 
 function insertSentMsgData(res) {
   //Inserting parsed json values into localDB
@@ -741,7 +812,7 @@ $$(document).on("pageInit", '.page[data-page="sent-message"]', function (e) {
     ["CREATE TABLE IF NOT EXISTS msg_data (msg_id PRIMARY KEY, date, time, department, year, subject, message)"],
     function () {
       // localStorage.table_create_flag = 1;
-      myApp.alert("msg_data table created");
+      // myApp.alert("msg_data table created");
     },
     function (error) {
       myApp.alert("SQL batch ERROR: " + error.message);
@@ -871,43 +942,73 @@ $$(document).on("pageInit", '.page[data-page="view-received-message"]', function
 
 $$(document).on("pageInit", '.page[data-page="upload"]', function (e) {
 
-//     $$("#file").change(function() {
-//       window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
-//         console.log('file system open: ' + fs.name);
-//         fs.root.getFile(this.files[0], { create: true, exclusive: false }, function (fileEntry) {
-//             fileEntry.file(function (file) {
-//                 var reader = new FileReader();
-//                 reader.onloadend = function() {
-//                     // Create a blob based on the FileReader "result", which we asked to be retrieved as an ArrayBuffer
-//                     console.log(tnis.result);
-//                     var blob = new Blob([new Uint8Array(this.result)], { type: "image/jpg" });
-//                     var oReq = new XMLHttpRequest();
-//                     oReq.open("POST", "http://bling-test.000webhostapp.com/upload.php", true);
-//                     oReq.onload = function (oEvent) {
-//                         // all done!
-//                     };
-//                     // Pass the blob in to XHR's send method
-//                     oReq.send(blob);
-//                 };
-//                 // Read the file as an ArrayBuffer
-//                 reader.readAsArrayBuffer(file);
-//             }, function (err) { console.error('error getting fileentry file!' + err); });
-//         }, function (err) { console.error('error getting file! ' + err); });
-//     }, function (err) { console.error('error getting persistent fs! ' + err); });
+  function writeFile(fileEntry, dataObj) {
+    // Create a FileWriter object for our FileEntry (log.txt).
+    fileEntry.createWriter(function (fileWriter) {
+  
+        fileWriter.onwriteend = function() {
+            myApp.alert("Download Successfull ! Check root of Internal Storage");
+            readFile(fileEntry);
+        };
+  
+        fileWriter.onerror = function (e) {
+          myApp.alert("Download Failed :(: " + e.toString());
+        };
+  
+        // If data object is not passed in,
+        // create a new Blob instead.
+        if (!dataObj) {
+            dataObj = new Blob(['some file data'], { type: 'text/plain' });
+        }
+  
+        fileWriter.write(dataObj);
+    });
+  }
 
-//     });
+$$('#down_btn').on('click', function () {
+  window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+    console.log('file system open: ' + fs.name);
+    fs.root.getFile('Git&Github.pdf', { create: true, exclusive: false }, function (fileEntry) {
+        console.log('fileEntry is file? ' + fileEntry.isFile.toString());
+        var oReq = new XMLHttpRequest();
+        // Make sure you add the domain name to the Content-Security-Policy <meta> element.
+        oReq.open("GET", "http://bling-test.000webhostapp.com/upload/1515148910-Git & Github.pdf", true);
+        // Define how you want the XHR data to come back
+        oReq.responseType = "blob";
+        oReq.onload = function (oEvent) {
+            var blob = oReq.response; // Note: not oReq.responseText
+            if (blob) {
+                // Create a URL based on the blob, and set an <img> tag's src to it.
+                // var url = window.URL.createObjectURL(blob);
+                // document.getElementById('image').src = url;
+
+                writeFile(fileEntry, blob);
+
+                // Or read the data with a FileReader
+                var reader = new FileReader();
+                reader.addEventListener("loadend", function() {                   // reader.result contains the contents of blob as text
+                   
+                });
+                reader.readAsText(blob);
+            } else console.error('we didnt get an XHR response!');
+        };
+        oReq.send(null);
+    }, function (err) { console.error('error getting file! ' + err); });
+}, function (err) { console.error('error getting persistent fs! ' + err); });
+
+});
+
 
   $$("#uploadimage").on('submit',(function(e) {
 
     console.log("submit click");
-    console.log(new FormData(this));
+    console.log(JSON.stringify(new FormData(this)));
 
     e.preventDefault();
 
     $$.ajax({
     type: "POST",             // Type of request to be send, called as method
     url: "http://bling-test.000webhostapp.com/upload.php", // Url to which the request is send
-    //url: "http://localhost/upload.php", // Url to which the request is send
     data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
     crossDomain: true,
     cache: false,             // To unable request pages to be cached
@@ -921,93 +1022,3 @@ $$(document).on("pageInit", '.page[data-page="upload"]', function (e) {
     }));
 });
 
-
-
-
-
-
-// function openFilePicker(selection) {
-
-//     var srcType = Camera.PictureSourceType.PHOTOLIBRARY;
-//     var options = setOptions(srcType);
-//     var func = createNewFileEntry;
-
-//     navigator.camera.getPicture(function cameraSuccess(imageUri) {
-
-//         onUploadFile(imageUri);
-//     }, function cameraError(error) {
-//         console.debug("Unable to obtain picture: " + error, "app");
-
-//     }, options);
-// }
-
-
-
-// function onUploadFile(imageUri) {
-//     window.requestFileSystem(window.TEMPORARY, 5 * 1024 * 1024, function (fs) {
-
-//         console.log('file system open: ' + fs.name);
-//         var fileName = imageUri;
-//         var dirEntry = fs.root;
-//         dirEntry.getFile(fileName, { create: true, exclusive: false }, function (fileEntry) {
-
-//             // Write something to the file before uploading it.
-//             writeFile(fileEntry);
-
-//         }, onErrorCreateFile);
-
-//     }, onErrorLoadFs);
-// }
-
-// function writeFile(fileEntry, dataObj) {
-//     // Create a FileWriter object for our FileEntry (log.txt).
-//     fileEntry.createWriter(function (fileWriter) {
-
-//         fileWriter.onwriteend = function () {
-//             console.log("Successful file write...");
-//             upload(fileEntry);
-//         };
-
-//         fileWriter.onerror = function (e) {
-//             console.log("Failed file write: " + e.toString());
-//         };
-
-//         if (!dataObj) {
-//           dataObj = new Blob(['file data to upload'], { type: 'text/plain' });
-//         }
-
-//         fileWriter.write(dataObj);
-//     });
-// }
-
-
-// function upload(fileEntry) {
-//     // !! Assumes variable fileURL contains a valid URL to a text file on the device,
-//     var fileURL = fileEntry.toURL();
-
-//     var success = function (r) {
-//         console.log("Successful upload...");
-//         console.log("Code = " + r.responseCode);
-//         // displayFileData(fileEntry.fullPath + " (content uploaded to server)");
-//     }
-
-//     var fail = function (error) {
-//         alert("An error has occurred: Code = " + error.code);
-//     }
-
-//     var options = new FileUploadOptions();
-//     options.fileKey = "file";
-//     options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
-//     options.mimeType = "text/plain";
-
-//     var params = {};
-//     params.value1 = "test";
-//     params.value2 = "param";
-
-//     options.params = params;
-
-//     var ft = new FileTransfer();
-//     // SERVER must be a URL that can handle the request, like
-//     // http://some.server.com/upload.php
-//     ft.upload(fileURL, encodeURI(SERVER), success, fail, options);
-// };

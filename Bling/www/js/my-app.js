@@ -267,42 +267,104 @@ $$(document).on('pageInit', '.page[data-page="message"]', function (e) {
     // Following code will be executed for page with data-page attribute equal to "message"
     var id = localStorage.id;
     var name = localStorage.name;
-    $$('#msg_send').on('click', function () {
 
-            var subject=$$('#subj').val();
-            var message=$$('#msg').val();
-            var department=$$('#dept').val();
-            var year=$$('#year').val();
-            var res = [];
-              $$.ajax({
-              type: "POST",
-              url:"http://bling-test.000webhostapp.com/message.php",
-                data: { id: id, fac_name: localStorage.name, department: department, year: year, subject: subject, message: message },
-              crossDomain: true,
-              cache: false,
-              success: function(data){
-                // myApp.alert(data);
-                var resx = JSON.parse(data);
-                if(resx.res_type=="success")
-                {
-                  // myApp.alert("in success condition");
-                  resx["subject"] = subject;
-                  resx["message"] = message;
-                  resx["department"] = department;
-                  resx["year"] = year;
-                  res.push(resx);
-                  // myApp.alert(JSON.stringify(res));
-                  insertSentMsgData(res);
-                  myApp.alert("Message sent Successfully!");
-                  mainView.router.loadPage('sent-message.html');
-                }
-                else if(data=="failed")
-                {
-                  myApp.alert("Something Went Wrong !");
-                }
-             }
-         });
-    });
+    $$("#sendmsg").on('submit',(function(e) {
+
+      var subject=$$('#subject').val();
+      var message=$$('#message').val();
+      var department=$$('#dept').val();
+      var year=$$('#year').val();
+
+      myApp.alert("submit click");
+
+      var formData = new FormData(this);
+      formData.append("id",id);
+      formData.append("fac_name",name);
+
+      console.log(JSON.stringify(formData));
+  
+      e.preventDefault();
+      var res = [];
+  
+      $$.ajax({
+      type: "POST",             // Type of request to be send, called as method
+      url: "http://bling-test.000webhostapp.com/message.php", // Url to which the request is send
+      data: formData, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+      crossDomain: true,
+      cache: false,    
+      enctype:"multipart/form-data",         // To unable request pages to be cached
+      success: function(data)   // A function to be called if request succeeds
+      {
+        myApp.alert(data);
+
+        var resx = JSON.parse(data);
+        //myApp.alert(resx);
+        if(resx.res_type=="success")
+        {
+          //myApp.alert(subject+" "+message+" "+department+" "+year);
+          resx["subject"] = subject;
+          resx["message"] = message;
+          resx["department"] = department;
+          resx["year"] = year;
+          res.push(resx);
+          // myApp.alert(JSON.stringify(res));
+          insertSentMsgData(res);
+          myApp.alert("Message sent Successfully!");
+          mainView.router.loadPage('sent-message.html');
+        }
+        else if(resx.res_type=="failed")
+        {
+          myApp.alert("Something Went Wrong !");
+        }
+      }
+      });
+  
+      return false;
+      }));
+
+    // $$('#send_msg').on('submit', function () {
+
+    //   myApp.alert("clicked");
+
+
+    //         var subject=$$('#subj').val();
+    //         var message=$$('#msg').val();
+    //         var department=$$('#dept').val();
+    //         var year=$$('#year').val();
+    //         var fileToUpload=document.getElementById('fileToUpload').files[0];
+    //         myApp.alert(fileToUpload);
+    //         var res = [];
+    //           $$.ajax({
+    //           type: "POST",
+    //           url:"http://bling-test.000webhostapp.com/message.php",
+    //           //data: { id: id, fac_name: localStorage.name, department: department, year: year, subject: subject, message: message, fileToUpload:fileToUpload },
+    //           data: new FormData(this),
+    //           crossDomain: true,
+    //           cache: false,
+    //           success: function(data){
+    //             myApp.alert(data);
+    //             var resx = JSON.parse(data);
+    //             myApp.alert(resx);
+    //             if(resx.res_type=="success")
+    //             {
+    //               // myApp.alert("in success condition");
+    //               resx["subject"] = subject;
+    //               resx["message"] = message;
+    //               resx["department"] = department;
+    //               resx["year"] = year;
+    //               res.push(resx);
+    //               // myApp.alert(JSON.stringify(res));
+    //               insertSentMsgData(res);
+    //               myApp.alert("Message sent Successfully!");
+    //               mainView.router.loadPage('sent-message.html');
+    //             }
+    //             else if(resx.res_type=="failed")
+    //             {
+    //               myApp.alert("Something Went Wrong !");
+    //             }
+    //          }
+    //      });
+    // });
 })
 
 //javascript code for accessing the camera
@@ -953,14 +1015,13 @@ $$('#down_btn').on('click', function () {
   $$("#uploadimage").on('submit',(function(e) {
 
     console.log("submit click");
-    console.log(new FormData(this));
+    console.log(JSON.stringify(new FormData(this)));
 
     e.preventDefault();
 
     $$.ajax({
     type: "POST",             // Type of request to be send, called as method
     url: "http://bling-test.000webhostapp.com/upload.php", // Url to which the request is send
-    //url: "http://localhost/upload.php", // Url to which the request is send
     data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
     crossDomain: true,
     cache: false,             // To unable request pages to be cached
