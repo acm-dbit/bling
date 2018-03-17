@@ -907,6 +907,67 @@ $$(document).on("pageInit", '.page[data-page="view-sent-message"]', function (e)
 
 $$(document).on("pageInit", '.page[data-page="view-received-message"]', function (e) {
 
+  function writeFile(fileEntry, dataObj) {
+    // Create a FileWriter object for our FileEntry (log.txt).
+    fileEntry.createWriter(function (fileWriter) {
+  
+        fileWriter.onwriteend = function() {
+            myApp.alert("Download Successfull ! Check root of Internal Storage");
+            readFile(fileEntry);
+        };
+  
+        fileWriter.onerror = function (e) {
+          myApp.alert("Download Failed :(: " + e.toString());
+        };
+  
+        // If data object is not passed in,
+        // create a new Blob instead.
+        if (!dataObj) {
+            dataObj = new Blob(['some file data'], { type: 'text/plain' });
+        }
+  
+        fileWriter.write(dataObj);
+    });
+  }
+
+  $$(document).on("click", "view-message.down_btn", function () {
+    var data = $$(this).attr('id');
+
+    myApp.alert(data);
+
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+      console.log('file system open: ' + fs.name);
+      fs.root.getFile(data, { create: true, exclusive: false }, function (fileEntry) {
+          console.log('fileEntry is file? ' + fileEntry.isFile.toString());
+          var oReq = new XMLHttpRequest();
+          // Make sure you add the domain name to the Content-Security-Policy <meta> element.
+          oReq.open("GET", "http://bling-test.000webhostapp.com/upload/"+data, true);
+          // Define how you want the XHR data to come back
+          oReq.responseType = "blob";
+          oReq.onload = function (oEvent) {
+              var blob = oReq.response; // Note: not oReq.responseText
+              if (blob) {
+                  // Create a URL based on the blob, and set an <img> tag's src to it.
+                  // var url = window.URL.createObjectURL(blob);
+                  // document.getElementById('image').src = url;
+
+                  writeFile(fileEntry, blob);
+
+                  // Or read the data with a FileReader
+                  var reader = new FileReader();
+                  reader.addEventListener("loadend", function() {                   // reader.result contains the contents of blob as text
+                    
+                  });
+                  reader.readAsText(blob);
+              } else console.error('we didnt get an XHR response!');
+          };
+          oReq.send(null);
+      }, function (err) { console.error('error getting file! ' + err); });
+  }, function (err) { console.error('error getting persistent fs! ' + err); });
+
+  });
+
+
   var query = "SELECT * FROM msg_data WHERE msg_id = ?";
 
   db.executeSql(query, [localStorage.clicked_msg_id], function (resultSet) {
@@ -942,8 +1003,23 @@ $$(document).on("pageInit", '.page[data-page="view-received-message"]', function
           '</div>'+
       '</div>';
 
+      $$("#view_message").html(msg_html);
+
+      $$.ajax({
+        type: "POST",
+        url: "http://bling-test.000webhostapp.com/get-file-data.php",
+        data: {msg_id: localStorage.clicked_msg_id},
+        crossDomain: true,
+        cache: false,
+        success: function (data) {
+          
+          if(data!="none"){
+            $$("#view_message").append('<p><a class="button button-big button-fill color-gray down_btn" id="'+data+'">'+data+'</a></p>');
+          }
+        }
+      });
+
     //Inserting generated html from above into parent html element i.e <div> with id #view_message
-    $$("#view_message").html(msg_html);
   },
     function (error) {
       myApp.alert('SELECT error (user type): ' + error.message);
