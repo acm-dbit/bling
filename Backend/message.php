@@ -70,6 +70,8 @@
 
 	send_notif($fac_name,$department,$year);
 
+	send_notif($fac_name,$department,$year);
+
 	echo $to_send;
 
 	$conn->close();
