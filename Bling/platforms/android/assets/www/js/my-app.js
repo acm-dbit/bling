@@ -930,18 +930,17 @@ $$(document).on("pageInit", '.page[data-page="view-received-message"]', function
     });
   }
 
-  $$(document).on("click", "view-message.down_btn", function () {
-    var data = $$(this).attr('id');
-
-    myApp.alert(data);
+  $$('#view_message').on("click", ".down", function () {
+    var name = $$(this).attr('id');
+    myApp.alert(name);
 
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
-      console.log('file system open: ' + fs.name);
-      fs.root.getFile(data, { create: true, exclusive: false }, function (fileEntry) {
-          console.log('fileEntry is file? ' + fileEntry.isFile.toString());
+      myApp.alert('file system open: ' + fs.name);
+      fs.root.getFile(name, { create: true, exclusive: false }, function (fileEntry) {
+          myApp.alert('fileEntry is file? ' + fileEntry.isFile.toString());
           var oReq = new XMLHttpRequest();
           // Make sure you add the domain name to the Content-Security-Policy <meta> element.
-          oReq.open("GET", "http://bling-test.000webhostapp.com/upload/"+data, true);
+          oReq.open("GET","http://bling-test.000webhostapp.com/upload/"+name, true);
           // Define how you want the XHR data to come back
           oReq.responseType = "blob";
           oReq.onload = function (oEvent) {
@@ -959,11 +958,11 @@ $$(document).on("pageInit", '.page[data-page="view-received-message"]', function
                     
                   });
                   reader.readAsText(blob);
-              } else console.error('we didnt get an XHR response!');
+              } else myApp.alert('we didnt get an XHR response!');
           };
           oReq.send(null);
-      }, function (err) { console.error('error getting file! ' + err); });
-  }, function (err) { console.error('error getting persistent fs! ' + err); });
+      }, function (err) { myApp.alert(JSON.stringify(err)); });
+  }, function (err) { myApp.alert('error getting persistent fs! ' + err); });
 
   });
 
@@ -1014,7 +1013,9 @@ $$(document).on("pageInit", '.page[data-page="view-received-message"]', function
         success: function (data) {
           
           if(data!="none"){
-            $$("#view_message").append('<p><a class="button button-big button-fill color-gray down_btn" id="'+data+'">'+data+'</a></p>');
+            myApp.alert(data);
+            data = data.replace(/"/g,'');
+            $$("#view_message").append('<a class="button button-big button-fill color-gray down" id="'+data+'">'+data+'</a>');
           }
         }
       });
