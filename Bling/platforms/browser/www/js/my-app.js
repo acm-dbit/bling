@@ -268,109 +268,150 @@ $$(document).on('pageInit', '.page[data-page="message"]', function (e) {
     var id = localStorage.id;
     var name = localStorage.name;
 
-    // $$("#sendmsg").on('submit',(function(e) {
+    $$("#sendmsg").on('submit',(function(e) {
 
-    //   console.log("submit click");
-    //   console.log(JSON.stringify(new FormData(this)));
+      var subject=$$('#subject').val();
+      var message=$$('#message').val();
+      var department=$$('#dept').val();
+      var year=$$('#year').val();
 
-    //   var formData = new FormData(this);
-    //   formData.append("id",id);
-    //   formData.append("fac_name",name);
+      myApp.alert("submit click");
 
-    //   console.log(JSON.stringify(formData));
+      var formData = new FormData(this);
+      formData.append("id",id);
+      formData.append("fac_name",name);
+
+      console.log(JSON.stringify(formData));
   
-    //   e.preventDefault();
+      e.preventDefault();
+      var res = [];
   
-    //   $$.ajax({
-    //   type: "POST",             // Type of request to be send, called as method
-    //   url: "http://bling-test.000webhostapp.com/message.php", // Url to which the request is send
-    //   data: formData, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
-    //   crossDomain: true,
-    //   cache: false,             // To unable request pages to be cached
-    //   success: function(data)   // A function to be called if request succeeds
-    //   {
-    //     var resx = JSON.parse(data);
-    //     myApp.alert(resx);
-    //     if(resx.res_type=="success")
-    //     {
-    //       // myApp.alert("in success condition");
-    //       resx["subject"] = subject;
-    //       resx["message"] = message;
-    //       resx["department"] = department;
-    //       resx["year"] = year;
-    //       res.push(resx);
-    //       // myApp.alert(JSON.stringify(res));
-    //       insertSentMsgData(res);
-    //       myApp.alert("Message sent Successfully!");
-    //       mainView.router.loadPage('sent-message.html');
-    //     }
-    //     else if(resx.res_type=="failed")
-    //     {
-    //       myApp.alert("Something Went Wrong !");
-    //     }
-    //   }
-    //   });
+      $$.ajax({
+      type: "POST",             // Type of request to be send, called as method
+      url: "http://bling-test.000webhostapp.com/message.php", // Url to which the request is send
+      data: formData, // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+      crossDomain: true,
+      cache: false,    
+      enctype:"multipart/form-data",         // To unable request pages to be cached
+      success: function(data)   // A function to be called if request succeeds
+      {
+        myApp.alert(data);
+
+        var resx = JSON.parse(data);
+        //myApp.alert(resx);
+        if(resx.res_type=="success")
+        {
+          //myApp.alert(subject+" "+message+" "+department+" "+year);
+          resx["subject"] = subject;
+          resx["message"] = message;
+          resx["department"] = department;
+          resx["year"] = year;
+          res.push(resx);
+          // myApp.alert(JSON.stringify(res));
+          insertSentMsgData(res);
+          myApp.alert("Message sent Successfully!");
+          mainView.router.loadPage('sent-message.html');
+        }
+        else if(resx.res_type=="failed")
+        {
+          myApp.alert("Something Went Wrong !");
+        }
+      }
+      });
   
-    //   return false;
-    //   }));
+      return false;
+      }));
 
-    $$('#msg_send').on('click', function () {
+    // $$('#send_msg').on('submit', function () {
 
-            var subject=$$('#subj').val();
-            var message=$$('#msg').val();
-            var department=$$('#dept').val();
-            var year=$$('#year').val();
-            var fileToUpload=$$('#fileToUpload').files[0];
-            var res = [];
-              $$.ajax({
-              type: "POST",
-              url:"http://bling-test.000webhostapp.com/message.php",
-              data: { id: id, fac_name: localStorage.name, department: department, year: year, subject: subject, message: message, fileToUpload:fileToUpload },
-              crossDomain: true,
-              cache: false,
-              success: function(data){
-                // myApp.alert(data);
-                var resx = JSON.parse(data);
-                myApp.alert(resx);
-                if(resx.res_type=="success")
-                {
-                  // myApp.alert("in success condition");
-                  resx["subject"] = subject;
-                  resx["message"] = message;
-                  resx["department"] = department;
-                  resx["year"] = year;
-                  res.push(resx);
-                  // myApp.alert(JSON.stringify(res));
-                  insertSentMsgData(res);
-                  myApp.alert("Message sent Successfully!");
-                  mainView.router.loadPage('sent-message.html');
-                }
-                else if(resx.res_type=="failed")
-                {
-                  myApp.alert("Something Went Wrong !");
-                }
-             }
-         });
-    });
+    //   myApp.alert("clicked");
+
+
+    //         var subject=$$('#subj').val();
+    //         var message=$$('#msg').val();
+    //         var department=$$('#dept').val();
+    //         var year=$$('#year').val();
+    //         var fileToUpload=document.getElementById('fileToUpload').files[0];
+    //         myApp.alert(fileToUpload);
+    //         var res = [];
+    //           $$.ajax({
+    //           type: "POST",
+    //           url:"http://bling-test.000webhostapp.com/message.php",
+    //           //data: { id: id, fac_name: localStorage.name, department: department, year: year, subject: subject, message: message, fileToUpload:fileToUpload },
+    //           data: new FormData(this),
+    //           crossDomain: true,
+    //           cache: false,
+    //           success: function(data){
+    //             myApp.alert(data);
+    //             var resx = JSON.parse(data);
+    //             myApp.alert(resx);
+    //             if(resx.res_type=="success")
+    //             {
+    //               // myApp.alert("in success condition");
+    //               resx["subject"] = subject;
+    //               resx["message"] = message;
+    //               resx["department"] = department;
+    //               resx["year"] = year;
+    //               res.push(resx);
+    //               // myApp.alert(JSON.stringify(res));
+    //               insertSentMsgData(res);
+    //               myApp.alert("Message sent Successfully!");
+    //               mainView.router.loadPage('sent-message.html');
+    //             }
+    //             else if(resx.res_type=="failed")
+    //             {
+    //               myApp.alert("Something Went Wrong !");
+    //             }
+    //          }
+    //      });
+    // });
 })
 
 //javascript code for accessing the camera
 $$(document).on('pageInit', '.page[data-page="camera"]', function (e) {
 
+  function setOptions(srcType) {
+    var options = {
+        // Some common settings are 20, 50, and 100
+        quality: 50,
+        destinationType: Camera.DestinationType.FILE_URI,
+        // In this app, dynamically set the picture source, Camera or photo gallery
+        sourceType: srcType,
+        encodingType: Camera.EncodingType.JPEG,
+        mediaType: Camera.MediaType.PICTURE,
+        allowEdit: false,
+        correctOrientation: true  //Corrects Android orientation quirks
+    }
+    return options;
+}
+
+  function openCamera() {
+
+    console.log("open");
+
+    var srcType = Camera.PictureSourceType.CAMERA;
+    var options = setOptions(srcType);
+    //var func = createNewFileEntry;
+
+    navigator.camera.getPicture(function cameraSuccess(imageUri) {
+      console.log(imageUri);
+      $$("#image").attr("src",imageUri);
+        //displayImage(imageUri);
+        // You may choose to copy the picture, save it somewhere, or upload.
+        //func(imageUri);
+
+    }, function cameraError(error) {
+        console.log("Unable to obtain picture: " + error, "app");
+
+    }, options);
+}
+
+
     $$('#cam_btn').on('click', function () {
 
-        navigator.camera.getPicture(function(result){
+      console.log("clicked");
 
-          $$("#image").attr("src",result);
-        },
-
-        function(error){
-        console.log(error);
-        },
-
-        {
-        sourceType : Camera.PictureSourceType.CAMERA
-        });
+        openCamera();
     });
 })
 
@@ -894,6 +935,66 @@ $$(document).on("pageInit", '.page[data-page="view-sent-message"]', function (e)
 
 $$(document).on("pageInit", '.page[data-page="view-received-message"]', function (e) {
 
+  function writeFile(fileEntry, dataObj) {
+    // Create a FileWriter object for our FileEntry (log.txt).
+    fileEntry.createWriter(function (fileWriter) {
+  
+        fileWriter.onwriteend = function() {
+            myApp.alert("Download Successfull ! Check root of Internal Storage");
+            readFile(fileEntry);
+        };
+  
+        fileWriter.onerror = function (e) {
+          myApp.alert("Download Failed :(: " + e.toString());
+        };
+  
+        // If data object is not passed in,
+        // create a new Blob instead.
+        if (!dataObj) {
+            dataObj = new Blob(['some file data'], { type: 'text/plain' });
+        }
+  
+        fileWriter.write(dataObj);
+    });
+  }
+
+  $$('#view_message').on("click", ".down", function () {
+    var name = $$(this).attr('id');
+    //myApp.alert(name);
+
+    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+      //myApp.alert('file system open: ' + fs.name);
+      fs.root.getFile(name, { create: true, exclusive: false }, function (fileEntry) {
+          //myApp.alert('fileEntry is file? ' + fileEntry.isFile.toString());
+          var oReq = new XMLHttpRequest();
+          // Make sure you add the domain name to the Content-Security-Policy <meta> element.
+          oReq.open("GET","http://bling-test.000webhostapp.com/upload/"+name, true);
+          // Define how you want the XHR data to come back
+          oReq.responseType = "blob";
+          oReq.onload = function (oEvent) {
+              var blob = oReq.response; // Note: not oReq.responseText
+              if (blob) {
+                  // Create a URL based on the blob, and set an <img> tag's src to it.
+                  // var url = window.URL.createObjectURL(blob);
+                  // document.getElementById('image').src = url;
+
+                  writeFile(fileEntry, blob);
+
+                  // Or read the data with a FileReader
+                  var reader = new FileReader();
+                  reader.addEventListener("loadend", function() {                   // reader.result contains the contents of blob as text
+                    
+                  });
+                  reader.readAsText(blob);
+              } else myApp.alert('we didnt get an XHR response!');
+          };
+          oReq.send(null);
+      }, function (err) { myApp.alert(JSON.stringify(err)); });
+  }, function (err) { myApp.alert('error getting persistent fs! ' + err); });
+
+  });
+
+
   var query = "SELECT * FROM msg_data WHERE msg_id = ?";
 
   db.executeSql(query, [localStorage.clicked_msg_id], function (resultSet) {
@@ -929,8 +1030,25 @@ $$(document).on("pageInit", '.page[data-page="view-received-message"]', function
           '</div>'+
       '</div>';
 
+      $$("#view_message").html(msg_html);
+
+      $$.ajax({
+        type: "POST",
+        url: "http://bling-test.000webhostapp.com/get-file-data.php",
+        data: {msg_id: localStorage.clicked_msg_id},
+        crossDomain: true,
+        cache: false,
+        success: function (data) {
+          
+          if(data!="none"){
+            myApp.alert(data);
+            data = data.replace(/"/g,'');
+            $$("#view_message").append('<a class="button button-big button-fill color-gray down" id="'+data+'">'+data+'</a>');
+          }
+        }
+      });
+
     //Inserting generated html from above into parent html element i.e <div> with id #view_message
-    $$("#view_message").html(msg_html);
   },
     function (error) {
       myApp.alert('SELECT error (user type): ' + error.message);

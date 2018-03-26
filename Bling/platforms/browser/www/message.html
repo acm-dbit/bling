@@ -39,14 +39,15 @@ Page for composing new message.
     <!-- Floating Action Button -->
 
     <div class="list-block">
-      <ul>
+        <form id="sendmsg" action="" method="post" enctype="multipart/form-data">
+        <ul>
         <!-- Additional "align-top" class for correct textarea alignment -->
         <li>
           <div class="item-content">
             <div class="item-inner">
               <div class="item-title label">Subject</div>
               <div class="item-input">
-                <input type="text" id="subj" placeholder="Type the subject...">
+                <input type="text" id="subject" name="subj" placeholder="Type the subject...">
               </div>
             </div>
           </div>
@@ -57,7 +58,7 @@ Page for composing new message.
             <div class="item-inner">
               <div class="item-title label">Message</div>
               <div class="item-input">
-                <textarea id="msg" placeholder="Type message here..." style="height: 13em;"></textarea>
+                <textarea id="message" name="msg" placeholder="Type message here..." style="height: 13em;"></textarea>
               </div>
             </div>
           </div>
@@ -68,7 +69,7 @@ Page for composing new message.
             <div class="item-inner">
               <div class="item-title label">Department</div>
               <div class="item-input">
-                <select id="dept">
+                <select id="dept" name="dept">
                   <option>Computers</option>
                   <option>EXTC</option>
                   <option>IT</option>
@@ -84,7 +85,7 @@ Page for composing new message.
          <div class="item-inner">
           <div class="item-title label">Year</div>
            <div class="item-input">
-            <select id="year">
+            <select id="year" name="year">
                <option>FE</option>
                <option>SE</option>
                <option>TE</option>
@@ -98,7 +99,7 @@ Page for composing new message.
     <li>
         <div class="item-content">
           <div class="item-inner">
-           <div class="item-title label">Year</div>
+           <div class="item-title label">File</div>
             <div class="item-input">
                 <input type="file" name="fileToUpload" id="fileToUpload" required />
              </div>
@@ -106,9 +107,11 @@ Page for composing new message.
         </div>
      </li>
 
-    <p><a class="button button-raised button-fill button-big color-green" id="msg_send">Send</a></p>
+    <p><button type="submit" class="button button-fill button-big color-green">Send</button></p>
 
     </ul>
+
+    </form>
 
   </div>
 </div>

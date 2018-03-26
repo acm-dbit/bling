@@ -370,20 +370,48 @@ $$(document).on('pageInit', '.page[data-page="message"]', function (e) {
 //javascript code for accessing the camera
 $$(document).on('pageInit', '.page[data-page="camera"]', function (e) {
 
+  function setOptions(srcType) {
+    var options = {
+        // Some common settings are 20, 50, and 100
+        quality: 50,
+        destinationType: Camera.DestinationType.FILE_URI,
+        // In this app, dynamically set the picture source, Camera or photo gallery
+        sourceType: srcType,
+        encodingType: Camera.EncodingType.JPEG,
+        mediaType: Camera.MediaType.PICTURE,
+        allowEdit: false,
+        correctOrientation: true  //Corrects Android orientation quirks
+    }
+    return options;
+}
+
+  function openCamera() {
+
+    console.log("open");
+
+    var srcType = Camera.PictureSourceType.CAMERA;
+    var options = setOptions(srcType);
+    //var func = createNewFileEntry;
+
+    navigator.camera.getPicture(function cameraSuccess(imageUri) {
+      console.log(imageUri);
+      $$("#image").attr("src",imageUri);
+        //displayImage(imageUri);
+        // You may choose to copy the picture, save it somewhere, or upload.
+        //func(imageUri);
+
+    }, function cameraError(error) {
+        console.log("Unable to obtain picture: " + error, "app");
+
+    }, options);
+}
+
+
     $$('#cam_btn').on('click', function () {
 
-        navigator.camera.getPicture(function(result){
+      console.log("clicked");
 
-          $$("#image").attr("src",result);
-        },
-
-        function(error){
-        console.log(error);
-        },
-
-        {
-        sourceType : Camera.PictureSourceType.CAMERA
-        });
+        openCamera();
     });
 })
 
