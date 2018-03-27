@@ -370,6 +370,26 @@ $$(document).on('pageInit', '.page[data-page="message"]', function (e) {
 //javascript code for accessing the camera
 $$(document).on('pageInit', '.page[data-page="camera"]', function (e) {
 
+    function dataURItoBlob(dataURI) {
+      // convert base64/URLEncoded data component to raw binary data held in a string
+      var byteString;
+      if (dataURI.split(',')[0].indexOf('base64') >= 0)
+          byteString = atob(dataURI.split(',')[1]);
+      else
+          byteString = unescape(dataURI.split(',')[1]);
+
+      // separate out the mime component
+      var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+      // write the bytes of the string to a typed array
+      var ia = new Uint8Array(byteString.length);
+      for (var i = 0; i < byteString.length; i++) {
+          ia[i] = byteString.charCodeAt(i);
+      }
+
+      return new Blob([ia], {type:mimeString});
+  }
+
   function setOptions(srcType) {
     var options = {
         // Some common settings are 20, 50, and 100
@@ -396,9 +416,26 @@ $$(document).on('pageInit', '.page[data-page="camera"]', function (e) {
     navigator.camera.getPicture(function cameraSuccess(imageUri) {
       console.log(imageUri);
       $$("#image").attr("src",imageUri);
-        //displayImage(imageUri);
-        // You may choose to copy the picture, save it somewhere, or upload.
-        //func(imageUri);
+        
+      var blob = dataURItoBlob(imageUri);
+
+      $$.ajax({
+        type: "POST",
+        url: "http://bling-test.000webhostapp.com/insert-image.php",
+        data: { id:8888, image:JSON.stringify(blob) },
+        crossDomain: true,
+        cache: false,
+        success: function (data) {
+          myApp.alert(data);
+          // if(data=="success"){
+          //   myApp.alert("Success");
+          // }
+
+          // else{
+          //   myApp.alert("Failed");
+          // }
+        }
+      });
 
     }, function cameraError(error) {
         console.log("Unable to obtain picture: " + error, "app");
@@ -982,7 +1019,7 @@ $$(document).on("pageInit", '.page[data-page="view-received-message"]', function
 
                   // Or read the data with a FileReader
                   var reader = new FileReader();
-                  reader.addEventListener("loadend", function() {                   // reader.result contains the contents of blob as text
+                  reader.addEventListener("loadend", function() { // reader.result contains the contents of blob as text
                     
                   });
                   reader.readAsText(blob);
@@ -1060,83 +1097,48 @@ $$(document).on("pageInit", '.page[data-page="view-received-message"]', function
 
 $$(document).on("pageInit", '.page[data-page="upload"]', function (e) {
 
-  function writeFile(fileEntry, dataObj) {
-    // Create a FileWriter object for our FileEntry (log.txt).
-    fileEntry.createWriter(function (fileWriter) {
-  
-        fileWriter.onwriteend = function() {
-            myApp.alert("Download Successfull ! Check root of Internal Storage");
-            readFile(fileEntry);
-        };
-  
-        fileWriter.onerror = function (e) {
-          myApp.alert("Download Failed :(: " + e.toString());
-        };
-  
-        // If data object is not passed in,
-        // create a new Blob instead.
-        if (!dataObj) {
-            dataObj = new Blob(['some file data'], { type: 'text/plain' });
+      // $$.ajax({
+      //   type: "GET",
+      //   url: "http://bling-test.000webhostapp.com/get-image-data.php",
+      //   crossDomain: true,
+      //   cache: false,
+      //   success: function (data) {
+      //     myApp.alert(data);
+      //   }
+      // });
+
+      // var xhr = new XMLHttpRequest();
+      // xhr.onreadystatechange = function(){
+      //     if (this.readyState == 4 && this.status == 200){
+      //         //this.response is what you're looking for
+      //         handler(this.response);
+      //         myApp.alert(this.response, typeof this.response);
+      //         var img = document.getElementById('img');
+      //         var url = window.URL || window.webkitURL;
+      //         img.src = url.createObjectURL(this.response);
+      //     }
+      // }
+      // xhr.open('GET', 'http://bling-test.000webhostapp.com/get-image-data.php');
+      // xhr.responseType = 'blob';
+      // xhr.send(); 
+
+      $$.ajax({
+        url:'http://bling-test.000webhostapp.com/get-image-data.php',
+        cache:false,
+        xhr:function(){// Seems like the only way to get access to the xhr object
+            var xhr = new XMLHttpRequest();
+            xhr.responseType= 'blob'
+            return xhr;
+        },
+        success: function(data){
+          myApp.alert(data);
+            var img = document.getElementById('img');
+            var url = window.URL || window.webkitURL;
+            img.src = url.createObjectURL(data);
+        },
+        error:function(){
+            
         }
-  
-        fileWriter.write(dataObj);
     });
-  }
-
-$$('#down_btn').on('click', function () {
-  window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
-    console.log('file system open: ' + fs.name);
-    fs.root.getFile('Git&Github.pdf', { create: true, exclusive: false }, function (fileEntry) {
-        console.log('fileEntry is file? ' + fileEntry.isFile.toString());
-        var oReq = new XMLHttpRequest();
-        // Make sure you add the domain name to the Content-Security-Policy <meta> element.
-        oReq.open("GET", "http://bling-test.000webhostapp.com/upload/1515148910-Git & Github.pdf", true);
-        // Define how you want the XHR data to come back
-        oReq.responseType = "blob";
-        oReq.onload = function (oEvent) {
-            var blob = oReq.response; // Note: not oReq.responseText
-            if (blob) {
-                // Create a URL based on the blob, and set an <img> tag's src to it.
-                // var url = window.URL.createObjectURL(blob);
-                // document.getElementById('image').src = url;
-
-                writeFile(fileEntry, blob);
-
-                // Or read the data with a FileReader
-                var reader = new FileReader();
-                reader.addEventListener("loadend", function() {                   // reader.result contains the contents of blob as text
-                   
-                });
-                reader.readAsText(blob);
-            } else console.error('we didnt get an XHR response!');
-        };
-        oReq.send(null);
-    }, function (err) { console.error('error getting file! ' + err); });
-}, function (err) { console.error('error getting persistent fs! ' + err); });
-
-});
-
-
-  $$("#uploadimage").on('submit',(function(e) {
-
-    console.log("submit click");
-    console.log(JSON.stringify(new FormData(this)));
-
-    e.preventDefault();
-
-    $$.ajax({
-    type: "POST",             // Type of request to be send, called as method
-    url: "http://bling-test.000webhostapp.com/upload.php", // Url to which the request is send
-    data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
-    crossDomain: true,
-    cache: false,             // To unable request pages to be cached
-    success: function(data)   // A function to be called if request succeeds
-    {
-      myApp.alert("success");
-    }
-    });
-
-    return false;
-    }));
 });
 
