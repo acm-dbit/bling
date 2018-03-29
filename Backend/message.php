@@ -64,7 +64,7 @@
                 	$res_type = "failed";
             }
         }
-	};
+	}
 
 	$to_send = '{"res_type":"'.$res_type.'","msg_id":"'.$last_id.'","date":"'.$date.'","time":"'.$time.'"}';
 

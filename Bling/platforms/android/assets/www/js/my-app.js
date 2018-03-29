@@ -179,7 +179,6 @@ $$(document).on('pageInit', '.page[data-page="register"]', function (e) {
             var department=$$('#sdepartment').val();
             var pass=$$('#spass').val();
             var con_pass=$$('#scpass').val();
-            var year;
 
             localStorage.reg_name = name;
             localStorage.reg_id = id;
@@ -191,7 +190,7 @@ $$(document).on('pageInit', '.page[data-page="register"]', function (e) {
 
               //myApp.alert("continue");
 
-              mainView.router.loadPage('icard.html');
+              mainView.router.loadPage('capture-icard.html');
 
         //     year = getYear(semester);
         //     myApp.alert(year);
@@ -1054,7 +1053,7 @@ $$(document).on("pageInit", '.page[data-page="upload"]', function (e) {
 });
 
 
-$$(document).on("pageInit", '.page[data-page="icard"]', function (e) {
+$$(document).on("pageInit", '.page[data-page="capture-icard"]', function (e) {
 
       var fd = new FormData();
 
@@ -1130,10 +1129,6 @@ $$(document).on("pageInit", '.page[data-page="icard"]', function (e) {
         openCamera();
     });
 
-    $$('#done').on('click', function () {
-
-      console.log("done");
-    });
 
     $$('#stud_reg').on('click', function () {
 
@@ -1144,6 +1139,8 @@ $$(document).on("pageInit", '.page[data-page="icard"]', function (e) {
         crossDomain: true,
         cache: false,
         success: function(data){
+
+        myApp.alert(data);
       
         if(data=="success")
         {
@@ -1166,3 +1163,37 @@ $$(document).on("pageInit", '.page[data-page="icard"]', function (e) {
     });
 });
 
+$$(document).on("pageInit", '.page[data-page="icard-list"]', function (e) {
+
+  $$('#list').on("click", ".ilist", function () {
+    var card_id = $$(this).attr('id');
+    localStorage.icard_id = card_id;
+    mainView.router.loadPage('view-icard.html');
+  });
+
+  $$.ajax({
+    type: "GET",
+    url:"http://bling-test.000webhostapp.com/get-icard-list.php",
+    crossDomain: true,
+    cache: false,
+    success: function(data){
+      var list = JSON.parse(data);
+      
+      for(var i=0;i<list.length;i++){
+        $$('#list').append(
+            '<li class="item-content ilist" id="'+list[i].id+'">'+
+                '<div class="item-media">'+(i+1)+'</div>'+
+                '<div class="item-inner">'+
+                    '<div class="item-title label">'+list[i].stud_id+'</div>'+
+                '</div>'+
+            '</li>'
+        );
+      }
+    }
+  });
+});
+
+$$(document).on("pageInit", '.page[data-page="view-icard"]', function (e) {
+  myApp.alert("Hello");
+  myApp.alert(localStorage.icard_id);
+});
