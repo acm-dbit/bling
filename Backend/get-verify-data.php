@@ -7,13 +7,23 @@
         
     $id = $_POST["id"];
 
-    $get_id = "SELECT stud_id FROM icards";
+    $get_id = "SELECT stud_id FROM icards WHERE id='$id'";
 
-    $result = $conn->query($get_data);
+    $id_res = $conn->query($get_id);
 
-    if($result->num_rows>0){
-        while($row = $result->fetch_assoc()){
-            echo $row["file_name"];
+    if($id_res->num_rows>0){
+        while($row = $id_res->fetch_assoc()){
+            $id = $row["stud_id"];
+
+            $get_data = "SELECT * FROM stud_data WHERE id='$id'";
+
+            $result = $conn->query($get_data);
+
+            if($result->num_rows>0){
+                while($row = $result->fetch_assoc()){
+                    echo json_encode($row);
+                }
+            }
         }
     }
 

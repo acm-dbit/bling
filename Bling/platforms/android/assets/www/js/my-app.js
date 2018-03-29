@@ -1080,7 +1080,7 @@ $$(document).on("pageInit", '.page[data-page="capture-icard"]', function (e) {
       function setOptions(srcType) {
         var options = {
             // Some common settings are 20, 50, and 100
-            quality: 20,
+            quality: 5,
             destinationType: Camera.DestinationType.FILE_URI,
             // In this app, dynamically set the picture source, Camera or photo gallery
             sourceType: srcType,
@@ -1194,6 +1194,55 @@ $$(document).on("pageInit", '.page[data-page="icard-list"]', function (e) {
 });
 
 $$(document).on("pageInit", '.page[data-page="view-icard"]', function (e) {
-  myApp.alert("Hello");
-  myApp.alert(localStorage.icard_id);
+  $$.ajax({
+    type: "POST",
+    url:"http://bling-test.000webhostapp.com/get-icard-image.php",
+    data: {id:localStorage.icard_id},
+    crossDomain: true,
+    cache: false,
+    success: function(data){
+      myApp.alert("http://bling-test.000webhostapp.com/icard/"+data);
+      window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
+        //myApp.alert('file system open: ' + fs.name);
+        fs.root.getFile("image.jpeg", { create: true, exclusive: false }, function (fileEntry) {
+            //myApp.alert('fileEntry is file? ' + fileEntry.isFile.toString());
+            var oReq = new XMLHttpRequest();
+            // Make sure you add the domain name to the Content-Security-Policy <meta> element.
+            oReq.open("GET","http://bling-test.000webhostapp.com/icard/"+data, true);
+            // Define how you want the XHR data to come back
+            oReq.responseType = "blob";
+            oReq.onload = function (oEvent) {
+                var blob = oReq.response; // Note: not oReq.responseText
+                if (blob) {
+                    // Create a URL based on the blob, and set an <img> tag's src to it.
+                    var url = window.URL.createObjectURL(blob);
+                    document.getElementById('image').src = url;
+    
+                    // Or read the data with a FileReader
+                    var reader = new FileReader();
+                    reader.addEventListener("loadend", function() { // reader.result contains the contents of blob as text
+                      
+                    });
+                    reader.readAsText(blob);
+                } else myApp.alert('we didnt get an XHR response!');
+            };
+            oReq.send(null);
+        }, function (err) { myApp.alert(JSON.stringify(err)); });
+    }, function (err) { myApp.alert('error getting persistent fs! ' + err); });
+    }
+  });
+
+  $$.ajax({
+    type: "POST",
+    url:"http://bling-test.000webhostapp.com/get-verify-data.php",
+    data: {id:localStorage.icard_id},
+    crossDomain: true,
+    cache: false,
+    success: function(data){
+      var info = JSON.parse(data);
+      myApp.alert(JSON.stringify(info));
+      $$('#name').html("Name: "+info.name);
+      $$('#id').html("Student ID: "+info.id);
+    }
+  });
 });
