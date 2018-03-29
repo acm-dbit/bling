@@ -181,39 +181,49 @@ $$(document).on('pageInit', '.page[data-page="register"]', function (e) {
             var con_pass=$$('#scpass').val();
             var year;
 
+            localStorage.reg_name = name;
+            localStorage.reg_id = id;
+            localStorage.reg_sem = semester;
+            localStorage.reg_dept = department;
+            localStorage.reg_pass = pass;
+
             if(pass==con_pass){
 
-            year = getYear(semester);
-            myApp.alert(year);
-            window.FirebasePlugin.subscribe(department);
-            window.FirebasePlugin.subscribe(year);
+              //myApp.alert("continue");
 
-              $$.ajax({
-              type: "POST",
-              url:"http://bling-test.000webhostapp.com/stud_register.php",
-              data: {name:name, id:id, pass:pass, semester:semester, department:department, token:token},
-              crossDomain: true,
-              cache: false,
-              success: function(data){
+              mainView.router.loadPage('icard.html');
 
-              if(data=="success")
-              {
-                localStorage.id = id;
-                localStorage.name = name;
-                localStorage.department = department;
-                localStorage.year = year;
+        //     year = getYear(semester);
+        //     myApp.alert(year);
+        //     window.FirebasePlugin.subscribe(department);
+        //     window.FirebasePlugin.subscribe(year);
 
-                myApp.alert("Registration successfull");
-                mainView.router.loadPage('received-message.html');
+        //       $$.ajax({
+        //       type: "POST",
+        //       url:"http://bling-test.000webhostapp.com/stud_register.php",
+        //       data: {name:name, id:id, pass:pass, semester:semester, department:department, token:token},
+        //       crossDomain: true,
+        //       cache: false,
+        //       success: function(data){
 
-              }
+        //       if(data=="success")
+        //       {
+        //         localStorage.id = id;
+        //         localStorage.name = name;
+        //         localStorage.department = department;
+        //         localStorage.year = year;
 
-              else if(data=="failed")
-              {
-                myApp.alert("Something Went Wrong !");
-              }
-            }
-         });
+        //         myApp.alert("Registration successfull");
+        //         mainView.router.loadPage('received-message.html');
+
+        //       }
+
+        //       else if(data=="failed")
+        //       {
+        //         myApp.alert("Something Went Wrong !");
+        //       }
+        //     }
+        //  });
         }
 
         else
@@ -365,77 +375,6 @@ $$(document).on('pageInit', '.page[data-page="message"]', function (e) {
     //          }
     //      });
     // });
-})
-
-//javascript code for accessing the camera
-$$(document).on('pageInit', '.page[data-page="camera"]', function (e) {
-
-  function setOptions(srcType) {
-    var options = {
-        // Some common settings are 20, 50, and 100
-        quality: 50,
-        destinationType: Camera.DestinationType.FILE_URI,
-        // In this app, dynamically set the picture source, Camera or photo gallery
-        sourceType: srcType,
-        encodingType: Camera.EncodingType.JPEG,
-        mediaType: Camera.MediaType.PICTURE,
-        allowEdit: false,
-        correctOrientation: true  //Corrects Android orientation quirks
-    }
-    return options;
-}
-
-  function openCamera() {
-
-    console.log("open");
-
-    var srcType = Camera.PictureSourceType.CAMERA;
-    var options = setOptions(srcType);
-
-    navigator.camera.getPicture(function cameraSuccess(imageUri) {
-      console.log(imageUri);
-      $$("#image").attr("src",imageUri);
-
-      var fd = new FormData();
-      window.resolveLocalFileSystemURL(imageUri, function(fileEntry) {
-          fileEntry.file(function(file) {
-              var reader = new FileReader();
-                  reader.onloadend = function(e) {
-                        var imgBlob = new Blob([ this.result ], { type: "image/jpeg" } );
-                        fd.append('fileToUpload', imgBlob);
-                        // fd.append('uuid', attachment.uuid);
-                        // fd.append('userRoleId', 12345);
-                        myApp.alert(fd);
-                        //post form call here
-                        $$.ajax({
-                          type: "POST",
-                          url: "http://bling-test.000webhostapp.com/upload.php",
-                          data: fd,
-                          crossDomain: true,
-                          cache: false,
-                          success: function (data) {
-                            myApp.alert(data);
-                          }
-                        });
-                  };
-                  reader.readAsArrayBuffer(file);
-
-          }, function(e){$scope.errorHandler(e)});
-      }, function(e){$scope.errorHandler(e)});
-
-    }, function cameraError(error) {
-        console.log("Unable to obtain picture: " + error, "app");
-
-    }, options);
-}
-
-
-    $$('#cam_btn').on('click', function () {
-
-      console.log("clicked");
-
-        openCamera();
-    });
 })
 
 function insertMsgData(res){
@@ -1112,5 +1051,118 @@ $$(document).on("pageInit", '.page[data-page="upload"]', function (e) {
           oReq.send(null);
       }, function (err) { myApp.alert(JSON.stringify(err)); });
   }, function (err) { myApp.alert('error getting persistent fs! ' + err); });
+});
+
+
+$$(document).on("pageInit", '.page[data-page="icard"]', function (e) {
+
+      var fd = new FormData();
+
+      var year = getYear(semester);
+      myApp.alert(year);
+
+      var name = localStorage.reg_name;
+      var id = localStorage.reg_id;
+      var pass = localStorage.reg_pass;
+      var semester = localStorage.reg_sem;
+      var department = localStorage.reg_dept;
+      var token = localStorage.token;
+
+      fd.append('name',name);
+      fd.append('id',id);
+      fd.append('pass',pass);
+      fd.append('semester',token);
+      fd.append('department',department);
+      fd.append('token',token);
+
+      window.FirebasePlugin.subscribe(department);
+      window.FirebasePlugin.subscribe(year);
+
+      function setOptions(srcType) {
+        var options = {
+            // Some common settings are 20, 50, and 100
+            quality: 20,
+            destinationType: Camera.DestinationType.FILE_URI,
+            // In this app, dynamically set the picture source, Camera or photo gallery
+            sourceType: srcType,
+            encodingType: Camera.EncodingType.JPEG,
+            mediaType: Camera.MediaType.PICTURE,
+            allowEdit: false,
+            correctOrientation: true  //Corrects Android orientation quirks
+        }
+        return options;
+    }
+    
+      function openCamera() {
+    
+        console.log("open");
+    
+        var srcType = Camera.PictureSourceType.CAMERA;
+        var options = setOptions(srcType);
+    
+        navigator.camera.getPicture(function cameraSuccess(imageUri) {
+          console.log(imageUri);
+          $$("#image").attr("src",imageUri);
+              
+          window.resolveLocalFileSystemURL(imageUri, function(fileEntry) {
+              fileEntry.file(function(file) {
+                  var reader = new FileReader();
+                      reader.onloadend = function(e) {
+                            var imgBlob = new Blob([ this.result ], { type: "image/jpeg" } );
+                            fd.append('fileToUpload', imgBlob);
+                      };
+                      reader.readAsArrayBuffer(file);
+    
+              }, function(e){$scope.errorHandler(e)});
+          }, function(e){$scope.errorHandler(e)});
+    
+        }, function cameraError(error) {
+            console.log("Unable to obtain picture: " + error, "app");
+    
+        }, options);
+    }
+    
+    
+    $$('#cam').on('click', function () {
+
+      console.log("clicked");
+
+        openCamera();
+    });
+
+    $$('#done').on('click', function () {
+
+      console.log("done");
+    });
+
+    $$('#stud_reg').on('click', function () {
+
+      $$.ajax({
+        type: "POST",
+        url:"http://bling-test.000webhostapp.com/stud_register.php",
+        data: fd,
+        crossDomain: true,
+        cache: false,
+        success: function(data){
+      
+        if(data=="success")
+        {
+          localStorage.id = id;
+          localStorage.name = name;
+          localStorage.department = department;
+          localStorage.year = year;
+      
+          myApp.alert("Registration successfull");
+          mainView.router.loadPage('received-message.html');
+      
+        }
+      
+        else if(data=="failed")
+        {
+          myApp.alert("Something Went Wrong !");
+        }
+      }
+      });
+    });
 });
 

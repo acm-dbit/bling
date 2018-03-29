@@ -22,7 +22,7 @@ faculty's sent messages page.
 </div>
 {{/if}}
 
-<div class="page" data-page="camera">
+<div class="page" data-page="icard">
   <!-- Fixed navbar for Material theme -->
   {{#if @global.android}}
   <div class="navbar">
@@ -32,14 +32,18 @@ faculty's sent messages page.
           <i class="icon icon-back"></i>
         </a>
       </div>
-      <div class="center">Camera</div>
+      <div class="center">Upload I-Card</div>
     </div>
   </div>
   {{/if}}
 
   <div class="page-content">
-  <p><a class="button button-big button-fill color-gray" id="cam_btn">Open Camera</a></p>
+  <p><a class="button button-big button-fill color-gray" id="cam">Open Camera</a></p>
 
   <img id="image" width="100%" height="50%">
+
+  <p>
+    <a href="#" class="button button-raised button-big button-fill color-blue" id="stud_reg">Register</a>
+  </p>
   </div>
 </div>
