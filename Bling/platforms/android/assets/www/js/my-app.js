@@ -188,41 +188,7 @@ $$(document).on('pageInit', '.page[data-page="register"]', function (e) {
 
             if(pass==con_pass){
 
-              //myApp.alert("continue");
-
               mainView.router.loadPage('capture-icard.html');
-
-        //     year = getYear(semester);
-        //     myApp.alert(year);
-        //     window.FirebasePlugin.subscribe(department);
-        //     window.FirebasePlugin.subscribe(year);
-
-        //       $$.ajax({
-        //       type: "POST",
-        //       url:"http://bling-test.000webhostapp.com/stud_register.php",
-        //       data: {name:name, id:id, pass:pass, semester:semester, department:department, token:token},
-        //       crossDomain: true,
-        //       cache: false,
-        //       success: function(data){
-
-        //       if(data=="success")
-        //       {
-        //         localStorage.id = id;
-        //         localStorage.name = name;
-        //         localStorage.department = department;
-        //         localStorage.year = year;
-
-        //         myApp.alert("Registration successfull");
-        //         mainView.router.loadPage('received-message.html');
-
-        //       }
-
-        //       else if(data=="failed")
-        //       {
-        //         myApp.alert("Something Went Wrong !");
-        //       }
-        //     }
-        //  });
         }
 
         else
@@ -1057,8 +1023,6 @@ $$(document).on("pageInit", '.page[data-page="capture-icard"]', function (e) {
 
       var fd = new FormData();
 
-      var year = getYear(semester);
-      myApp.alert(year);
 
       var name = localStorage.reg_name;
       var id = localStorage.reg_id;
@@ -1067,10 +1031,14 @@ $$(document).on("pageInit", '.page[data-page="capture-icard"]', function (e) {
       var department = localStorage.reg_dept;
       var token = localStorage.token;
 
+      myApp.alert(semester);
+      var year = getYear(semester);
+
+
       fd.append('name',name);
       fd.append('id',id);
       fd.append('pass',pass);
-      fd.append('semester',token);
+      fd.append('semester',semester);
       fd.append('department',department);
       fd.append('token',token);
 
@@ -1149,8 +1117,8 @@ $$(document).on("pageInit", '.page[data-page="capture-icard"]', function (e) {
           localStorage.department = department;
           localStorage.year = year;
       
-          myApp.alert("Registration successfull");
-          mainView.router.loadPage('received-message.html');
+          myApp.alert("Verification pending!!");
+          mainView.router.loadPage('index.html');
       
         }
       
