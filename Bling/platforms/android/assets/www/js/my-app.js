@@ -1080,7 +1080,7 @@ $$(document).on("pageInit", '.page[data-page="capture-icard"]', function (e) {
       function setOptions(srcType) {
         var options = {
             // Some common settings are 20, 50, and 100
-            quality: 5,
+            quality: 10,
             destinationType: Camera.DestinationType.FILE_URI,
             // In this app, dynamically set the picture source, Camera or photo gallery
             sourceType: srcType,
@@ -1243,6 +1243,47 @@ $$(document).on("pageInit", '.page[data-page="view-icard"]', function (e) {
       myApp.alert(JSON.stringify(info));
       $$('#name').html("Name: "+info.name);
       $$('#id').html("Student ID: "+info.id);
+
+      $$('#accept').on('click', function () {
+        $$.ajax({
+          type: "POST",
+          url:"http://bling-test.000webhostapp.com/verify.php",
+          data: {id:info.id, status:1},
+          crossDomain: true,
+          cache: false,
+          success: function(data){
+            if(data=="success"){
+              myApp.alert("Successfully Accepted");
+              mainView.router.loadPage('icard-list.html');
+            }
+
+            else{
+              myApp.alert("Something went wrong!");
+            }
+          }
+        });
+      });
+
+      $$('#reject').on('click', function () {
+        $$.ajax({
+          type: "POST",
+          url:"http://bling-test.000webhostapp.com/verify.php",
+          data: {id:info.id, status:0},
+          crossDomain: true,
+          cache: false,
+          success: function(data){
+            if(data=="success"){
+              myApp.alert("Successfully Rejected");
+              mainView.router.loadPage('icard-list.html');
+            }
+
+            else{
+              myApp.alert("Something went wrong!");
+            }
+          }
+        });
+      });
     }
   });
+
 });
