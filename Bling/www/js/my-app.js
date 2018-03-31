@@ -1194,6 +1194,9 @@ $$(document).on("pageInit", '.page[data-page="icard-list"]', function (e) {
 });
 
 $$(document).on("pageInit", '.page[data-page="view-icard"]', function (e) {
+
+  var file_name = null;
+
   $$.ajax({
     type: "POST",
     url:"http://bling-test.000webhostapp.com/get-icard-image.php",
@@ -1201,6 +1204,7 @@ $$(document).on("pageInit", '.page[data-page="view-icard"]', function (e) {
     crossDomain: true,
     cache: false,
     success: function(data){
+      file_name = data;
       myApp.alert("http://bling-test.000webhostapp.com/icard/"+data);
       window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
         //myApp.alert('file system open: ' + fs.name);
@@ -1244,11 +1248,15 @@ $$(document).on("pageInit", '.page[data-page="view-icard"]', function (e) {
       $$('#name').html("Name: "+info.name);
       $$('#id').html("Student ID: "+info.id);
 
+      if(file_name == null){
+        myApp.alert("File is null");
+      }
+
       $$('#accept').on('click', function () {
         $$.ajax({
           type: "POST",
           url:"http://bling-test.000webhostapp.com/verify.php",
-          data: {id:info.id, status:1},
+          data: {id:info.id, status:1, file_name:file_name},
           crossDomain: true,
           cache: false,
           success: function(data){
@@ -1258,7 +1266,7 @@ $$(document).on("pageInit", '.page[data-page="view-icard"]', function (e) {
             }
 
             else{
-              myApp.alert("Something went wrong!");
+              myApp.alert(data);
             }
           }
         });
@@ -1268,7 +1276,7 @@ $$(document).on("pageInit", '.page[data-page="view-icard"]', function (e) {
         $$.ajax({
           type: "POST",
           url:"http://bling-test.000webhostapp.com/verify.php",
-          data: {id:info.id, status:0},
+          data: {id:info.id, status:0, file_name:file_name},
           crossDomain: true,
           cache: false,
           success: function(data){
@@ -1278,7 +1286,7 @@ $$(document).on("pageInit", '.page[data-page="view-icard"]', function (e) {
             }
 
             else{
-              myApp.alert("Something went wrong!");
+              myApp.alert(data);
             }
           }
         });
