@@ -118,7 +118,6 @@
                 <p><a href="pages/message-card.html" class="button button-fill button-big color-blue">Message
                 </a></p>
                 <p><a href="icard-list.html" class="button button-fill button-big color-green">Admin</a></p>
-                <p><a href="upload.html" class="button button-fill button-big color-indigo">UPLOAD</a></p>
 
               </div>
             </div>
@@ -138,8 +137,18 @@
     -->
 
   <script type="text/javascript" src="cordova.js"></script>
-
   <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
+
+  <script src="js/my-app.js"></script>
+  <script src="lib\framework7\js\moment-with-locales.min.js"></script>
+  <script src="js/register.js"></script>
+  <script src="js/verify.js"></script>
+  <script src="js/view-received-message.js"></script>
+  <script src="js/view-sent-message.js"></script>
+  <script src="js/sent-message.js"></script>
+  <script src="js/new-message.js"></script>
+  <script src="js/received-message.js"></script>
+  <script src="js/starred-msgs.js"></script>
 
   <script>
     (function () {
@@ -159,6 +168,20 @@
     })();
 
     var $$ = Dom7;
+
+    function dropCheck(u_id){
+  // myApp.alert("in drop check function");
+      if(localStorage.prev_id != u_id){
+        db.executeSql("DROP TABLE IF EXISTS msg_data", [], function (resultSet) {
+          // myApp.alert("DROP statement executed");
+        },
+          function (error) {
+            // myApp.alert('DROP error : ' + error.message);
+          }
+        );
+      }
+
+    }
 
 
     $$('#login').on('click', function () {
@@ -259,8 +282,6 @@
     }, 1000);
   </script>
 
-  <script src="js/my-app.js"></script>
-  <script src="lib\framework7\js\moment-with-locales.min.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,117 @@
+<!-- 
+Page for composing new message.
+ -->
+
+<!-- Dynamic navbar for iOS theme -->
+{{#if @global.ios}}
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="left sliding">
+      <a href="#" class="back">
+        <i class="icon icon-back"></i>
+        <span>Back</span>
+      </a>
+    </div>
+    <div class="center sliding">New Message</div>
+  </div>
+</div>
+{{/if}}
+
+<div class="page" data-page="message">
+  <!-- Fixed navbar for Material theme -->
+  {{#if @global.android}}
+  <div class="navbar">
+    <div class="navbar-inner">
+      <div class="left">
+        <a href="#" class="back icon-only">
+          <i class="icon icon-back"></i>
+        </a>
+      </div>
+      <div class="center">Message</div>
+    </div>
+  </div>
+  {{/if}}
+
+  <div class="page-content">
+    <!-- <div class="content-block"> -->
+    <!-- Buttons row as tabs controller -->
+
+    <!-- Floating Action Button -->
+
+    <div class="list-block">
+        <form id="sendmsg" action="" method="post" enctype="multipart/form-data">
+        <ul>
+        <!-- Additional "align-top" class for correct textarea alignment -->
+        <li>
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title label">Subject</div>
+              <div class="item-input">
+                <input type="text" id="subject" name="subj" placeholder="Type the subject...">
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li class="align-top">
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title label">Message</div>
+              <div class="item-input">
+                <textarea id="message" name="msg" placeholder="Type message here..." style="height: 13em;"></textarea>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+          <div class="item-content">
+            <div class="item-inner">
+              <div class="item-title label">Department</div>
+              <div class="item-input">
+                <select id="dept" name="dept">
+                  <option>Computers</option>
+                  <option>EXTC</option>
+                  <option>IT</option>
+                  <option>Mechanical</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </li>
+
+        <li>
+       <div class="item-content">
+         <div class="item-inner">
+          <div class="item-title label">Year</div>
+           <div class="item-input">
+            <select id="year" name="year">
+               <option>FE</option>
+               <option>SE</option>
+               <option>TE</option>
+               <option>BE</option>
+           </select>
+            </div>
+         </div>
+       </div>
+    </li>
+
+    <li>
+        <div class="item-content">
+          <div class="item-inner">
+           <div class="item-title label">File</div>
+            <div class="item-input">
+                <input type="file" name="fileToUpload" id="fileToUpload" required />
+             </div>
+          </div>
+        </div>
+     </li>
+
+    <p><button type="submit" class="button button-fill button-big color-green">Send</button></p>
+
+    </ul>
+
+    </form>
+
+  </div>
+</div>
