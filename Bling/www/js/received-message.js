@@ -4,7 +4,12 @@ function insertMsgData(res){
     for (i = 0; i < res.length; i++) {
       var query = "INSERT INTO msg_data (msg_id, id, date, time, fac_name, subject, message) VALUES (?,?,?,?,?,?,?)";
       db.executeSql(query, [res[i].msg_id, res[i].id, res[i].date, res[i].time, res[i].fac_name, res[i].subject, res[i].message], function (result) {
-        // myApp.alert("rowsAffected: " + result.rowsAffected);
+        myApp.alert("rowsAffected: " + result.rowsAffected);
+        myApp.alert("i="+i+" res len="+res.length);
+        if(i==res.length){
+          var query = "SELECT * FROM msg_data ORDER BY msg_id DESC";
+          getNDisplayMsgData(query,"all");
+        }
       },
         function (error) {
           myApp.alert('INSERT error(server data to localDB): ' + error.message);
@@ -15,7 +20,7 @@ function insertMsgData(res){
   
   function getNDisplayMsgData(query,disp_type){
     //Getting data to display in received msgs list
-    //  myApp.alert("in display func");
+    myApp.alert("in display func");
     //  myApp.alert("query : "+query);
   
     var msg_html = "";
@@ -114,12 +119,10 @@ function insertMsgData(res){
       success: function (data) {
         // myApp.alert(type+localStorage.department+localStorage.year);
         // myApp.alert(data);
+        res = JSON.parse(data);
   
-        if (data.length > 50) {
-          res = JSON.parse(data);
+        if (res.length > 0) {
           insertMsgData(res);
-          var query = "SELECT * FROM msg_data ORDER BY msg_id DESC";
-          getNDisplayMsgData(query,"all");
         }
         else{
           $$("#msg_list").html('<p style:"text-align:center">No new messages</p>');
@@ -142,17 +145,22 @@ function insertMsgData(res){
       cache: false,
       success: function (data) {
         //parsing into JSON from string type variable (data)
-  
-  
-        if(data.length > 50){
-          // myApp.alert(data);
-          res = JSON.parse(data);
+        res = JSON.parse(data);
+
+        myApp.alert(res.length);
+
+        if(res.length > 0){
+          myApp.alert(JSON.stringify(res));
           insertMsgData(res);
+        }
+
+        else{
+          myApp.alert("in else");
+          var query = "SELECT * FROM msg_data ORDER BY msg_id DESC";
+          getNDisplayMsgData(query,"all");
         }
       }
     });
-    var query = "SELECT * FROM msg_data ORDER BY msg_id DESC";
-    getNDisplayMsgData(query,"all");
   }
   
   $$(document).on("pageInit", '.page[data-page="received-message"]', function(e) {
