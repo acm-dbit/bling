@@ -1,17 +1,3 @@
-function getYear(semester) {
-  if (semester == 1 || semester == 2)
-    return('FE');
-
-  else if (semester == 3 || semester == 4)
-    return('SE');
-
-  else if (semester == 5 || semester == 6)
-    return('TE');
-
-  else (semester == 7 || semester == 8)
-    return('BE');
-}
-
 $$(document).on("pageInit", '.page[data-page="capture-icard"]', function (e) {
 
     var fd = new FormData();
@@ -19,17 +5,14 @@ $$(document).on("pageInit", '.page[data-page="capture-icard"]', function (e) {
     var name = localStorage.reg_name;
     var id = localStorage.reg_id;
     var pass = localStorage.reg_pass;
-    var semester = localStorage.reg_sem;
+    var year = localStorage.reg_year;
     var department = localStorage.reg_dept;
     var token = localStorage.token;
-
-    myApp.alert(semester);
-    var year = getYear(semester);
 
     fd.append('name',name);
     fd.append('id',id);
     fd.append('pass',pass);
-    fd.append('semester',semester);
+    fd.append('year',year);
     fd.append('department',department);
     fd.append('token',token);
 

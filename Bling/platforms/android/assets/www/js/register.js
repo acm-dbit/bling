@@ -23,14 +23,14 @@ $$(document).on('pageInit', '.page[data-page="register"]', function (e) {
 
             var name=$$('#sname').val();
             var id=$$('#sid').val();
-            var semester=$$('#ssemester').val();
+            var year=$$('#syear').val();
             var department=$$('#sdepartment').val();
             var pass=$$('#spass').val();
             var con_pass=$$('#scpass').val();
 
             localStorage.reg_name = name;
             localStorage.reg_id = id;
-            localStorage.reg_sem = semester;
+            localStorage.reg_year = year;
             localStorage.reg_dept = department;
             localStorage.reg_pass = pass;
 
