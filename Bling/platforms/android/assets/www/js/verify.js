@@ -16,7 +16,6 @@ $$(document).on("pageInit", '.page[data-page="capture-icard"]', function (e) {
 
     var fd = new FormData();
 
-
     var name = localStorage.reg_name;
     var id = localStorage.reg_id;
     var pass = localStorage.reg_pass;
@@ -26,7 +25,6 @@ $$(document).on("pageInit", '.page[data-page="capture-icard"]', function (e) {
 
     myApp.alert(semester);
     var year = getYear(semester);
-
 
     fd.append('name',name);
     fd.append('id',id);

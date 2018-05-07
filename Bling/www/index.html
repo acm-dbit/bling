@@ -115,10 +115,6 @@
                   </li>
                 </ul>
 
-                <p><a href="pages/message-card.html" class="button button-fill button-big color-blue">Message
-                </a></p>
-                <p><a href="icard-list.html" class="button button-fill button-big color-green">Admin</a></p>
-
               </div>
             </div>
           </div>
@@ -214,6 +210,8 @@
             localStorage.department = res.department;
             localStorage.year = res.year;
             localStorage.type = 1;
+            window.FirebasePlugin.subscribe(localStorage.department);
+            window.FirebasePlugin.subscribe(localStorage.year);
             dropCheck(localStorage.id);
             mainView.router.loadPage('received-message.html');
           }
@@ -225,6 +223,11 @@
             alert(localStorage.name);
             dropCheck(localStorage.id);
             mainView.router.loadPage('sent-message.html');
+          }
+
+          else if(res.res_type == "admin"){
+            localStorage.type = 3;
+            mainView.router.loadPage('icard-list.html');
           }
         }
       });

@@ -7,12 +7,7 @@
 
     $id = $_POST["id"];
     $pass = $_POST["pass"];
-
-    $s_chk = "SELECT name,id,pass,department,semester FROM stud_data WHERE id='$id' AND pass='$pass'";
-    $f_chk = "SELECT name,id,pass,name FROM fac_data WHERE id='$id' AND pass='$pass'";
-
-    $s_result = $conn->query($s_chk);
-
+    
     function getYear($semester) {
         if($semester == 1 || $semester == 2)
             return "FE";
@@ -23,6 +18,12 @@
         elseif($semester == 7 || $semester == 8)
             return "BE";
     }
+
+    $s_chk = "SELECT name,id,pass,department,semester FROM stud_data WHERE id='$id' AND pass='$pass' AND status=1";
+    $f_chk = "SELECT name,id,pass FROM fac_data WHERE id='$id' AND pass='$pass'";
+    $a_chk = "SELECT id,pass FROM admin_data WHERE id='$id' AND pass='$pass'";
+
+    $s_result = $conn->query($s_chk);
 
     if($s_result->num_rows > 0){
         $row = $s_result->fetch_assoc();
@@ -44,8 +45,17 @@
         }
 
         else{
-            $res = '{"res_type":"failed"}';
-            echo $res;
+            $a_result = $conn->query($a_chk);
+            
+            if($a_result->num_rows > 0){
+                $res = '{"res_type":"admin"}';
+                echo $res;
+            }
+            
+            else{
+                $res = '{"res_type":"failed"}';
+                echo $res;   
+            }
         }
 
 

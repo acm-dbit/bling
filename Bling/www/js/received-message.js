@@ -4,8 +4,8 @@ function insertMsgData(res){
     for (i = 0; i < res.length; i++) {
       var query = "INSERT INTO msg_data (msg_id, id, date, time, fac_name, subject, message) VALUES (?,?,?,?,?,?,?)";
       db.executeSql(query, [res[i].msg_id, res[i].id, res[i].date, res[i].time, res[i].fac_name, res[i].subject, res[i].message], function (result) {
-        myApp.alert("rowsAffected: " + result.rowsAffected);
-        myApp.alert("i="+i+" res len="+res.length);
+        //myApp.alert("rowsAffected: " + result.rowsAffected);
+        //myApp.alert("i="+i+" res len="+res.length);
         if(i==res.length){
           var query = "SELECT * FROM msg_data ORDER BY msg_id DESC";
           getNDisplayMsgData(query,"all");
@@ -20,7 +20,7 @@ function insertMsgData(res){
   
   function getNDisplayMsgData(query,disp_type){
     //Getting data to display in received msgs list
-    myApp.alert("in display func");
+    //myApp.alert("in display func");
     //  myApp.alert("query : "+query);
   
     var msg_html = "";
