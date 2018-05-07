@@ -9,7 +9,7 @@
         <span>Back</span>
       </a>
     </div>
-    <div class="center sliding">Received Messages</div>
+    <div class="center sliding">Profile</div>
   </div>
 </div>
 {{/if}}
@@ -34,6 +34,11 @@
     <div class="data-table card">
         <table>
           <tbody>
+
+            <tr>
+                <td style="width:100%">Student ID</td>
+                <td style="width:100%" id="id"></td>
+            </tr>
             
             <tr>
                 <td style="width:100%">Name</td>
@@ -53,6 +58,36 @@
           </tbody>
         </table>
     </div>
+
+    <div class="list-block cards-list">
+        <ul>
+          <li class="card">
+            <div class="card-content">
+                <div class="card-content-inner">
+                <div class="item-content">
+                  <div class="item-inner">
+                    <div class="item-title label">Year</div>
+                    <div class="item-input">
+                        <select id="pyear">
+                            <option selected>Change Year</option>
+                            <option>FE</option>
+                            <option>SE</option>
+                            <option>TE</option>
+                            <option>BE</option>
+                          </select>
+                    </div>
+                  </div>
+                </div>
+                </div>
+              </div>
+          </li>
+
+        </ul>
+      </div>
+
+      <p>
+        <a href="#" class="button button-raised button-fill button-big color-red" id="save">Save</a>
+      </p>
 
   </div>
 

@@ -47,15 +47,21 @@ function Application(){
 
   if (localStorage.type == 1) {
     $$('#starred-msgs-link').show();
+    $$('#profile-link').show();
   }
 
   else {
     $$('#starred-msgs-link').hide();
+    $$('#profile-link').hide();
   }
 
   $$('#toggleID').on('click',function()
   {
     myApp.openPanel('left');
+  });
+
+  $$('#profile-link').on('click', function (e) {
+    mainView.router.loadPage('profile.html');
   });
 
   $$('#starred-msgs-link').on('click', function (e) {

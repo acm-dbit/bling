@@ -133,6 +133,7 @@ function insertMsgData(res){
   
   function oldUserType(resultSet) {
     // myApp.alert("in old func");
+    var insert = 0;
     var type = "old";
     var res;
     var msg_html;
@@ -150,17 +151,17 @@ function insertMsgData(res){
         myApp.alert(res.length);
 
         if(res.length > 0){
+          insert = 1;
           myApp.alert(JSON.stringify(res));
           insertMsgData(res);
         }
-
-        else{
-          myApp.alert("in else");
-          var query = "SELECT * FROM msg_data ORDER BY msg_id DESC";
-          getNDisplayMsgData(query,"all");
-        }
       }
     });
+
+    if(insert!=1){
+      var query = "SELECT * FROM msg_data ORDER BY msg_id DESC";
+      getNDisplayMsgData(query,"all");
+    }
   }
   
   $$(document).on("pageInit", '.page[data-page="received-message"]', function(e) {

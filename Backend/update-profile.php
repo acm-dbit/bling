@@ -6,15 +6,16 @@
         die("Connection failed ".$conn->connect_error);
 
     $id = $_POST["id"];
+    $year = $_POST["year"];
 
-    $select = "SELECT id,name,department,year FROM stud_data WHERE id='$id'";
+    $update = "UPDATE stud_data SET year='$year' WHERE id='$id'";
 
-    $result = $conn->query($select);
+    if($conn->query($update)){
+        echo "success";
+    }
 
-    if($result->num_rows>0){
-        while($row = $result->fetch_assoc()){
-            echo json_encode($row);
-        }
+    else{
+        echo "failed";
     }
 
 ?>

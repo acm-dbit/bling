@@ -8,18 +8,8 @@
     $id = $_POST["id"];
     $pass = $_POST["pass"];
     
-    function getYear($semester) {
-        if($semester == 1 || $semester == 2)
-            return "FE";
-        elseif($semester == 2 || $semester == 3)
-            return "SE";
-        elseif($semester == 4 || $semester == 5)
-            return "TE";
-        elseif($semester == 7 || $semester == 8)
-            return "BE";
-    }
 
-    $s_chk = "SELECT name,id,pass,department,semester FROM stud_data WHERE id='$id' AND pass='$pass' AND status=1";
+    $s_chk = "SELECT name,id,pass,department,year FROM stud_data WHERE id='$id' AND pass='$pass' AND status=1";
     $f_chk = "SELECT name,id,pass FROM fac_data WHERE id='$id' AND pass='$pass'";
     $a_chk = "SELECT id,pass FROM admin_data WHERE id='$id' AND pass='$pass'";
 
@@ -28,7 +18,7 @@
     if($s_result->num_rows > 0){
         $row = $s_result->fetch_assoc();
         $department = $row['department'];
-        $year = getYear($row['semester']);
+        $year = $row['year'];
         $res = '{"res_type":"student","department":"'.$department.'","year":"'.$year.'"}';
         echo $res;
     }

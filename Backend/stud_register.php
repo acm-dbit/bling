@@ -8,11 +8,11 @@
 	$name = $_POST["name"];
 	$id = $_POST["id"];
 	$department = $_POST["department"];
-	$semester = $_POST["semester"];
+	$year = $_POST["year"];
 	$pass = $_POST["pass"];
 	$token = $_POST["token"];
 
-	$insert = "INSERT INTO stud_data (name,id,department,semester,pass,token) VALUES('$name','$id','$department','$semester','$pass','$token')";
+	$insert = "INSERT INTO stud_data (name,id,department,year,pass,token) VALUES('$name','$id','$department','$year','$pass','$token')";
 
 	if($conn->query($insert)){
 	    
