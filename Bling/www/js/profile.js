@@ -1,11 +1,10 @@
 $$(document).on('pageInit', '.page[data-page="profile"]', function (e) {
 
     var id = localStorage.id;
-    myApp.alert(id);
 
     $$.ajax({
         type: 'POST',
-        url: "http://bling-test.000webhostapp.com/get-profile.php", // Url to which the request is send
+        url: "http://bling-test.000webhostapp.com/get-profile.php", //getting the profile details from server
         data: {id:id}, 
         crossDomain: true,
         cache: false,
@@ -14,7 +13,7 @@ $$(document).on('pageInit', '.page[data-page="profile"]', function (e) {
             myApp.alert(data);
             data = JSON.parse(data);
 
-            $$('#id').text(data.id);
+            $$('#id').text(data.id); //Adding the data to HTML
             $$('#name').text(data.name);
             $$('#depart').text(data.department);
             $$('#year').text(data.year);
@@ -25,7 +24,7 @@ $$(document).on('pageInit', '.page[data-page="profile"]', function (e) {
     
         var year = $$('#pyear').val();
 
-        if(year == "Change Year" || year == localStorage.year){
+        if(year == "Change Year" || year == localStorage.year){ //If no year selected or selected year same as current year
             myApp.alert("Nothing to Save");
         }
 
@@ -39,7 +38,7 @@ $$(document).on('pageInit', '.page[data-page="profile"]', function (e) {
                 success: function(data){
 
                     if(data=="success"){
-                        db.executeSql("DROP TABLE IF EXISTS msg_data", [], function (resultSet) {
+                        db.executeSql("DROP TABLE IF EXISTS msg_data", [], function (resultSet) { //Drop all data stored locally since it contains data from the previous year of student 
                             myApp.alert("DROP statement executed");
                           },
                             function (error) {
