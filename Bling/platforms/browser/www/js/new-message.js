@@ -1,21 +1,22 @@
-$$(document).on('pageInit', '.page[data-page="new-message"]', function (e) {
-    // Following code will be executed for page with data-page attribute equal to "new-message"
+  
+  $$(document).on('pageInit', '.page[data-page="new-message"]', function (e) {
+    // Following code will be executed for page with data-page attribute equal to "message"
     var id = localStorage.id;
     var name = localStorage.name;
-
+  
     $$("#sendmsg").on('submit',(function(e) {
-
-      myApp.alert("submit click");
-
+  
       var subject=$$('#subject').val();
       var message=$$('#message').val();
       var department=$$('#dept').val();
       var year=$$('#year').val();
-
+  
+      myApp.alert("submit click");
+  
       var formData = new FormData(this);
       formData.append("id",id);
       formData.append("fac_name",name);
-
+  
       console.log(JSON.stringify(formData));
   
       e.preventDefault();
@@ -31,7 +32,7 @@ $$(document).on('pageInit', '.page[data-page="new-message"]', function (e) {
       success: function(data)   // A function to be called if request succeeds
       {
         myApp.alert(data);
-
+  
         var resx = JSON.parse(data);
         //myApp.alert(resx);
         if(resx.res_type=="success")
@@ -51,12 +52,9 @@ $$(document).on('pageInit', '.page[data-page="new-message"]', function (e) {
         {
           myApp.alert("Something Went Wrong !");
         }
-      },
-      error:function(data){
-        myApp.alert(data);
       }
       });
   
       return false;
       }));
-})
+  })
