@@ -15,20 +15,29 @@
     if($type == "new"){
         $query = "SELECT * from msg_data WHERE department='$department' AND year='$year'";
         $result = $conn->query($query);
-        while($row = $result->fetch_assoc()){
-            array_push($res_arr, $row) ;
+        if($result->num_rows > 0){
+            while($row = $result->fetch_assoc()){
+                array_push($res_arr, $row) ;
+            }
+            print_r(json_encode($res_arr));
         }
+        else
+            echo "none";
+
     }
     else {
         $msg_id = $_POST["msg_id"];
         $query = "SELECT * from msg_data WHERE msg_id > '$msg_id' AND department='$department' AND year='$year'";
         $result = $conn->query($query);
-        while($row = $result->fetch_assoc()){
-            array_push($res_arr, $row) ;
+        if($result->num_rows > 0){
+            while($row = $result->fetch_assoc()){
+                array_push($res_arr, $row) ;
+            }
+            print_r(json_encode($res_arr));
         }
+        else
+            echo "none";
     }
-
-    print_r(json_encode($res_arr));
 
 	$conn->close();
 
