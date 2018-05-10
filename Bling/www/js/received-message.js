@@ -105,7 +105,7 @@ function insertMsgData(res){
       cache: false,
       success: function (data) {
 
-        if (res != "none") {
+        if (data != "none") {
           res = JSON.parse(data);
           insertMsgData(res);
         }
@@ -133,7 +133,7 @@ function insertMsgData(res){
 
         myApp.alert(res.length);
 
-        if(res != "none"){
+        if(data != "none"){
           res = JSON.parse(data);
           myApp.alert(JSON.stringify(res));
           insertMsgData(res);
