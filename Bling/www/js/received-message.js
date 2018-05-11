@@ -1,6 +1,6 @@
 function insertMsgData(res){
     //Inserting parsed json values into localDB
-    for (i = 0; i < res.length; i++) {
+    for (let i = 0; i < res.length; i++) {
       var query = "INSERT INTO msg_data (msg_id, id, date, time, fac_name, subject, message) VALUES (?,?,?,?,?,?,?)";
       db.executeSql(query, [res[i].msg_id, res[i].id, res[i].date, res[i].time, res[i].fac_name, res[i].subject, res[i].message], function (result) {
         if(i==res.length){
