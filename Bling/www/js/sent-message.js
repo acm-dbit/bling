@@ -89,6 +89,8 @@ function newUserFunc() {
 
 $$(document).on("pageInit", '.page[data-page="sent-message"]', function (e) {
 
+    document.addEventListener("backbutton", onBackKeyDown, false);
+
     var mySearchbar = myApp.searchbar(".searchbar", {
       searchList: ".list-block-search",
       searchIn: ".card-header,.card-content-inner"

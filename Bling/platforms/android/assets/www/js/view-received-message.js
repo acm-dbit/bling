@@ -1,5 +1,7 @@
 $$(document).on("pageInit", '.page[data-page="view-received-message"]', function (e) {
 
+    document.addEventListener("backbutton", onBackKeyDown, false);
+
     function writeFile(fileEntry, dataObj) {
       // Create a FileWriter object for our FileEntry (log.txt).
       fileEntry.createWriter(function (fileWriter) {

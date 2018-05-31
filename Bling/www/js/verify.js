@@ -1,5 +1,7 @@
 $$(document).on("pageInit", '.page[data-page="capture-icard"]', function (e) {
 
+    document.addEventListener("backbutton", onBackKeyDown, false);
+
     var fd = new FormData();
 
     var name = localStorage.reg_name;
@@ -110,6 +112,8 @@ $$(document).on("pageInit", '.page[data-page="capture-icard"]', function (e) {
 
 $$(document).on("pageInit", '.page[data-page="icard-list"]', function (e) {
 
+   document.addEventListener("backbutton", onBackKeyDown, false);
+
     $$('#list').on("click", ".ilist", function () {
       var card_id = $$(this).attr('id');
       localStorage.icard_id = card_id;
@@ -140,6 +144,8 @@ $$(document).on("pageInit", '.page[data-page="icard-list"]', function (e) {
 
 
   $$(document).on("pageInit", '.page[data-page="view-icard"]', function (e) {
+
+    document.addEventListener("backbutton", onBackKeyDown, false);
 
     var file_name = null;
   

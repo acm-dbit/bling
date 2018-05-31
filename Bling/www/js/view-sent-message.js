@@ -1,4 +1,5 @@
 $$(document).on("pageInit", '.page[data-page="view-sent-message"]', function (e) {
+    document.addEventListener("backbutton", onBackKeyDown, false);
     // myApp.alert('here');
     var query = "SELECT * FROM msg_data WHERE msg_id = ?";
   

@@ -131,8 +131,6 @@ function insertMsgData(res){
       success: function (data) {
         //parsing into JSON from string type variable (data)
 
-        myApp.alert(res.length);
-
         if(data != "none"){
           res = JSON.parse(data);
           myApp.alert(JSON.stringify(res));
@@ -147,6 +145,8 @@ function insertMsgData(res){
   }
 
   $$(document).on("pageInit", '.page[data-page="received-message"]', function(e) {
+
+    document.addEventListener("backbutton", onBackKeyDown, false);
 
     var mySearchbar = myApp.searchbar(".searchbar", {
       searchList: ".list-block-search",

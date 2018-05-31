@@ -1,5 +1,7 @@
 $$(document).on('pageInit', '.page[data-page="profile"]', function (e) {
 
+    document.addEventListener("backbutton", onBackKeyDown, false);
+
     var id = localStorage.id;
 
     $$.ajax({

@@ -1,10 +1,8 @@
 function insertSentMsgData(res) {
     //Inserting parsed json values into localDB
-    // myApp.alert("in insert func");
     for (i = 0; i < res.length; i++) {
       var query = "INSERT INTO msg_data VALUES (?,?,?,?,?,?,?)";
       db.executeSql(query, [res[i].msg_id, res[i].date, res[i].time, res[i].department, res[i].year, res[i].subject, res[i].message], function (result) {
-        // myApp.alert("rowsAffected: " + result.rowsAffected);
       },
         function (error) {
           myApp.alert('INSERT error(server data to localDB): ' + error.message);
@@ -15,7 +13,6 @@ function insertSentMsgData(res) {
 
 function getNDisplaySentMsgData() {
     //Getting data to display in received msgs list
-    // myApp.alert("in display func");
     var query = "SELECT * FROM msg_data ORDER BY msg_id DESC";
     var msg_html = "";
     db.executeSql(query, [], function (resultSet) {
@@ -69,8 +66,7 @@ function getNDisplaySentMsgData() {
 function newUserFunc() {
     // myApp.alert("in new func");
     var type = "new";
-    // var date = moment().format('l');
-    // var time = moment().format('LT');
+
     $$.ajax({
       type: "POST",
       url: "http://bling-test.000webhostapp.com/get-sent-msg-data.php",
@@ -78,8 +74,6 @@ function newUserFunc() {
       crossDomain: true,
       cache: false,
       success: function (data) {
-        // myApp.alert(type+localStorage.department+localStorage.year);
-        // myApp.alert(data);
   
         if (data.length > 10) {
           res = JSON.parse(data);
@@ -94,6 +88,8 @@ function newUserFunc() {
   }
 
 $$(document).on("pageInit", '.page[data-page="sent-message"]', function (e) {
+
+    document.addEventListener("backbutton", onBackKeyDown, false);
 
     var mySearchbar = myApp.searchbar(".searchbar", {
       searchList: ".list-block-search",

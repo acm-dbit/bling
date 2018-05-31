@@ -1,5 +1,7 @@
 $$(document).on("pageInit", '.page[data-page="capture-icard"]', function (e) {
 
+    document.addEventListener("backbutton", onBackKeyDown, false);
+
     var fd = new FormData();
 
     var name = localStorage.reg_name;
@@ -9,6 +11,7 @@ $$(document).on("pageInit", '.page[data-page="capture-icard"]', function (e) {
     var department = localStorage.reg_dept;
     var token = localStorage.token;
 
+    //Adding other details to existing form data which contains the image captured by the student
     fd.append('name',name);
     fd.append('id',id);
     fd.append('pass',pass);
@@ -109,6 +112,8 @@ $$(document).on("pageInit", '.page[data-page="capture-icard"]', function (e) {
 
 $$(document).on("pageInit", '.page[data-page="icard-list"]', function (e) {
 
+   document.addEventListener("backbutton", onBackKeyDown, false);
+
     $$('#list').on("click", ".ilist", function () {
       var card_id = $$(this).attr('id');
       localStorage.icard_id = card_id;
@@ -117,7 +122,7 @@ $$(document).on("pageInit", '.page[data-page="icard-list"]', function (e) {
   
     $$.ajax({
       type: "GET",
-      url:"http://bling-test.000webhostapp.com/get-icard-list.php",
+      url:"http://bling-test.000webhostapp.com/get-icard-list.php", //Get a list of all pending verifications
       crossDomain: true,
       cache: false,
       success: function(data){
@@ -140,11 +145,13 @@ $$(document).on("pageInit", '.page[data-page="icard-list"]', function (e) {
 
   $$(document).on("pageInit", '.page[data-page="view-icard"]', function (e) {
 
+    document.addEventListener("backbutton", onBackKeyDown, false);
+
     var file_name = null;
   
     $$.ajax({
       type: "POST",
-      url:"http://bling-test.000webhostapp.com/get-icard-image.php",
+      url:"http://bling-test.000webhostapp.com/get-icard-image.php",//Get the image of icard from server
       data: {id:localStorage.icard_id},
       crossDomain: true,
       cache: false,
@@ -152,9 +159,7 @@ $$(document).on("pageInit", '.page[data-page="icard-list"]', function (e) {
         file_name = data;
         myApp.alert("http://bling-test.000webhostapp.com/icard/"+data);
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function (fs) {
-          //myApp.alert('file system open: ' + fs.name);
           fs.root.getFile("image.jpeg", { create: true, exclusive: false }, function (fileEntry) {
-              //myApp.alert('fileEntry is file? ' + fileEntry.isFile.toString());
               var oReq = new XMLHttpRequest();
               // Make sure you add the domain name to the Content-Security-Policy <meta> element.
               oReq.open("GET","http://bling-test.000webhostapp.com/icard/"+data, true);
@@ -183,7 +188,7 @@ $$(document).on("pageInit", '.page[data-page="icard-list"]', function (e) {
   
     $$.ajax({
       type: "POST",
-      url:"http://bling-test.000webhostapp.com/get-verify-data.php",
+      url:"http://bling-test.000webhostapp.com/get-verify-data.php",//Get details entered by student during registration
       data: {id:localStorage.icard_id},
       crossDomain: true,
       cache: false,

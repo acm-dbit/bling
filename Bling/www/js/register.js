@@ -1,4 +1,6 @@
 $$(document).on('pageInit', '.page[data-page="register"]', function (e) {
+    document.addEventListener("backbutton", onBackKeyDown, false);
+
     var token = localStorage.token;
 
     //Temporary code for changing the color of tab buttons on click

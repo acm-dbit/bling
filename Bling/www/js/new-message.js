@@ -1,5 +1,8 @@
   
   $$(document).on('pageInit', '.page[data-page="new-message"]', function (e) {
+
+    document.addEventListener("backbutton", onBackKeyDown, false);
+
     var id = localStorage.id;
     var name = localStorage.name;
   

@@ -1,6 +1,6 @@
 function insertMsgData(res){
     //Inserting parsed json values into localDB
-    for (i = 0; i < res.length; i++) {
+    for (let i = 0; i < res.length; i++) {
       var query = "INSERT INTO msg_data (msg_id, id, date, time, fac_name, subject, message) VALUES (?,?,?,?,?,?,?)";
       db.executeSql(query, [res[i].msg_id, res[i].id, res[i].date, res[i].time, res[i].fac_name, res[i].subject, res[i].message], function (result) {
         if(i==res.length){
@@ -105,8 +105,6 @@ function insertMsgData(res){
       cache: false,
       success: function (data) {
 
-        myApp.alert(data);
-
         if (data != "none") {
           res = JSON.parse(data);
           insertMsgData(res);
@@ -131,12 +129,11 @@ function insertMsgData(res){
       crossDomain: true,
       cache: false,
       success: function (data) {
-
-
-        myApp.alert(data);
+        //parsing into JSON from string type variable (data)
 
         if(data != "none"){
-          res = JSON.parse(data);     //parsing into JSON from string type variable (data)
+          res = JSON.parse(data);
+          myApp.alert(JSON.stringify(res));
           insertMsgData(res);
         }
         else{
@@ -148,6 +145,8 @@ function insertMsgData(res){
   }
 
   $$(document).on("pageInit", '.page[data-page="received-message"]', function(e) {
+
+    document.addEventListener("backbutton", onBackKeyDown, false);
 
     var mySearchbar = myApp.searchbar(".searchbar", {
       searchList: ".list-block-search",
