@@ -1,7 +1,6 @@
 function onBackKeyDown(e) {
 
     var name = mainView.activePage.name;
-    myApp.alert(name);
 
     switch(name){
 

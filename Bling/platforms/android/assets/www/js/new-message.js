@@ -7,6 +7,8 @@
     var name = localStorage.name;
   
     $$("#sendmsg").on('submit',(function(e) {
+
+      myApp.showPreloader("Sending Notice");
   
       var subject=$$('#subject').val(); //Used to obtain the value entered in form field
       var message=$$('#message').val();
@@ -34,6 +36,8 @@
       success: function(data)   // A function to be called if request succeeds, the 'data' variable contains the returned value from php
       {
         myApp.alert(data);
+
+        myApp.hidePreloader();
   
         var resx = JSON.parse(data);
         if(resx.res_type=="success")

@@ -77,6 +77,8 @@ $$(document).on("pageInit", '.page[data-page="capture-icard"]', function (e) {
 
   $$('#stud_reg').on('click', function () {
 
+    myApp.showPreloader("Please Wait");
+
     $$.ajax({
       type: "POST",
       url:"http://bling-test.000webhostapp.com/stud_register.php",
@@ -89,6 +91,8 @@ $$(document).on("pageInit", '.page[data-page="capture-icard"]', function (e) {
     
       if(data=="success")
       {
+        myApp.hidePreloader();
+
         localStorage.id = id;
         localStorage.name = name;
         localStorage.department = department;
