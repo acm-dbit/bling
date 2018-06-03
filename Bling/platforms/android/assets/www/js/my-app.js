@@ -24,14 +24,12 @@ var myApp = new Framework7({
     // Enable Material theme for Android device only
     material: isAndroid ? true : false,
     // Enable Template7 pages
-    template7Pages: true
+    template7Pages: true,
+    swipePanel : 'left'
 });
 
 
 function Application(){
-  var myApp = new Framework7({
-    swipePanel : 'left'
-  });
 
   var mainView = myApp.addView('.view-main');
 
