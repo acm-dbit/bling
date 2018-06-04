@@ -25,7 +25,8 @@ var myApp = new Framework7({
     material: isAndroid ? true : false,
     // Enable Template7 pages
     template7Pages: true,
-    swipePanel : 'left'
+    swipePanel : 'left',
+    popupCloseByOutside:false
 });
 
 
