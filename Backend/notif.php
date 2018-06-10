@@ -2,28 +2,7 @@
 header("Access-Control-Allow-Origin: *");
 define('API_ACCESS_KEY', 'AAAA1WMADaA:APA91bHEJ8ynnH4tLeVwLQxrd1BhLQm3xAcVhowFxUq6vUDRFI9RIwk-w7r-bDbQpIxPHQd5U6Y3q9EmbdDIM53UHZryCVAyxrrGSl1ElVWJRROwZhP9uYfpDeNB3sA4uffcW0FMZi8Y');
 
-$conn = new mysqli("localhost","id4053307_blingdb","/blingdb/","id4053307_blingdb");
-
-if($conn->connect_error)
-    die("Connection failed ".$conn->connect_error);
-
-function get_ids($name, $dept, $year){
-    
-    $get_id = "SELECT token FROM stud_data WHERE year='$year' AND department='$dept'";
-    
-    $result = $conn->query($get_id);
-    
-    if($result->num_rows > 0){
-        
-        while($row = $result->fetch_assoc()){
-            
-            send_notif($name, $row["token"]);
-        }
-    }
-    
-}
-
-function send_notif($name,$id){
+function send_notif($name,$dept,$year){
     $msg = array(
     'title' => 'Notice',
     'body' =>$name.' has sent a notice',
@@ -32,7 +11,7 @@ function send_notif($name,$id){
 );
 
 $fields = array(
-    'to' => $id,
+    'condition' => "'".$dept."' in topics && '".$year."' in topics",
     'notification' => $msg
 );
 

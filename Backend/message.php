@@ -44,47 +44,52 @@
     	            $name = explode(" ",$class_name[$i]);
     	            $insert_class = "INSERT INTO msg_class (msg_id,department,year) VALUES('$last_id','$name[1]','$name[0]')";
     	            
-    	            $conn->query($insert_class);
+    	            if($conn->query($insert_class)){
+    	                 	send_notif($fac_name,$name[1],$name[0]);
+    	            }
+    	            
     	        }
     	    }
+    	    
+    	    $res_type = "success";
     	}
     	
-    	$target_dir = "upload/";
-    	$file_name = round(microtime(true)) ."-". basename($_FILES["fileToUpload"]["name"]);
-        $target_file = $target_dir.$file_name;
-        $uploadOk = 1;
-        
-        if (file_exists($target_file)) {
-            //echo "Sorry, file already exists.";
-            $uploadOk = 0;
-        }
-        // Check file size
-        if ($_FILES["fileToUpload"]["size"] > 500000) {
-            //echo "Sorry, your file is too large.";
-            $uploadOk = 0;
-        }
-        
-        if ($uploadOk == 0) {
-            //echo "Sorry, your file was not uploaded.";
-        // if everything is ok, try to upload file
-        } else {
-            if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-                //echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-                $insert_file = "INSERT INTO uploads (msg_id,file_name) VALUES('$last_id','$file_name')";
-                
-                if($conn->query($insert_file)){
-                    $res_type = "success";
-                }
-            } else {
-                //echo "Sorry, there was an error uploading your file.";
-                	$res_type = "failed";
+    	if($_FILES["fileToUpload"]["name"]!=null){
+    	    $target_dir = "upload/";
+        	$file_name = round(microtime(true)) ."-". basename($_FILES["fileToUpload"]["name"]);
+            $target_file = $target_dir.$file_name;
+            $uploadOk = 1;
+            
+            if (file_exists($target_file)) {
+                //echo "Sorry, file already exists.";
+                $uploadOk = 0;
             }
-        }
+            // Check file size
+            if ($_FILES["fileToUpload"]["size"] > 500000) {
+                //echo "Sorry, your file is too large.";
+                $uploadOk = 0;
+            }
+            
+            if ($uploadOk == 0) {
+                //echo "Sorry, your file was not uploaded.";
+            // if everything is ok, try to upload file
+            } else {
+                if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+                    //echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+                    $insert_file = "INSERT INTO uploads (msg_id,file_name) VALUES('$last_id','$file_name')";
+                    
+                    if($conn->query($insert_file)){
+                        $res_type = "success";
+                    }
+                } else {
+                    //echo "Sorry, there was an error uploading your file.";
+                    	$res_type = "failed";
+                }
+            }
+    	}
 	}
 
 	$to_send = '{"res_type":"'.$res_type.'","msg_id":"'.$last_id.'","date":"'.$date.'","time":"'.$time.'"}';
-
- 	//send_notif($fac_name);
 
  	echo $to_send;
 

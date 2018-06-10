@@ -30,10 +30,7 @@
 
         var id = $$(this).attr('id');
 
-        //myApp.alert(id);
-
         class_array[id-1] = 1 - class_array[id-1];
-        // myApp.alert(JSON.stringify(class_array));
     });
 
     $$('#send-btn').on('click',function(){

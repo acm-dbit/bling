@@ -75,6 +75,8 @@ function Application(){
 
   $$('#logoutID').on('click',function(e)
   {
+    window.FirebasePlugin.unsubscribe(localStorage.department);
+    window.FirebasePlugin.unsubscribe(localStorage.year);
     localStorage.removeItem('id');
     location.reload();
   });
