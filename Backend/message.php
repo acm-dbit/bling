@@ -14,12 +14,17 @@
 	$subject = $_POST["subj"];
 	$fac_name = $_POST["fac_name"];
 	$message = $_POST["msg"];
-	$department = $_POST["dept"];
-	$year = $_POST["year"];
 	$date = date('d/m/y');
 	$time = date('h:i A');
+	$class_array = $_POST["class_array"];
+	$class_name = ["SE Computers", "TE Computers", "BE Computers",
+	               "SE EXTC", "TE EXTC", "BE EXTC",
+	               "SE IT", "TE IT", "BE IT",
+	               "SE Mechanical", "TE Mechanical", "BE Mechanical"];
+	
+	print_r($class_array);
 
-	$insert = "INSERT INTO msg_data (id,fac_name,date,time,subject,message,department,year) VALUES('$id','$fac_name','$date','$time','$subject','$message','$department','$year')";
+	$insert = "INSERT INTO msg_data (id,fac_name,date,time,subject,message) VALUES('$id','$fac_name','$date','$time','$subject','$message')";
 
 	if($conn->query($insert)){
 	    $get_id = "SELECT max(msg_id) FROM msg_data";
@@ -30,6 +35,17 @@
     	    while($row = $get_last_id->fetch_assoc()){
     	        $last_id = $row['max(msg_id)'];
     	        //echo $last_id;
+    	    }
+    	    
+    	    for($i=0; $i<12; $i++){
+    	        
+    	        if($class_array[$i]==1){
+    	            echo $class_name[$i];
+    	            $name = explode(" ",$class_name[$i]);
+    	            $insert_class = "INSERT INTO msg_class (msg_id,department,year) VALUES('$last_id','$name[1]','$name[0]')";
+    	            
+    	            $conn->query($insert_class);
+    	        }
     	    }
     	}
     	
@@ -68,11 +84,9 @@
 
 	$to_send = '{"res_type":"'.$res_type.'","msg_id":"'.$last_id.'","date":"'.$date.'","time":"'.$time.'"}';
 
-	send_notif($fac_name,$department,$year);
+ 	//send_notif($fac_name);
 
-	send_notif($fac_name,$department,$year);
-
-	echo $to_send;
+ 	echo $to_send;
 
 	$conn->close();
 
