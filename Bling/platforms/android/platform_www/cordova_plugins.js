@@ -236,6 +236,14 @@ module.exports = [
     "clobbers": [
       "window.FilePath"
     ]
+  },
+  {
+    "id": "cordova-plugin-splashscreen.SplashScreen",
+    "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
+    "pluginId": "cordova-plugin-splashscreen",
+    "clobbers": [
+      "navigator.splashscreen"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -248,7 +256,8 @@ module.exports.metadata =
   "cordova-plugin-firebase": "0.1.25",
   "cordova-plugin-camera": "4.0.1",
   "cordova-plugin-file": "6.0.1",
-  "cordova-plugin-filepath": "1.0.2"
+  "cordova-plugin-filepath": "1.0.2",
+  "cordova-plugin-splashscreen": "5.0.2"
 };
 // BOTTOM OF METADATA
 });

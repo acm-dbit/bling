@@ -1,10 +1,13 @@
 $$(document).on("pageInit", '.page[data-page="view-received-message"]', function (e) {
 
+    document.addEventListener("backbutton", onBackKeyDown, false);
+
     function writeFile(fileEntry, dataObj) {
       // Create a FileWriter object for our FileEntry (log.txt).
       fileEntry.createWriter(function (fileWriter) {
     
           fileWriter.onwriteend = function() {
+              myApp.hidePreloader();
               myApp.alert("Download Successfull ! Check root of Internal Storage");
               readFile(fileEntry);
           };
@@ -24,6 +27,9 @@ $$(document).on("pageInit", '.page[data-page="view-received-message"]', function
     }
   
     $$('#view_message').on("click", ".down", function () {
+
+     myApp.showPreloader('Downloading')
+
       var name = $$(this).attr('id');
       //myApp.alert(name);
   

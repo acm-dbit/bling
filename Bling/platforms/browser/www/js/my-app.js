@@ -24,14 +24,13 @@ var myApp = new Framework7({
     // Enable Material theme for Android device only
     material: isAndroid ? true : false,
     // Enable Template7 pages
-    template7Pages: true
+    template7Pages: true,
+    swipePanel : 'left',
+    popupCloseByOutside:false
 });
 
 
 function Application(){
-  var myApp = new Framework7({
-    swipePanel : 'left'
-  });
 
   var mainView = myApp.addView('.view-main');
 
@@ -76,6 +75,8 @@ function Application(){
 
   $$('#logoutID').on('click',function(e)
   {
+    window.FirebasePlugin.unsubscribe(localStorage.department);
+    window.FirebasePlugin.unsubscribe(localStorage.year);
     localStorage.removeItem('id');
     location.reload();
   });

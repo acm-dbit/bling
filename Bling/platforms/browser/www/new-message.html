@@ -1,5 +1,6 @@
 <!-- 
 Page for composing new message.
+Only visible to faculty
  -->
 
 <!-- Dynamic navbar for iOS theme -->
@@ -32,86 +33,135 @@ Page for composing new message.
   </div>
   {{/if}}
 
-  <div class="page-content">
-    <!-- <div class="content-block"> -->
-    <!-- Buttons row as tabs controller -->
-
-    <!-- Floating Action Button -->
-
-    <div class="list-block">
-        <form id="sendmsg" action="" method="post" enctype="multipart/form-data">
-        <ul>
-        <!-- Additional "align-top" class for correct textarea alignment -->
-        <li>
-          <div class="item-content">
-            <div class="item-inner">
-              <div class="item-title label">Subject</div>
-              <div class="item-input">
-                <input type="text" id="subject" name="subj" placeholder="Type the subject...">
-              </div>
-            </div>
+  <body>
+        <div class="page-content">
+            <div class="list-block">
+                <form id="sendmsg" action="" method="post" enctype="multipart/form-data">
+                <ul>
+                <!-- Additional "align-top" class for correct textarea alignment -->
+                <li>
+                  <div class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">Subject</div>
+                      <div class="item-input">
+                        <input type="text" id="subject" name="subj" placeholder="Type the subject...">
+                      </div>
+                    </div>
+                  </div>
+                </li>
+        
+                <li class="align-top">
+                  <div class="item-content">
+                    <div class="item-inner">
+                      <div class="item-title label">Message</div>
+                      <div class="item-input">
+                        <textarea id="message" name="msg" placeholder="Type message here..." style="height: 13em;"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+        
+            <li>
+                <div class="item-content">
+                  <div class="item-inner">
+                   <div class="item-title label">File</div>
+                    <div class="item-input">
+                        <input type="file" name="fileToUpload" id="fileToUpload"/>
+                     </div>
+                  </div>
+                </div>
+             </li>
+        
+            <p><button type="submit" class="button button-fill button-big color-blue">Continue</button></p>
+        
+            </ul>
+        
+            </form>
+        
           </div>
-        </li>
-
-        <li class="align-top">
-          <div class="item-content">
-            <div class="item-inner">
-              <div class="item-title label">Message</div>
-              <div class="item-input">
-                <textarea id="message" name="msg" placeholder="Type message here..." style="height: 13em;"></textarea>
-              </div>
-            </div>
-          </div>
-        </li>
-
-        <li>
-          <div class="item-content">
-            <div class="item-inner">
-              <div class="item-title label">Department</div>
-              <div class="item-input">
-                <select id="dept" name="dept">
-                  <option>Computers</option>
-                  <option>EXTC</option>
-                  <option>IT</option>
-                  <option>Mechanical</option>
-                </select>
-              </div>
-            </div>
-          </div>
-        </li>
-
-        <li>
-       <div class="item-content">
-         <div class="item-inner">
-          <div class="item-title label">Year</div>
-           <div class="item-input">
-            <select id="year" name="year">
-               <option>FE</option>
-               <option>SE</option>
-               <option>TE</option>
-               <option>BE</option>
-           </select>
-            </div>
-         </div>
-       </div>
-    </li>
-
-    <li>
-        <div class="item-content">
-          <div class="item-inner">
-           <div class="item-title label">File</div>
-            <div class="item-input">
-                <input type="file" name="fileToUpload" id="fileToUpload" required />
-             </div>
-          </div>
+        
         </div>
-     </li>
 
-    <p><button type="submit" class="button button-fill button-big color-green">Send</button></p>
 
-    </ul>
+      <div class="popup-overlay"></div>
+      <div class="popup popup-select">
+          <a href="#" class="button button-fill color-deeporange close-popup">Go Back</a>
+          <div class="list-block">
+              <ul>
+                  <li class="accordion-item"><a href="#" class="item-content item-link">
+                      <div class="item-inner">
+                      <div class="item-title">Computers</div>
+                      </div></a>
+      
+                      <div class="accordion-item-content">
+                          <div class="content-block">
+                                  <p class="buttons-row">
+                                      <a href="#" class="button button-fill color-red" id="a1">All</a>
+                                      <a href="#" class="button button-fill color-red" id="1">SE</a>
+                                      <a href="#" class="button button-fill color-red" id="2">TE</a>
+                                      <a href="#" class="button button-fill color-red" id="3">BE</a>
+                                  </p>
+                          </div>
+                      </div>
+                  </li>
+      
+                  <li class="accordion-item"><a href="#" class="item-content item-link">
+                      <div class="item-inner">
+                      <div class="item-title">EXTC</div>
+                      </div></a>
+      
+                      <div class="accordion-item-content">
+                          <div class="content-block">
+                                  <p class="buttons-row">
+                                      <a href="#" class="button button-fill color-red" id="a2">All</a>
+                                      <a href="#" class="button button-fill color-red" id="4">SE</a>
+                                      <a href="#" class="button button-fill color-red" id="5">TE</a>
+                                      <a href="#" class="button button-fill color-red" id="6">BE</a>
+                                  </p>
+                          </div>
+                      </div>
+                  </li>
+      
+                  <li class="accordion-item"><a href="#" class="item-content item-link">
+                      <div class="item-inner">
+                      <div class="item-title">IT</div>
+                      </div></a>
+      
+                      <div class="accordion-item-content">
+                          <div class="content-block">
+                                  <p class="buttons-row">
+                                      <a href="#" class="button button-fill color-red" id="a3">All</a>
+                                      <a href="#" class="button button-fill color-red" id="7">SE</a>
+                                      <a href="#" class="button button-fill color-red" id="8">TE</a>
+                                      <a href="#" class="button button-fill color-red" id="9">BE</a>
+                                  </p>
+                          </div>
+                      </div>
+                  </li>
+      
+                  <li class="accordion-item"><a href="#" class="item-content item-link">
+                      <div class="item-inner">
+                      <div class="item-title">Mechanical</div>
+                      </div></a>
+      
+                      <div class="accordion-item-content">
+                          <div class="content-block">
+                                  <p class="buttons-row">
+                                      <a href="#" class="button button-fill color-red" id="a4">All</a>
+                                      <a href="#" class="button button-fill color-red" id="10">SE</a>
+                                      <a href="#" class="button button-fill color-red" id="11">TE</a>
+                                      <a href="#" class="button button-fill color-red" id="12">BE</a>
+                                  </p>
+                          </div>
+                      </div>
+                  </li>
+      
+              </ul>
+              </div>
 
-    </form>
+              <a href="#" class="button button-big button-fill color-green" id="send-btn">Send Message</a>
 
-  </div>
+      </div>
+      
+    </body>
 </div>

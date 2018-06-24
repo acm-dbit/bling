@@ -30,6 +30,9 @@
     },
     "cordova-plugin-filepath": {
       "PACKAGE_NAME": "com.dbitacm.bling"
+    },
+    "cordova-plugin-splashscreen": {
+      "PACKAGE_NAME": "com.dbitacm.bling"
     }
   },
   "dependent_plugins": {}

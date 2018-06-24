@@ -27,6 +27,10 @@
         <param name="android-package" value="com.hiddentao.cordova.filepath.FilePath" />
         <param name="onload" value="true" />
     </feature>
+    <feature name="SplashScreen">
+        <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
+        <param name="onload" value="true" />
+    </feature>
     <name>Bling</name>
     <description>
         A basic Framework7 template for PhoneGap.
@@ -44,8 +48,27 @@
     <allow-intent href="geo:*" />
     <allow-intent href="market:*" />
     <resource-file src="google-services.json" target="google-services.json" />
+    <icon density="ldpi" src="res/icons/android/drawable-ldpi-icon.png" />
+    <icon density="mdpi" src="res/icons/android/drawable-mdpi-icon.png" />
+    <icon density="hdpi" src="res/icons/android/drawable-hdpi-icon.png" />
+    <icon density="xhdpi" src="res/icons/android/drawable-xhdpi-icon.png" />
+    <icon density="xxhdpi" src="res/icons/android/drawable-xxhdpi-icon.png" />
+    <icon density="xxxhdpi" src="res/icons/android/drawable-xxxhdpi-icon.png" />
+    <splash density="land-ldpi" src="res/screens/android/drawable-land-ldpi-screen.png" />
+    <splash density="land-mdpi" src="res/screens/android/drawable-land-mdpi-screen.png" />
+    <splash density="land-hdpi" src="res/screens/android/drawable-land-hdpi-screen.png" />
+    <splash density="land-xhdpi" src="res/screens/android/drawable-land-xhdpi-screen.png" />
+    <splash density="land-xxhdpi" src="res/screens/android/drawable-land-xxhdpi-screen.png" />
+    <splash density="land-xxxhdpi" src="res/screens/android/drawable-land-xxxhdpi-screen.png" />
+    <splash density="port-ldpi" src="res/screens/android/drawable-port-ldpi-screen.png" />
+    <splash density="port-mdpi" src="res/screens/android/drawable-port-mdpi-screen.png" />
+    <splash density="port-hdpi" src="res/screens/android/drawable-port-hdpi-screen.png" />
+    <splash density="port-xhdpi" src="res/screens/android/drawable-port-xhdpi-screen.png" />
+    <splash density="port-xxhdpi" src="res/screens/android/drawable-port-xxhdpi-screen.png" />
+    <splash density="port-xxxhdpi" src="res/screens/android/drawable-port-xxxhdpi-screen.png" />
     <preference name="loglevel" value="DEBUG" />
     <preference name="DisallowOverscroll" value="true" />
     <preference name="AndroidPersistentFileLocation" value="Compatibility" />
+    <preference name="SplashScreenDelay" value="2000" />
     <preference name="android-minSdkVersion" value="14" />
 </widget>

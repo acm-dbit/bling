@@ -1,30 +1,36 @@
-function insertMsgData(res){
+function insertMsgData(res,counter){
     //Inserting parsed json values into localDB
-    // myApp.alert("in insert func");
-    for (i = 0; i < res.length; i++) {
+    if(counter>0) {
+      i = res.length-counter;
+      // myApp.alert(`counter=${counter} i=${i}`);
       var query = "INSERT INTO msg_data (msg_id, id, date, time, fac_name, subject, message) VALUES (?,?,?,?,?,?,?)";
       db.executeSql(query, [res[i].msg_id, res[i].id, res[i].date, res[i].time, res[i].fac_name, res[i].subject, res[i].message], function (result) {
-        //myApp.alert("rowsAffected: " + result.rowsAffected);
-        //myApp.alert("i="+i+" res len="+res.length);
-        if(i==res.length){
+        if(i==res.length-1){
+          // myApp.alert(`i==res.length i=${i} res.length=${res.length-1}`);
           var query = "SELECT * FROM msg_data ORDER BY msg_id DESC";
           getNDisplayMsgData(query,"all");
+          return 0;
         }
+        else
+          insertMsgData(res, counter - 1);
       },
         function (error) {
           myApp.alert('INSERT error(server data to localDB): ' + error.message);
         }
       );
     }
+    else{
+      return 0;
+    }
   }
 
   function getNDisplayMsgData(query,disp_type){
     //Getting data to display in received msgs list
-    //myApp.alert("in display func");
-    //  myApp.alert("query : "+query);
 
     var msg_html = "";
     db.executeSql(query, [], function (resultSet) {
+
+      myApp.alert(resultSet.rows.length);
 
       for (var x = 0; x < resultSet.rows.length; x++) {
 
@@ -46,9 +52,6 @@ function insertMsgData(res){
         var msg_subject = resultSet.rows.item(x).subject;
         var message_content = resultSet.rows.item(x).message;
         var starred_flag = resultSet.rows.item(x).starred;
-
-        // myApp.alert(msg_id);
-        // myApp.alert(starred_flag);
 
         if (starred_flag == "yes") {
           star_icon_class = " color-yellow"
@@ -93,23 +96,19 @@ function insertMsgData(res){
           $$("#msg_list").append(msg_html);
         else
           $$("#starred_msg_list").append(msg_html);
-        // alert($$(".card-header").html());
       }
-
-      // alert($$("#msg_list").html());
 
     },
       function (error) {
         myApp.alert('SELECT error (msgs from localDB): ' + error.message);
       }
     );
+    return 0;
   }
 
   function newUserType(){
-    // myApp.alert("in new func");
+
     var type = "new";
-    // var date = moment().format('l');
-    // var time = moment().format('LT');
     $$.ajax({
       type: "POST",
       url: "http://bling-test.000webhostapp.com/get-msg-data.php",
@@ -117,13 +116,11 @@ function insertMsgData(res){
       crossDomain: true,
       cache: false,
       success: function (data) {
-        // myApp.alert(type+localStorage.department+localStorage.year);
-        // myApp.alert(data);
-
-
-        if (res != "none") {
+        myApp.alert(data.length);
+        if (data != "none") {
           res = JSON.parse(data);
-          insertMsgData(res);
+          myApp.alert(res.length);
+          insertMsgData(res,res.length);
         }
         else{
           $$("#msg_list").html('<p style:"text-align:center">No new messages</p>');
@@ -147,12 +144,10 @@ function insertMsgData(res){
       success: function (data) {
         //parsing into JSON from string type variable (data)
 
-        myApp.alert(res.length);
-
-        if(res != "none"){
+        if(data != "none"){
           res = JSON.parse(data);
-          myApp.alert(JSON.stringify(res));
-          insertMsgData(res);
+          myApp.alert(res.length);
+          insertMsgData(res,res.length);
         }
         else{
           var query = "SELECT * FROM msg_data ORDER BY msg_id DESC";
@@ -163,6 +158,8 @@ function insertMsgData(res){
   }
 
   $$(document).on("pageInit", '.page[data-page="received-message"]', function(e) {
+
+    document.addEventListener("backbutton", onBackKeyDown, false);
 
     var mySearchbar = myApp.searchbar(".searchbar", {
       searchList: ".list-block-search",
@@ -207,21 +204,15 @@ function insertMsgData(res){
 
     $$('#msg_list').on("click", "i.star-icon", function (e) {
 
-      // myApp.alert("clickeeeed");
-
       var icon_id = $$(this).attr("id");
-      // myApp.alert(icon_id);
       var id = icon_id.substring(3, icon_id.length);
-      // myApp.alert(id);
       var star_flag;
 
       var query = "SELECT starred from msg_data WHERE msg_id = ?";
       db.executeSql(query, [id], function (result) {
         star_flag = result.rows.item(0).starred;
-        // myApp.alert(star_flag);
 
         if (star_flag == "no") {
-          // myApp.alert("in no");
           var query = "UPDATE msg_data SET starred = 'yes' WHERE msg_id = ?";
           db.executeSql(query, [id], function (result) {
               myApp.alert('UPDATE star flag  to yes success');
@@ -233,7 +224,6 @@ function insertMsgData(res){
           $$('#' + icon_id).addClass('color-yellow').html('star_filled');
         }
         else {
-          // myApp.alert("in yes");
           var query = "UPDATE msg_data SET starred = 'no' WHERE msg_id = ?";
           db.executeSql(query, [id], function (result) {
               myApp.alert('UPDATE star flag to no success');
@@ -250,9 +240,6 @@ function insertMsgData(res){
         }
       );
 
-
-
-      // myApp.alert("end");
       e.stopPropagation();
       e.preventDefault();
     });

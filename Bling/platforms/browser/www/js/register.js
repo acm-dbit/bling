@@ -1,6 +1,9 @@
 $$(document).on('pageInit', '.page[data-page="register"]', function (e) {
+    document.addEventListener("backbutton", onBackKeyDown, false);
+
     var token = localStorage.token;
 
+    //Temporary code for changing the color of tab buttons on click
     $$('#t1').on('click', function () {
       $$(this).addClass('button-fill');
       $$("#t2").removeClass('button-fill');
@@ -21,6 +24,7 @@ $$(document).on('pageInit', '.page[data-page="register"]', function (e) {
 
     $$('#stud_btn').on('click', function () {
 
+            //Getting data from form fields
             var name=$$('#sname').val();
             var id=$$('#sid').val();
             var year=$$('#syear').val();
@@ -28,6 +32,7 @@ $$(document).on('pageInit', '.page[data-page="register"]', function (e) {
             var pass=$$('#spass').val();
             var con_pass=$$('#scpass').val();
 
+            //Setting the localStorages
             localStorage.reg_name = name;
             localStorage.reg_id = id;
             localStorage.reg_year = year;
@@ -44,8 +49,6 @@ $$(document).on('pageInit', '.page[data-page="register"]', function (e) {
     });
 
     $$('#fac_btn').on('click', function () {
-
-          console.log("Clicked");
 
             var name=$$('#fname').val();
             var id=$$('#fid').val();
