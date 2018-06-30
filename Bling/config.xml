@@ -80,6 +80,6 @@
     <plugin name="cordova-plugin-camera" spec="^4.0.1" />
     <plugin name="cordova-plugin-file" spec="^6.0.1" />
     <plugin name="cordova-plugin-filepath" spec="^1.1.0" />
-    <plugin name="cordova-plugin-splashscreen" source="npm" />
+    <plugin name="cordova-plugin-splashscreen" />
     <engine name="android" spec="~6.3.0" />
 </widget>
