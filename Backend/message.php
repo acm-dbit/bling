@@ -22,7 +22,7 @@
 	               "SE IT", "TE IT", "BE IT",
 	               "SE Mechanical", "TE Mechanical", "BE Mechanical"];
 	
-	print_r($class_array);
+	//print_r($class_array);
 
 	$insert = "INSERT INTO msg_data (id,fac_name,date,time,subject,message) VALUES('$id','$fac_name','$date','$time','$subject','$message')";
 
@@ -40,7 +40,7 @@
     	    for($i=0; $i<12; $i++){
     	        
     	        if($class_array[$i]==1){
-    	            echo $class_name[$i];
+    	            //echo $class_name[$i];
     	            $name = explode(" ",$class_name[$i]);
     	            $insert_class = "INSERT INTO msg_class (msg_id,department,year) VALUES('$last_id','$name[1]','$name[0]')";
     	            

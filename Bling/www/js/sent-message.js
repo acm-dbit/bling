@@ -1,8 +1,9 @@
 function insertSentMsgData(res) {
-    //Inserting parsed json values into localDB
+    myApp.alert('Inserting parsed json values into localDB');
     for (i = 0; i < res.length; i++) {
-      var query = "INSERT INTO msg_data VALUES (?,?,?,?,?,?,?)";
-      db.executeSql(query, [res[i].msg_id, res[i].date, res[i].time, res[i].department, res[i].year, res[i].subject, res[i].message], function (result) {
+      var query = "INSERT INTO msg_data VALUES (?,?,?,?,?)";
+      db.executeSql(query, [res[i].msg_id, res[i].date, res[i].time, res[i].subject, res[i].message], function (result) {
+        myApp.alert(result);
       },
         function (error) {
           myApp.alert('INSERT error(server data to localDB): ' + error.message);
@@ -20,7 +21,7 @@ function getNDisplaySentMsgData() {
   
         //Setting varibles to be concatenated into dynamic html string below
         var msg_id = resultSet.rows.item(x).msg_id;
-        var dept_year = resultSet.rows.item(x).department + "  (" + resultSet.rows.item(x).year + ")";
+        //var dept_year = resultSet.rows.item(x).department + "  (" + resultSet.rows.item(x).year + ")";
         var msg_date = resultSet.rows.item(x).date;
         var msg_time = resultSet.rows.item(x).time;
         var msg_subject = resultSet.rows.item(x).subject;
@@ -41,7 +42,7 @@ function getNDisplaySentMsgData() {
                 '</div>'+
                 '<div class="card-content">'+
                   '<div class="card-content-inner">'+
-                    '<p class="sender color-gray">Posted to ' + dept_year +'</p>'+
+                    //'<p class="sender color-gray">Posted to ' + dept_year +'</p>'+
                     '<p class="content">' + message_content_short+'</p>'+
                     '</div>'+
                 '</div>'+
@@ -98,7 +99,7 @@ $$(document).on("pageInit", '.page[data-page="sent-message"]', function (e) {
   
     // if (!localStorage.table_create_flag) {
     db.sqlBatch(
-      ["CREATE TABLE IF NOT EXISTS msg_data (msg_id PRIMARY KEY, date, time, department, year, subject, message)"],
+      ["CREATE TABLE IF NOT EXISTS msg_data (msg_id PRIMARY KEY, date, time, subject, message)"],
       function () {
         // localStorage.table_create_flag = 1;
         // myApp.alert("msg_data table created");

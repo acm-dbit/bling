@@ -63,6 +63,10 @@
 		myApp.alert(class_array);
 	});
 
+	$$('input[type="file"]').on('change', function (e) { 
+		myApp.alert('File attached !!'); 
+	});
+
 	$$('#send-btn').on('click',function(){
 		for (var i = 0; i < class_array.length; i++) {
 			formData.append('class_array[]', class_array[i]);
@@ -87,6 +91,8 @@
 			{
 				resx["subject"] = formData.get("subj");
 				resx["message"] = formData.get("msg");
+
+				console.log(resx["subject"]);
 
 				res.push(resx);
 				insertSentMsgData(res);

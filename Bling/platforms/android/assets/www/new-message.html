@@ -55,7 +55,7 @@ Only visible to faculty
                     <div class="item-inner">
                       <div class="item-title label">Message</div>
                       <div class="item-input">
-                        <textarea id="message" name="msg" placeholder="Type message here..." style="height: 13em;"></textarea>
+                        <textarea id="message" name="msg" placeholder="Type message here..." style="height: 30vh;"></textarea>
                       </div>
                     </div>
                   </div>
@@ -64,15 +64,17 @@ Only visible to faculty
             <li>
                 <div class="item-content">
                   <div class="item-inner">
-                   <div class="item-title label">File</div>
                     <div class="item-input">
-                        <input type="file" name="fileToUpload" id="fileToUpload"/>
+                        <label for="fileToUpload" class="button button-fill button-big color-blue" style="width: 100%;">
+                            File Upload
+                        </label>
+                        <input type="file" style="display: none;" name="fileToUpload" id="fileToUpload"/>
                      </div>
                   </div>
                 </div>
              </li>
         
-            <p><button type="submit" class="button button-fill button-big color-blue">Continue</button></p>
+            <p><button type="submit" class="button button-fill button-big color-blue" style="width: 100%;position:fixed;bottom:0;">Continue</button></p>
         
             </ul>
         
