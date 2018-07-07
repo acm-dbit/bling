@@ -3,7 +3,6 @@ function insertSentMsgData(res) {
     for (i = 0; i < res.length; i++) {
       var query = "INSERT INTO msg_data VALUES (?,?,?,?,?)";
       db.executeSql(query, [res[i].msg_id, res[i].date, res[i].time, res[i].subject, res[i].message], function (result) {
-        myApp.alert(result);
       },
         function (error) {
           myApp.alert('INSERT error(server data to localDB): ' + error.message);

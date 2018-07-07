@@ -36,7 +36,7 @@ function Application(){
 
   var id = localStorage.id;
 
-  if(id != "null"){
+  if(id != undefined){
     $$('#log-list').show();
   }
 
@@ -44,13 +44,11 @@ function Application(){
     $$('#log-list').hide();
   }
 
-  if (localStorage.type == 1) {
-    $$('#starred-msgs-link').show();
+  if (localStorage.getItem('type') == 1) {
     $$('#profile-link').show();
   }
 
   else {
-    $$('#starred-msgs-link').hide();
     $$('#profile-link').hide();
   }
 
@@ -63,21 +61,11 @@ function Application(){
     mainView.router.loadPage('profile.html');
   });
 
-  $$('#starred-msgs-link').on('click', function (e) {
-    mainView.router.loadPage('starred-msgs.html');
-  });
-
-  $$('#prefID').on('click',function(e)
-  {
-    myApp.closePanel();
-    mainView.router.loadPage('pages/prefer.html');
-  });
-
   $$('#logoutID').on('click',function(e)
   {
     window.FirebasePlugin.unsubscribe(localStorage.department);
     window.FirebasePlugin.unsubscribe(localStorage.year);
-    localStorage.removeItem('id');
+    window.localStorage.clear();
     location.reload();
   });
 

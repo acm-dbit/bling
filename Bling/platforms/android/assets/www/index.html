@@ -35,20 +35,6 @@
             </div>
           </li>
 
-          <li class="item-content list-panel-logout close-panel item-link" id="starred-msgs-link">
-            <div class="item-inner">
-              <div class="item-title" >Starred Messages</div>
-            </div>
-          </li>
-
-          <li class="item-content item-link">
-            <div class="item-inner">
-              <div class="item-title" >
-                <a href="#" id="prefID" class="link">Preferences</a>
-                </div>
-            </div>
-
-          </li>
           <li class="item-content list-panel-logout close-panel item-link" id="log-list">
             <div class="item-inner">
               <div class="item-title" id="logoutID">Logout</div>
@@ -210,7 +196,9 @@
             localStorage.id = id;
             localStorage.department = res.department;
             localStorage.year = res.year;
-            localStorage.type = 1;
+            localStorage.setItem('type',1);
+            $$('#profile-link').show();
+            alert(localStorage.type);
             window.FirebasePlugin.subscribe(localStorage.department);
             window.FirebasePlugin.subscribe(localStorage.year);
             dropCheck(localStorage.id);
@@ -220,8 +208,9 @@
           else if(res.res_type == "faculty") {
             localStorage.id = id;
             localStorage.name = res.fac_name;
-            localStorage.type = 2;
-            alert(localStorage.name);
+            localStorage.setItem('type',2);
+            $$('#profile-link').hide();
+            alert(localStorage.type);
             dropCheck(localStorage.id);
             mainView.router.loadPage('sent-message.html');
           }
